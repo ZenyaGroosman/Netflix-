@@ -1,4 +1,4 @@
-package nl.avans;
+package nl.avans.sql;
 
 import java.sql.*;
 
