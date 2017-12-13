@@ -2,8 +2,9 @@ package nl.avans.frames;
 
 import javax.swing.*;
 
-public abstract class UserInterfaceBase {
+public abstract class UserInterfaceBase implements Runnable{
     private JFrame jFrame;
+
 
     public abstract void run();
 
