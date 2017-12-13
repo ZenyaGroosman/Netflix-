@@ -8,7 +8,6 @@ public class SQLHelper {
 
     /**
      * Print de resultset als een tabel
-     *
      * @param set
      * @throws SQLException
      */
