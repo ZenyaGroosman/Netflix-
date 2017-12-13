@@ -25,8 +25,8 @@ public class ProgrammaSupplier {
         ResultSetMetaData rsmd = films.getMetaData();
         int columnsNumber = rsmd.getColumnCount();
         while (films.next()) {
-            String columnValue = films.getString();
-            System.out.print(columnValue);
+//            String columnValue = films.getString();
+//            System.out.print(columnValue);
 
         }
     }
