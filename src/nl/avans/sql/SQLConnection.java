@@ -2,7 +2,7 @@ package nl.avans.sql;
 
 import java.sql.*;
 
-public class SqlConnection {
+public class SQLConnection {
 
     private Connection connection = null;
 
