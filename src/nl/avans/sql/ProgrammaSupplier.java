@@ -65,4 +65,17 @@ public class ProgrammaSupplier {
     public ArrayList<Serie> getSeries() {
         return series;
     }
+
+    /**
+     * Geeft de serie terug als de titel matcht
+     * @param title de titel
+     * @return de serie
+     */
+    public Serie getSerieByTitel(String title){
+        for (Serie s: series){
+            if (s.getTitel().equals(title))
+                return s;
+        }
+        return null;
+    }
 }
