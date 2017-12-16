@@ -7,8 +7,8 @@ import nl.avans.frames.activityListeners.ClickListenerStatestiekenSerie;
 import javax.swing.*;
 import java.awt.*;
 
-public class UIStatistix extends UserInterfaceBase {
-    public UIStatistix(JFrame jFrame) {
+public class UserInterfaceStatistix extends UserInterfaceBase {
+    public UserInterfaceStatistix(JFrame jFrame) {
         super(jFrame);
     }
 

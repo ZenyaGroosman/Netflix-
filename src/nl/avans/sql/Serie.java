@@ -35,8 +35,12 @@ public class Serie {
         return leeftijdsindicatie;
     }
 
-    public void addAflevering(Aflevering aflevering){
+    public void addAflevering(Aflevering aflevering) {
         afleveringen.add(aflevering);
+    }
+
+    public void removeAflevering(Aflevering aflevering) {
+        afleveringen.remove(aflevering);
     }
 
     public ArrayList<Aflevering> getAfleveringen() {
