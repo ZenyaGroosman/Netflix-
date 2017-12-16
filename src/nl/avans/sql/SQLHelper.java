@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class SQLHelper {
 
-     static SQLConnection sqlConnection;
+     public static SQLConnection sqlConnection;
 
 
     /**
