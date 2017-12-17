@@ -5,7 +5,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 public class SQLHelper {
-    public static SQLConnection sqlConnection;
+
+     public static SQLConnection sqlConnection;
 
 
     /**
@@ -51,7 +52,7 @@ public class SQLHelper {
      * @param keyValues een array met de waarde van de primaryKeys in dezelfde voorgoorde als de columns array
      * @return true als geslaagd
      */
-    public boolean deleteObject(String tableName, String[] keyColumns, String[] keyValues) {
+    public static boolean deleteObject(String tableName, String[] keyColumns, Object[] keyValues) {
         StringBuilder stringBuilder = new StringBuilder("DELETE FROM ");
         stringBuilder.append(tableName).append(" WHERE ");
         for (int i = 0; i < keyColumns.length; i++) {
@@ -67,7 +68,7 @@ public class SQLHelper {
      * @param values een array met de waarde in dezelfde voorgoorde als de columns array
      * @return true als geslaagd
      */
-    public boolean createObject(String tableName, String[] columns, String[] values) {
+    public static boolean createObject(String tableName, String[] columns, Object[] values) {
         StringBuilder stringBuilder = new StringBuilder("INSERT INTO ");
         stringBuilder.append(tableName).append(" (");
         for (int i = 0; i < columns.length; i++) {

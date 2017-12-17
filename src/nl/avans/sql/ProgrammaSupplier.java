@@ -3,6 +3,7 @@ package nl.avans.sql;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ProgrammaSupplier {
     private ArrayList<Programma> programmas = new ArrayList<>();
@@ -11,6 +12,12 @@ public class ProgrammaSupplier {
 
     public ProgrammaSupplier(SQLConnection sqlConnection) {
         this.sqlConnection = sqlConnection;
+    }
+
+    public void refreshProgrammas() throws SQLException {
+        programmas.clear();
+        series.clear();
+        makeProgrammas();
     }
 
     public void makeProgrammas() throws SQLException {
@@ -55,6 +62,7 @@ public class ProgrammaSupplier {
                 int i = series.indexOf(serie);
                 series.get(i).addAflevering(aflevering);
             }
+            aflevering.setSerie(serie);
         }
     }
 
@@ -77,5 +85,70 @@ public class ProgrammaSupplier {
                 return s;
         }
         return null;
+    }
+
+    /**
+     * voegd een nieuwe serie toe aan de database
+     * @param serie de nieuwe serie
+     * @return of het gelukt is
+     */
+    public boolean createSerie(Serie serie){
+        String[] columns = new String[]{"Serie", "Taal", "Genre", "Leeftijd", "LijktOp"};
+        String[] value = new String[]{serie.getTitel(), serie.getTaal(), serie.getGenre(), serie.getLeeftijdsindicatie(), serie.getLijktOp()};
+        boolean success = SQLHelper.createObject("Serie", columns, value);
+
+        if(success){
+            series.add(serie);
+        }
+        return success;
+    }
+
+    /**
+     * verwijderd een serie uit de databas en uit de supplier
+     * @param serie the serie to delete
+     * @return als sucessvol
+     */
+    public boolean deleteSerie(Serie serie){
+        String[] columns = new String[]{"Serie"};
+        String[] value = new String[]{serie.getTitel()};
+        boolean success = SQLHelper.deleteObject("Serie", columns, value);
+        if (success){
+            series.remove(serie);
+            Iterator<Programma> iterator = programmas.iterator();
+            while (iterator.hasNext()){
+                Programma programma = iterator.next();
+                if (programma instanceof Aflevering && ((Aflevering) programma).getSerie().equals(serie)){
+                    programmas.remove(programma);
+                }
+            }
+        }
+
+        return success;
+    }
+
+
+    public boolean createAflevering(Aflevering aflevering){
+        String[] columnsProgramma = new String[]{"Id", "Titel",  "Tijdsduur"};
+        Object[] valueProgramma = new Object[]{aflevering.getId(), aflevering.getTitel(),aflevering.getTijdsduur()};
+        String[] columnsAflevering = new String[]{"Id", "Serie","Seizoen"};
+        Object[] valueAflevering = new Object[]{aflevering.getId(), aflevering.getSerie().getTitel(), aflevering.getSeizoen()};
+        boolean succes = SQLHelper.createObject("Programma", columnsProgramma, valueProgramma);
+        if (succes){
+            succes = SQLHelper.createObject("Aflevering", columnsAflevering, valueAflevering);
+        }
+        return succes;
+    }
+
+    public boolean deleteAflevering(Aflevering aflevering){
+        String[] columns = new String[]{"Id"};
+        Object[] values = new Object[]{aflevering.getId()};
+        boolean success = SQLHelper.deleteObject("Programma", columns, values);
+        if (success){
+            success = SQLHelper.deleteObject("Aflevering", columns, values);
+        }
+        if (success){
+            aflevering.getSerie().removeAflevering(aflevering);
+        }
+        return success;
     }
 }

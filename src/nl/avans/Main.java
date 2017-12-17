@@ -1,22 +1,39 @@
 package nl.avans;
 
-import nl.avans.sql.SQLConnection;
+import nl.avans.frames.UserInterfaceStatistix;
+import nl.avans.frames.UserInterfaceBase;
+import nl.avans.sql.*;
 
-import java.sql.ResultSet;
+import javax.swing.*;
+import java.awt.*;
 import java.sql.SQLException;
 
-import static nl.avans.sql.SQLHelper.printResultSet;
-
-public class Main {
+public class Main{
+    public static ProgrammaSupplier programmaSupplier;
+    public static AccountSupplier accountSupplier;
 
     public static void main(String[] args) throws SQLException {
         // write your code here
 
         SQLConnection connection = new SQLConnection();
         connection.connectDatabase("jdbc:sqlserver://statistixnetflix.database.windows.net:1433;database=Netflix;user=informatica@statistixnetflix;password=Avans12345;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
-        ResultSet set = connection.executeSql("SELECT * FROM Aflevering");
-        printResultSet(set);
-        connection.disconnectDatabase();
+        SQLHelper.sqlConnection = connection;
+        programmaSupplier = new ProgrammaSupplier(connection);
+        programmaSupplier.makeProgrammas();
+        accountSupplier = new AccountSupplier(connection);
+        accountSupplier.makeAccounts();
+        JFrame jFrame = new JFrame("Netflix Statistix");
+        jFrame.setPreferredSize(new Dimension(700, 600));
+
+        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        UserInterfaceBase ui = new UserInterfaceStatistix(jFrame);
+        SwingUtilities.invokeLater(ui);
+
+//        AccountSupplier accountSupplier = new AccountSupplier(connection);
+//        accountSupplier.makeAccounts();
+//        for (Account acc : accountSupplier.getAccounts())
+//            System.out.println(acc.getNaam());
+//        connection.disconnectDatabase();
     }
 
 }

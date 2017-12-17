@@ -19,4 +19,10 @@ public class Aflevering extends Programma {
     public void setSerie(Serie serie) {
         this.serie = serie;
     }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Aflevering && ((Aflevering) obj).getId() == this.getId();
+    }
 }

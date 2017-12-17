@@ -14,6 +14,11 @@ public class AccountSupplier {
         this.sqlConnection = sqlConnection;
     }
 
+    public void refresh() throws SQLException {
+        accounts.clear();
+        makeAccounts();
+    }
+
     public void makeAccounts() throws SQLException {
         ResultSet accountsEnProfielen = sqlConnection.executeSql("SELECT * FROM Profiel LEFT JOIN Account ON Account.Abonneenummer = Profiel.Abonneenummer;");
         while (accountsEnProfielen.next()) {
