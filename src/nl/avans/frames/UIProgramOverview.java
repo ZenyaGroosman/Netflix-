@@ -5,26 +5,42 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
 
-public class UIProgramOverview extends JFrame{
 
-    private JFrame f;
-    private JPanel p;
+public class UIProgramOverview extends UserInterfaceBase {
 
-    public UIProgramOverview(){
 
-       ProgramOverview();
+
+    private JPanel panel1;
+
+    public UIProgramOverview(JFrame jFrame){
+        super(jFrame);
 
     }
-    public void ProgramOverview(){
-        f = new JFrame("Program Overview");
-        f.setVisible(true);
-        f.setSize(600,400);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        p = new JPanel();
-        p.setBackground(Color.darkGray);
 
-        f.add(p);
+    @Override
+    public void run() {
+        createComponents(getFrame().getContentPane());
+
+
+    getFrame().pack();
+    getFrame().setVisible(true);
+
+
+
+    }
+
+    @Override
+    public void createComponents(Container container) {
+
+        panel1 = new JPanel();
+        panel1.setBackground(Color.darkGray);
+
+        container.setLayout(new BorderLayout(10,5));
+        container.add(createHeader(),BorderLayout.NORTH);
+        container.add(createFooter(), BorderLayout.SOUTH);
+        container.add(panel1, BorderLayout.CENTER);
+
 
 
 
