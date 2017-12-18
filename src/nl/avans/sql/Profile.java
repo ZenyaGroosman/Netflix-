@@ -2,11 +2,11 @@ package nl.avans.sql;
 
 import java.sql.Date;
 
-public class Profiel {
+public class Profile {
     private Date geboortedatum;
     private String profielnaam;
 
-    public Profiel(Date geboortedatum, String profielnaam) {
+    public Profile(Date geboortedatum, String profielnaam) {
         this.geboortedatum = geboortedatum;
         this.profielnaam = profielnaam;
     }
@@ -17,5 +17,10 @@ public class Profiel {
 
     public String getProfielnaam() {
         return profielnaam;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Profile && ((Profile) obj).profielnaam.equals(profielnaam);
     }
 }

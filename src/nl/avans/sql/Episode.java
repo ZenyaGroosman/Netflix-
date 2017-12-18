@@ -1,9 +1,9 @@
 package nl.avans.sql;
 
-public class Aflevering extends Programma {
-    private Serie serie;
+public class Episode extends Program {
+    private Series serie;
     private String seizoen;
-    public Aflevering(int tijdsduur, int id, String titel, String seizoen) {
+    public Episode(int tijdsduur, int id, String titel, String seizoen) {
         super(tijdsduur, id, titel);
         this.seizoen = seizoen;
     }
@@ -12,17 +12,17 @@ public class Aflevering extends Programma {
         return seizoen;
     }
 
-    public Serie getSerie() {
+    public Series getSerie() {
         return serie;
     }
 
-    public void setSerie(Serie serie) {
+    public void setSerie(Series serie) {
         this.serie = serie;
     }
 
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Aflevering && ((Aflevering) obj).getId() == this.getId();
+        return obj instanceof Episode && ((Episode) obj).getId() == this.getId();
     }
 }

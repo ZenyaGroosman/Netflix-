@@ -3,34 +3,34 @@ package nl.avans.sql;
 import java.util.ArrayList;
 
 public class Account {
-    private int abonnementID;
+    private int id;
     private String naam;
-    private String straat;
+    private String street;
     private String postcode;
-    private int huisnummer;
-    private String plaats;
-    private ArrayList<Profiel> profielen;
+    private int houseNumber;
+    private String place;
+    private ArrayList<Profile> profiles;
 
-    public Account(int abonnementID, String naam, String straat, String postcode, int huisnummer, String plaats) {
-        this.abonnementID = abonnementID;
+    public Account(int id, String naam, String street, String postcode, int housenumber, String place) {
+        this.id = id;
         this.naam = naam;
-        this.straat = straat;
+        this.street = street;
         this.postcode = postcode;
-        this.huisnummer = huisnummer;
-        this.plaats = plaats;
-        profielen = new ArrayList<>();
+        this.houseNumber = housenumber;
+        this.place = place;
+        profiles = new ArrayList<>();
     }
 
-    public int getAbonnementID() {
-        return abonnementID;
+    public int getId() {
+        return id;
     }
 
     public String getNaam() {
         return naam;
     }
 
-    public String getStraat() {
-        return straat;
+    public String getStreet() {
+        return street;
     }
 
     public String getPostcode() {
@@ -42,28 +42,32 @@ public class Account {
      * @param profiel
      * @return true als er minder dan 5 profielen inzitten
      */
-    public boolean addProfiel(Profiel profiel){
-        if (profielen.size() + 1 <= 5){
-            profielen.add(profiel);
+    public boolean addProfile(Profile profiel){
+        if (profiles.size() + 1 <= 5){
+            profiles.add(profiel);
             return true;
         }
         return false;
     }
 
-    public ArrayList<Profiel> getProfielen() {
-        return profielen;
+    public void removeProfiel(Profile profile){
+        profiles.remove(profile);
     }
 
-    public int getHuisnummer() {
-        return huisnummer;
+    public ArrayList<Profile> getProfiles() {
+        return profiles;
     }
 
-    public String getPlaats() {
-        return plaats;
+    public int getHouseNumber() {
+        return houseNumber;
+    }
+
+    public String getPlace() {
+        return place;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Account && ((Account) obj).abonnementID == this.abonnementID;
+        return obj instanceof Account && ((Account) obj).id == this.id;
     }
 }

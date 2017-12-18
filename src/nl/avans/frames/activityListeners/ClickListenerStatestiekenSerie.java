@@ -1,42 +1,107 @@
 package nl.avans.frames.activityListeners;
 
-import nl.avans.Main;
 import nl.avans.sql.SQLHelper;
-import nl.avans.sql.Serie;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ClickListenerStatestiekenSerie implements ActionListener {
-    private JTextArea textArea;
-    private JComboBox serieLijst;
+    private JPanel panel;
+    private JComboBox<String> serieList;
+    private JFrame frame;
 
-    public ClickListenerStatestiekenSerie(JTextArea textArea, JComboBox serieLijst) {
-        this.textArea = textArea;
-        this.serieLijst = serieLijst;
+    public ClickListenerStatestiekenSerie(JPanel panel, JComboBox serieList, JFrame frame) {
+        this.panel = panel;
+        this.serieList = serieList;
+        this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String button = ((JButton) e.getSource()).getText();
         switch (button) {
-            case "Kijkpercentages": {
-                ResultSet set = SQLHelper.sqlConnection.executeSql("SELECT Aflevering.Titel, AVG(Percentage) AS 'Percentage' FROM Aflevering JOIN Bekeken ON Aflevering.Id = Bekeken.Gezien WHERE Aflevering.Serie = '" + serieLijst.getSelectedItem().toString() + "' GROUP BY Aflevering.Titel;");
-                textArea.setText("");
+            case "Gemiddelde kijkpercentages": {
                 try {
-                    if (set != null)
+                    panel.removeAll();
+                    ResultSet set = SQLHelper.sqlConnection.executeSql("SELECT Aflevering.Seizoen, Aflevering.Titel, AVG(Percentage) AS 'Percentage' FROM Aflevering LEFT JOIN Bekeken ON Aflevering.Id = Bekeken.Gezien WHERE Aflevering.Serie = '" + serieList.getSelectedItem() + "' GROUP BY Aflevering.Titel, Aflevering.Seizoen ORDER BY Aflevering.Seizoen;");
+                    int rows = 0;
+                    ArrayList<String> strings = new ArrayList<>();
+                    if (set != null) {
                         while (set.next()) {
-                            String s = set.getString("Titel") + " " + set.getString("Percentage") + "%";
-                            textArea.append(s);
-                            textArea.append("\n");
+                            rows++;
+                            String percentage = set.getString("Percentage");
+                            strings.add(set.getString("Seizoen"));
+                            strings.add(set.getString("Titel"));
+                            strings.add((percentage != null) ? percentage + "%" : "Nog niet bekeken");
                         }
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
+                    }
+
+                    ResultSet average = SQLHelper.sqlConnection.executeSql("SELECT AVG(Percentage) AS 'Percentage' FROM Aflevering JOIN Bekeken ON Aflevering.Id = Bekeken.Gezien WHERE Aflevering.Serie = '" + serieList.getSelectedItem() + "' GROUP BY Aflevering.Serie;");
+                    System.out.println(average);
+                    strings.add("Totaal");
+                    strings.add("Volledige Serie");
+                    if (average != null) {
+                        while (average.next()) {
+                            String percentage = average.getString("Percentage");
+                            System.out.println(percentage);
+                            strings.add((percentage != null) ? percentage + "%" : "Nog niet bekeken");
+                        }
+                        rows++;
+                    }
+                    int finalRows = rows;
+                    String[][] strings2d = new String[rows][3];
+                    int r = 0;
+                    int c = 0;
+                    for (String string : strings) {
+                        strings2d[r][c] = string;
+                        if (c % 3 == 2) {
+                            r++;
+                            c = -1;
+                        }
+                        c++;
+                    }
+
+                    TableModel dataModel = new AbstractTableModel() {
+                        public int getColumnCount() {
+                            return 3;
+                        }
+
+                        public int getRowCount() {
+                            return finalRows;
+                        }
+
+                        public Object getValueAt(int row, int col) {
+                            return strings2d[row][col];
+                        }
+
+                        @Override
+                        public String getColumnName(int column) {
+                            switch (column) {
+                                case 0:
+                                    return "Seizoen";
+                                case 1:
+                                    return "Titel";
+                                case 2:
+                                    return "Kijkpercentage";
+                            }
+                            return super.getColumnName(column);
+                        }
+                    };
+                    JTable table = new JTable(dataModel);
+                    JScrollPane scrollpane = new JScrollPane(table);
+                    panel.add(scrollpane);
+                    frame.repaint();
+                    frame.revalidate();
+                    break;
+                } catch (SQLException exc) {
+                    exc.printStackTrace();
                 }
-                break;
             }
         }
 

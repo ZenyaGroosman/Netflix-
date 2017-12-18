@@ -32,19 +32,19 @@ public class UserInterfaceStatistix extends UserInterfaceBase {
     private JPanel createHeader() {
         JPanel panel = new JPanel(new GridLayout(1, 5));
         JButton account = new JButton("Account");
-        JButton profiel = new JButton("Profiel");
-        JButton programmas = new JButton("Programma's");
-        JButton bekekenProgrammas = new JButton("Bekeken programma's");
-        JButton statestieken = new JButton("Statestieken");
+        JButton profile = new JButton("Profiel");
+        JButton programs = new JButton("Programma's");
+        JButton watchedPrograms = new JButton("Bekeken programma's");
+        JButton stats = new JButton("Statestieken");
         if (SelectedAccount.getSelectedAccount() == null)
-            profiel.setEnabled(false);
+            profile.setEnabled(false);
         if (SelectedAccount.getSelectedProfiel() == null)
-            bekekenProgrammas.setEnabled(false);
+            watchedPrograms.setEnabled(false);
         panel.add(account);
-        panel.add(profiel);
-        panel.add(programmas);
-        panel.add(bekekenProgrammas);
-        panel.add(statestieken);
+        panel.add(profile);
+        panel.add(programs);
+        panel.add(watchedPrograms);
+        panel.add(stats);
         return panel;
     }
 
@@ -54,44 +54,55 @@ public class UserInterfaceStatistix extends UserInterfaceBase {
         panel.add(createSerieStatestieken(), BorderLayout.CENTER);
         return panel;
     }
-    private JPanel createSidePanel(){
+
+    private JPanel createSidePanel() {
+        JPanel grid = new JPanel();
+        grid.setLayout(new GridLayout(3, 1));
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(new JButton("Serie statestieken"));
+        panel.setLayout(new GridLayout(5, 1));
+        JButton seriesStats = new JButton("Serie statestieken");
+        panel.add(seriesStats);
         panel.add(new JButton("Film statestieken"));
         panel.add(new JButton("Account statestieken"));
         JButton perStat = new JButton("Persoonlijke statestieken");
         if (SelectedAccount.getSelectedAccount() == null)
             perStat.setEnabled(false);
         panel.add(perStat);
-        return panel;
+        grid.add(panel);
+        return grid;
     }
 
-    private JPanel createSerieStatestieken(){
+    private JPanel createSerieStatestieken() {
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setLayout(new BorderLayout());
 
-        JPanel selectSerie = new JPanel();
-        selectSerie.setLayout(new BoxLayout(selectSerie, BoxLayout.X_AXIS));
-        selectSerie.add(new JLabel("Selecteer een serie"));
+        JPanel buttonsAndSelect = new JPanel();
+        buttonsAndSelect.setLayout(new BoxLayout(buttonsAndSelect, BoxLayout.Y_AXIS));
+
+        JPanel selectSeries = new JPanel();
+        selectSeries.setLayout(new BoxLayout(selectSeries, BoxLayout.X_AXIS));
+        selectSeries.add(new JLabel("Selecteer een serie"));
         String[] series = new String[Main.programmaSupplier.getSeries().size()];
-        for (int i = 0; i < Main.programmaSupplier.getSeries().size(); i++){
+        for (int i = 0; i < Main.programmaSupplier.getSeries().size(); i++) {
             series[i] = Main.programmaSupplier.getSeries().get(i).getTitel();
         }
-        JComboBox serieLijst = new JComboBox<String>(series);
-        selectSerie.add(serieLijst);
-        panel.add(selectSerie);
+        JComboBox seriesList = new JComboBox<String>(series);
+        selectSeries.add(seriesList);
+        buttonsAndSelect.add(selectSeries);
+
 
         JPanel selectFunctie = new JPanel();
-        selectFunctie.setLayout(new BoxLayout(selectFunctie, BoxLayout.X_AXIS));
-        JButton kijkPercentage = new JButton("Kijkpercentages");
-        selectFunctie.add(kijkPercentage);
-        selectFunctie.add(new JButton("test"));
-        panel.add(selectFunctie);
-        JTextArea textArea= new JTextArea();
-        textArea.setEnabled(false);
-        panel.add(textArea);
-        kijkPercentage.addActionListener(new ClickListenerStatestiekenSerie(textArea, serieLijst));
+        selectFunctie.setLayout(new GridLayout(1, 2));
+        JButton watchPercentage = new JButton("Gemiddelde kijkpercentages");
+        JButton watchPercentagePerUser = new JButton("Gemiddelde kijkpercentages voor account");
+        selectFunctie.add(new JLabel());
+        selectFunctie.add(watchPercentage);
+        selectFunctie.add(watchPercentagePerUser);
+        buttonsAndSelect.add(selectFunctie);
+        panel.add(buttonsAndSelect, BorderLayout.NORTH);
+        JPanel resultGrid = new JPanel();
+        panel.add(resultGrid, BorderLayout.CENTER);
+        watchPercentage.addActionListener(new ClickListenerStatestiekenSerie(resultGrid, seriesList, getFrame()));
 
         return panel;
     }

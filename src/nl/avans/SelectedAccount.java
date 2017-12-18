@@ -1,11 +1,11 @@
 package nl.avans;
 
 import nl.avans.sql.Account;
-import nl.avans.sql.Profiel;
+import nl.avans.sql.Profile;
 
 public class SelectedAccount {
     private static Account selectedAccount = null;
-    private static Profiel selectedProfiel = null;
+    private static Profile selectedProfiel = null;
 
     public static Account getSelectedAccount() {
         return selectedAccount;
@@ -15,11 +15,11 @@ public class SelectedAccount {
         SelectedAccount.selectedAccount = selectedAccount;
     }
 
-    public static Profiel getSelectedProfiel() {
+    public static Profile getSelectedProfiel() {
         return selectedProfiel;
     }
 
-    public static void setSelectedProfiel(Profiel selectedProfiel) {
+    public static void setSelectedProfiel(Profile selectedProfiel) {
         SelectedAccount.selectedProfiel = selectedProfiel;
     }
 }

@@ -9,7 +9,7 @@ import java.awt.*;
 import java.sql.SQLException;
 
 public class Main{
-    public static ProgrammaSupplier programmaSupplier;
+    public static ProgramSupplier programmaSupplier;
     public static AccountSupplier accountSupplier;
 
     public static void main(String[] args) throws SQLException {
@@ -18,8 +18,8 @@ public class Main{
         SQLConnection connection = new SQLConnection();
         connection.connectDatabase("jdbc:sqlserver://statistixnetflix.database.windows.net:1433;database=Netflix;user=informatica@statistixnetflix;password=Avans12345;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
         SQLHelper.sqlConnection = connection;
-        programmaSupplier = new ProgrammaSupplier(connection);
-        programmaSupplier.makeProgrammas();
+        programmaSupplier = new ProgramSupplier(connection);
+        programmaSupplier.makePrograms();
         accountSupplier = new AccountSupplier(connection);
         accountSupplier.makeAccounts();
         JFrame jFrame = new JFrame("Netflix Statistix");

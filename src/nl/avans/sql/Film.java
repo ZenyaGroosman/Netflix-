@@ -1,6 +1,6 @@
 package nl.avans.sql;
 
-public class Film  extends Programma{
+public class Film  extends Program {
     private String leeftijdsindicatie;
     private String genre;
     private String taal;

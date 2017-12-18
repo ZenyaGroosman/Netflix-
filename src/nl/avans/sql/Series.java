@@ -2,15 +2,15 @@ package nl.avans.sql;
 
 import java.util.ArrayList;
 
-public class Serie {
-    private ArrayList<Aflevering> afleveringen;
+public class Series {
+    private ArrayList<Episode> afleveringen;
     private String leeftijdsindicatie;
     private String genre;
     private String taal;
     private String titel;
     private String lijktOp;
 
-    public Serie(String leeftijdsindicatie, String genre, String taal, String titel, String lijktOp) {
+    public Series(String leeftijdsindicatie, String genre, String taal, String titel, String lijktOp) {
         this.leeftijdsindicatie = leeftijdsindicatie;
         this.genre = genre;
         this.taal = taal;
@@ -35,25 +35,25 @@ public class Serie {
         return leeftijdsindicatie;
     }
 
-    public void addAflevering(Aflevering aflevering) {
+    public void addAflevering(Episode aflevering) {
         afleveringen.add(aflevering);
     }
 
-    public void removeAflevering(Aflevering aflevering) {
+    public void removeAflevering(Episode aflevering) {
         afleveringen.remove(aflevering);
     }
 
-    public ArrayList<Aflevering> getAfleveringen() {
+    public ArrayList<Episode> getAfleveringen() {
         return afleveringen;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Serie && ((Serie) obj).leeftijdsindicatie.equals(this.leeftijdsindicatie)
-                && ((Serie) obj).genre.equals(this.genre)
-                && ((Serie) obj).titel.equals(this.titel)
-                && ((Serie) obj).taal.equals(this.taal)
-                && ((Serie) obj).lijktOp.equals(this.lijktOp);
+        return obj instanceof Series && ((Series) obj).leeftijdsindicatie.equals(this.leeftijdsindicatie)
+                && ((Series) obj).genre.equals(this.genre)
+                && ((Series) obj).titel.equals(this.titel)
+                && ((Series) obj).taal.equals(this.taal)
+                && ((Series) obj).lijktOp.equals(this.lijktOp);
     }
 
     public String getLijktOp() {
