@@ -24,29 +24,11 @@ public class UserInterfaceStatistix extends UserInterfaceBase {
         container.setLayout(new BorderLayout(10, 5));
         container.add(createHeader(), BorderLayout.NORTH);
         container.add(createBody(), BorderLayout.CENTER);
-        JLabel jLabel = new JLabel("Informatica | Jaar 1 | Klas C | Dion Klaassen, Zenya Groosman, Bart Klomp ");
-        jLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        container.add(jLabel, BorderLayout.SOUTH);
+
+        container.add(createFooter(), BorderLayout.SOUTH);
     }
 
-    private JPanel createHeader() {
-        JPanel panel = new JPanel(new GridLayout(1, 5));
-        JButton account = new JButton("Account");
-        JButton profile = new JButton("Profiel");
-        JButton programs = new JButton("Programma's");
-        JButton watchedPrograms = new JButton("Bekeken programma's");
-        JButton stats = new JButton("Statestieken");
-        if (SelectedAccount.getSelectedAccount() == null)
-            profile.setEnabled(false);
-        if (SelectedAccount.getSelectedProfiel() == null)
-            watchedPrograms.setEnabled(false);
-        panel.add(account);
-        panel.add(profile);
-        panel.add(programs);
-        panel.add(watchedPrograms);
-        panel.add(stats);
-        return panel;
-    }
+
 
     private JPanel createBody() {
         JPanel panel = new JPanel(new BorderLayout(3, 0));
