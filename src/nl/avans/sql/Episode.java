@@ -19,10 +19,4 @@ public class Episode extends Program {
     public void setSerie(Series serie) {
         this.serie = serie;
     }
-
-
-    @Override
-    public boolean equals(Object obj) {
-        return obj instanceof Episode && ((Episode) obj).getId() == this.getId();
-    }
 }

@@ -66,6 +66,7 @@ public class Account {
         return place;
     }
 
+
     @Override
     public boolean equals(Object obj) {
         return obj instanceof Account && ((Account) obj).id == this.id;

@@ -3,6 +3,7 @@ package nl.avans.frames;
 import nl.avans.Main;
 import nl.avans.SelectedAccount;
 import nl.avans.frames.activityListeners.ClickListenerStatestiekenSerie;
+import nl.avans.frames.activityListeners.FunctionSelectMovieListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +34,7 @@ public class UserInterfaceStatistix extends UserInterfaceBase {
     private JPanel createBody() {
         JPanel panel = new JPanel(new BorderLayout(3, 0));
         panel.add(createSidePanel(), BorderLayout.WEST);
-        panel.add(createSerieStatestieken(), BorderLayout.CENTER);
+        panel.add(createMovieStats(), BorderLayout.CENTER);
         return panel;
     }
 
@@ -54,7 +55,29 @@ public class UserInterfaceStatistix extends UserInterfaceBase {
         return grid;
     }
 
-    private JPanel createSerieStatestieken() {
+    private JPanel createMovieStats() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        JPanel optionSelection = new JPanel();
+        optionSelection.setLayout(new BoxLayout(optionSelection, BoxLayout.Y_AXIS));
+
+        JPanel selectMovieOption = new JPanel();
+        selectMovieOption.setLayout(new BoxLayout(selectMovieOption, BoxLayout.X_AXIS));
+        selectMovieOption.add(new JLabel("Selecteer een funcite"));
+        String[] series = new String[]{"Bekeken", "Films kijkpercentage"};
+        JComboBox movieOptionList = new JComboBox<String>(series);
+        movieOptionList.addActionListener(new FunctionSelectMovieListener(optionSelection, getFrame()));
+
+        selectMovieOption.add(movieOptionList);
+        optionSelection.add(selectMovieOption);
+        panel.add(optionSelection, BorderLayout.NORTH);
+        panel.add(new JLabel(), BorderLayout.CENTER);
+
+        return panel;
+    }
+
+    private JPanel createSeriesStats() {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
@@ -73,14 +96,12 @@ public class UserInterfaceStatistix extends UserInterfaceBase {
         buttonsAndSelect.add(selectSeries);
 
 
-        JPanel selectFunctie = new JPanel();
-        selectFunctie.setLayout(new GridLayout(1, 2));
+        JPanel selectFunctions = new JPanel();
+        selectFunctions.setLayout(new GridLayout(1, 2));
         JButton watchPercentage = new JButton("Gemiddelde kijkpercentages");
-        JButton watchPercentagePerUser = new JButton("Gemiddelde kijkpercentages voor account");
-        selectFunctie.add(new JLabel());
-        selectFunctie.add(watchPercentage);
-        selectFunctie.add(watchPercentagePerUser);
-        buttonsAndSelect.add(selectFunctie);
+        selectFunctions.add(new JLabel());
+        selectFunctions.add(watchPercentage);
+        buttonsAndSelect.add(selectFunctions);
         panel.add(buttonsAndSelect, BorderLayout.NORTH);
         JPanel resultGrid = new JPanel();
         panel.add(resultGrid, BorderLayout.CENTER);
