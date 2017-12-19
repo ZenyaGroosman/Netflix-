@@ -6,27 +6,41 @@ import java.awt.event.ActionEvent;
 import javax.swing.*;
 
 
-public class UIWatchedShows extends JFrame {
+public class UIWatchedShows extends UserInterfaceBase {
 
 
-    private JFrame frame1;
+
     private JPanel panel1;
 
-    public UIWatchedShows(){
+    public UIWatchedShows(JFrame jFrame){
+        super(jFrame);
 
-        WatchedShows();
 
     }
-    public void WatchedShows(){
-        frame1 = new JFrame("Watched Shows");
-        frame1.setVisible(true);
-        frame1.setSize(600,400);
-        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+    @Override
+    public void run() {
+        createComponents(getFrame().getContentPane());
+
+
+
+        getFrame().pack();
+        getFrame().setVisible(true);
+
+
+
+    }
+    @Override
+    public void createComponents(Container container) {
 
         panel1 = new JPanel();
         panel1.setBackground(Color.darkGray);
 
-        frame1.add(panel1);
+        container.setLayout(new BorderLayout(10,5));
+        container.add(createHeader(),BorderLayout.NORTH);
+        container.add(createFooter(), BorderLayout.SOUTH);
+        container.add(panel1, BorderLayout.CENTER);
 
 
 
