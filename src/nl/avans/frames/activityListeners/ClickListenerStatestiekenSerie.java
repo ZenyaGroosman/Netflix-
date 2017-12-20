@@ -1,5 +1,6 @@
 package nl.avans.frames.activityListeners;
 
+import nl.avans.SelectedAccount;
 import nl.avans.sql.SQLHelper;
 
 import javax.swing.*;
@@ -13,12 +14,12 @@ import java.util.ArrayList;
 
 public class ClickListenerStatestiekenSerie implements ActionListener {
     private JPanel panel;
-    private JComboBox<String> serieList;
+    private JComboBox<String> seriesList;
     private JFrame frame;
 
-    public ClickListenerStatestiekenSerie(JPanel panel, JComboBox serieList, JFrame frame) {
+    public ClickListenerStatestiekenSerie(JPanel panel, JComboBox seriesList, JFrame frame) {
         this.panel = panel;
-        this.serieList = serieList;
+        this.seriesList = seriesList;
         this.frame = frame;
     }
 
@@ -29,7 +30,7 @@ public class ClickListenerStatestiekenSerie implements ActionListener {
             case "Gemiddelde kijkpercentages": {
                 try {
                     panel.removeAll();
-                    ResultSet set = SQLHelper.sqlConnection.executeSql("SELECT Aflevering.Seizoen, Aflevering.Titel, AVG(Percentage) AS 'Percentage' FROM Aflevering LEFT JOIN Bekeken ON Aflevering.Id = Bekeken.Gezien WHERE Aflevering.Serie = '" + serieList.getSelectedItem() + "' GROUP BY Aflevering.Titel, Aflevering.Seizoen ORDER BY Aflevering.Seizoen;");
+                    ResultSet set = SQLHelper.sqlConnection.executeSql("SELECT Aflevering.Seizoen, Programma.Titel, AVG(Percentage) AS 'Percentage' FROM Aflevering LEFT JOIN Bekeken ON Aflevering.Id = Bekeken.Gezien LEFT JOIN Programma ON Programma.Id = Aflevering.Id WHERE Aflevering.Serie = '" + seriesList.getSelectedItem() + "' GROUP BY Programma.Titel, Aflevering.Seizoen ORDER BY Aflevering.Seizoen;");
                     int rows = 0;
                     ArrayList<String> strings = new ArrayList<>();
                     if (set != null) {
@@ -42,16 +43,30 @@ public class ClickListenerStatestiekenSerie implements ActionListener {
                         }
                     }
 
-                    ResultSet average = SQLHelper.sqlConnection.executeSql("SELECT AVG(Percentage) AS 'Percentage' FROM Aflevering JOIN Bekeken ON Aflevering.Id = Bekeken.Gezien WHERE Aflevering.Serie = '" + serieList.getSelectedItem() + "' GROUP BY Aflevering.Serie;");
-                    System.out.println(average);
+                    ResultSet average = SQLHelper.sqlConnection.executeSql("SELECT AVG(Percentage) AS 'Percentage' FROM Aflevering JOIN Bekeken ON Aflevering.Id = Bekeken.Gezien WHERE Aflevering.Serie = '" + seriesList.getSelectedItem() + "' GROUP BY Aflevering.Serie;");
                     strings.add("Totaal");
                     strings.add("Volledige Serie");
                     if (average != null) {
-                        while (average.next()) {
+                        average.next();
+                        String percentage = average.getString("Percentage");
+                        strings.add((percentage != null) ? percentage + "%" : "Nog niet bekeken");
+
+                        rows++;
+                    }
+                    if (SelectedAccount.getSelectedAccount() != null) {
+                        ResultSet averageAccount = SQLHelper.sqlConnection.executeSql("SELECT ISNULL(AVG(Percentage), null) AS 'Percentage' FROM Aflevering LEFT JOIN Bekeken ON Aflevering.Id = Bekeken.Gezien WHERE Aflevering.Serie = '" + seriesList.getSelectedItem() + "' AND Bekeken.Abonneenummer = " + SelectedAccount.getSelectedAccount().getId() + " GROUP BY Bekeken.Abonneenummer;");
+                        strings.add("Totaal");
+                        strings.add("Voor geselecteerd account");
+                        if (averageAccount != null) {
+                            averageAccount.next();
                             String percentage = average.getString("Percentage");
-                            System.out.println(percentage);
-                            strings.add((percentage != null) ? percentage + "%" : "Nog niet bekeken");
+                            strings.add((percentage != null) ? percentage + "%" : "Nog niet bekeken door dit account");
                         }
+                        rows++;
+                    } else {
+                        strings.add("Totaal");
+                        strings.add("Voor geselecteerd account");
+                        strings.add("Geen account geselecteerd");
                         rows++;
                     }
                     int finalRows = rows;

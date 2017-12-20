@@ -22,4 +22,9 @@ public abstract class Program {
     public int getId() {
         return id;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Program && ((Program) obj).id == id;
+    }
 }

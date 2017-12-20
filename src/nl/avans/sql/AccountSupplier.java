@@ -21,27 +21,35 @@ public class AccountSupplier {
     }
 
     public void makeAccounts() throws SQLException {
-        ResultSet accountsEnProfielen = sqlConnection.executeSql("SELECT * FROM Profiel LEFT JOIN Account ON Account.Abonneenummer = Profiel.Abonneenummer;");
-        while (accountsEnProfielen.next()) {
-            Date geboortedatum = accountsEnProfielen.getDate("Geboortedatum");
-            String profielnaam = accountsEnProfielen.getString("Profielnaam");
-            Profile profiel = new Profile(geboortedatum, profielnaam);
+        ResultSet accountsAndProfiles = sqlConnection.executeSql("SELECT * FROM Profiel LEFT JOIN Account ON Account.Abonneenummer = Profiel.Abonneenummer;");
 
-            int aboneenr = accountsEnProfielen.getInt("Abonneenummer");
-            String naam = accountsEnProfielen.getString("Naam");
-            String straat = accountsEnProfielen.getString("Straat");
-            String postcode = accountsEnProfielen.getString("Postcode");
-            String plaats = accountsEnProfielen.getString("Plaats");
-            int huisnummer = accountsEnProfielen.getInt("Huisnummer");
-            Account account = new Account(aboneenr, naam, straat, postcode, huisnummer, plaats);
+        while (accountsAndProfiles.next()) {
+            Date birthday = accountsAndProfiles.getDate("Geboortedatum");
+            String profileName = accountsAndProfiles.getString("Profielnaam");
+            Profile profile = new Profile(birthday, profileName);
+
+            int id = accountsAndProfiles.getInt("Abonneenummer");
+            String name = accountsAndProfiles.getString("Naam");
+            String street = accountsAndProfiles.getString("Straat");
+            String postcode = accountsAndProfiles.getString("Postcode");
+            String place = accountsAndProfiles.getString("Plaats");
+            int houseNumber = accountsAndProfiles.getInt("Huisnummer");
+            Account account = new Account(id, name, street, postcode, houseNumber, place);
             if (!accounts.contains(account)) {
-                account.addProfile(profiel);
+                account.addProfile(profile);
                 accounts.add(account);
             } else {
                 int i = accounts.indexOf(account);
-                accounts.get(i).addProfile(profiel);
+                accounts.get(i).addProfile(profile);
+            }
+            ResultSet watched = sqlConnection.executeSql("SELECT Gezien, Percentage FROM Profiel JOIN Bekeken ON Profiel.Profielnaam = Bekeken.Profielnaam AND Profiel.Abonneenummer = Bekeken.Abonneenummer WHERE Profiel.Abonneenummer = " + id + " AND Profiel.Profielnaam = '" + profileName + "'");
+            while (watched.next()){
+                WatchedProgram watchedProgram = new WatchedProgram(watched.getInt("Percentage"), watched.getInt("Gezien"));
+                profile.addProgram(watchedProgram);
             }
         }
+
+
     }
 
     public ArrayList<Account> getAccounts() {

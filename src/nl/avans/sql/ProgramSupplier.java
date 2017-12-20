@@ -152,4 +152,13 @@ public class ProgramSupplier {
         programs.remove(episode);
         return success;
     }
+
+    public ArrayList<Film> getFilms(){
+        ArrayList<Film> films =new ArrayList<>();
+        for (Program p:programs){
+            if (p instanceof Film)
+                films.add((Film) p);
+        }
+        return films;
+    }
 }
