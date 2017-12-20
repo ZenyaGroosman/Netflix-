@@ -64,7 +64,7 @@ public class UserInterfaceStatistix extends UserInterfaceBase {
 
         JPanel selectMovieOption = new JPanel();
         selectMovieOption.setLayout(new BoxLayout(selectMovieOption, BoxLayout.X_AXIS));
-        selectMovieOption.add(new JLabel("Selecteer een funcite"));
+        selectMovieOption.add(new JLabel("Selecteer een functie"));
         String[] series = new String[]{"Bekeken", "Films kijkpercentage"};
         JComboBox movieOptionList = new JComboBox<String>(series);
         movieOptionList.addActionListener(new FunctionSelectMovieListener(optionSelection, getFrame()));
@@ -73,6 +73,7 @@ public class UserInterfaceStatistix extends UserInterfaceBase {
         optionSelection.add(selectMovieOption);
         panel.add(optionSelection, BorderLayout.NORTH);
         panel.add(new JLabel(), BorderLayout.CENTER);
+        movieOptionList.setSelectedIndex(0);
 
         return panel;
     }
@@ -87,9 +88,9 @@ public class UserInterfaceStatistix extends UserInterfaceBase {
         JPanel selectSeries = new JPanel();
         selectSeries.setLayout(new BoxLayout(selectSeries, BoxLayout.X_AXIS));
         selectSeries.add(new JLabel("Selecteer een serie"));
-        String[] series = new String[Main.programmaSupplier.getSeries().size()];
-        for (int i = 0; i < Main.programmaSupplier.getSeries().size(); i++) {
-            series[i] = Main.programmaSupplier.getSeries().get(i).getTitel();
+        String[] series = new String[Main.programSupplier.getSeries().size()];
+        for (int i = 0; i < Main.programSupplier.getSeries().size(); i++) {
+            series[i] = Main.programSupplier.getSeries().get(i).getTitel();
         }
         JComboBox seriesList = new JComboBox<String>(series);
         selectSeries.add(seriesList);

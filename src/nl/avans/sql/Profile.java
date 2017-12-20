@@ -22,6 +22,10 @@ public class Profile {
         return profielnaam;
     }
 
+    public ArrayList<WatchedProgram> getWatchedPrograms() {
+        return watchedPrograms;
+    }
+
     public void addProgram(WatchedProgram watchedProgram){
         watchedPrograms.add(watchedProgram);
     }

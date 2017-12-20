@@ -164,4 +164,15 @@ public class ProgramSupplier {
         }
         return films;
     }
+
+    public Program getProgramById(int watchedId) {
+        Program program = null;
+        for (Program p : programs) {
+            if (p.getId() == watchedId) {
+                program = p;
+                break;
+            }
+        }
+        return program;
+    }
 }

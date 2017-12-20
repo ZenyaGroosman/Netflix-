@@ -38,9 +38,9 @@ public class FunctionSelectMovieListener implements ActionListener {
                     JPanel selectMovie = new JPanel();
                     selectMovie.setLayout(new BoxLayout(selectMovie, BoxLayout.X_AXIS));
                     selectMovie.add(new JLabel("Kies een serie"));
-                    String[] Movies = new String[Main.programmaSupplier.getFilms().size()];
-                    for (int i = 0; i < Main.programmaSupplier.getFilms().size(); i++) {
-                        Movies[i] = Main.programmaSupplier.getFilms().get(i).getTitle();
+                    String[] Movies = new String[Main.programSupplier.getFilms().size()];
+                    for (int i = 0; i < Main.programSupplier.getFilms().size(); i++) {
+                        Movies[i] = Main.programSupplier.getFilms().get(i).getTitle();
                     }
                     JComboBox seriesList = new JComboBox<String>(Movies);
                     selectMovie.add(seriesList);

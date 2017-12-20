@@ -1,5 +1,7 @@
 package nl.avans.sql;
 
+import nl.avans.Main;
+
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,7 +46,7 @@ public class AccountSupplier {
             }
             ResultSet watched = sqlConnection.executeSql("SELECT Gezien, Percentage FROM Profiel JOIN Bekeken ON Profiel.Profielnaam = Bekeken.Profielnaam AND Profiel.Abonneenummer = Bekeken.Abonneenummer WHERE Profiel.Abonneenummer = " + id + " AND Profiel.Profielnaam = '" + profileName + "'");
             while (watched.next()){
-                WatchedProgram watchedProgram = new WatchedProgram(watched.getInt("Percentage"), watched.getInt("Gezien"));
+                WatchedProgram watchedProgram = new WatchedProgram(watched.getInt("Percentage"), Main.programSupplier.getProgramById(watched.getInt("Gezien")));
                 profile.addProgram(watchedProgram);
             }
         }
