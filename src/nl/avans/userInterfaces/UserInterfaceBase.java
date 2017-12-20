@@ -2,8 +2,12 @@ package nl.avans.userInterfaces;
 
 import nl.avans.SelectedAccount;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public abstract class UserInterfaceBase implements Runnable{
     private JFrame jFrame;
@@ -39,9 +43,23 @@ public abstract class UserInterfaceBase implements Runnable{
         panel.add(stats);
         return panel;
     }
-    public JLabel createFooter(){
+    public JPanel createFooter(){
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+
+
         JLabel jLabel = new JLabel("Informatica | Jaar 1 | Klas C | Dion Klaassen, Zenya Groosman, Bart Klomp ");
         jLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        return jLabel;
+
+        BufferedImage netflix = null;
+        try {
+            netflix = ImageIO.read(new File("resources/images/netflix_logo.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JLabel picLabel = new JLabel(new ImageIcon(netflix));
+        panel.add(picLabel);
+        panel.add(jLabel);
+        return panel;
     }
 }
