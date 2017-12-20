@@ -2,7 +2,7 @@ package nl.avans.frames;
 
 import nl.avans.Main;
 import nl.avans.SelectedAccount;
-import nl.avans.frames.activityListeners.ClickListenerStatestiekenSerie;
+import nl.avans.frames.ActionListeners.ClickListenerStatestiekenSerie;
 
 import javax.swing.*;
 import java.awt.*;
