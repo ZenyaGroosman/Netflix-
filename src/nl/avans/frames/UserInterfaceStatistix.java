@@ -2,8 +2,8 @@ package nl.avans.frames;
 
 import nl.avans.Main;
 import nl.avans.SelectedAccount;
-import nl.avans.frames.activityListeners.ClickListenerStatestiekenSerie;
-import nl.avans.frames.activityListeners.FunctionSelectMovieListener;
+import nl.avans.frames.ActionListeners.ClickListenerStatestiekenSerie;
+import nl.avans.frames.ActionListeners.FunctionSelectMovieListener;
 
 import javax.swing.*;
 import java.awt.*;

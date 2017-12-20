@@ -76,11 +76,12 @@ public class ProgramSupplier {
 
     /**
      * Geeft de serie terug als de titel matcht
+     *
      * @param title de titel
      * @return de serie
      */
-    public Series getSeriesByTitle(String title){
-        for (Series s: series){
+    public Series getSeriesByTitle(String title) {
+        for (Series s : series) {
             if (s.getTitel().equals(title))
                 return s;
         }
@@ -89,15 +90,16 @@ public class ProgramSupplier {
 
     /**
      * voegd een nieuwe serie toe aan de database
+     *
      * @param series de nieuwe serie
      * @return of het gelukt is
      */
-    public boolean createSeries(Series series){
+    public boolean createSeries(Series series) {
         String[] columns = new String[]{"Serie", "Taal", "Genre", "Leeftijd", "LijktOp"};
         String[] value = new String[]{series.getTitel(), series.getTaal(), series.getGenre(), series.getLeeftijdsindicatie(), series.getLijktOp()};
         boolean success = SQLHelper.createObject("Serie", columns, value);
 
-        if(success){
+        if (success) {
             this.series.add(series);
         }
         return success;
@@ -105,19 +107,20 @@ public class ProgramSupplier {
 
     /**
      * verwijderd een series uit de databas en uit de supplier
+     *
      * @param series the series to delete
      * @return als sucessvol
      */
-    public boolean deleteSeries(Series series){
+    public boolean deleteSeries(Series series) {
         String[] columns = new String[]{"Serie"};
         String[] value = new String[]{series.getTitel()};
         boolean success = SQLHelper.deleteObject("Serie", columns, value);
-        if (success){
+        if (success) {
             this.series.remove(series);
             Iterator<Program> iterator = programs.iterator();
-            while (iterator.hasNext()){
+            while (iterator.hasNext()) {
                 Program programma = iterator.next();
-                if (programma instanceof Episode && ((Episode) programma).getSerie().equals(series)){
+                if (programma instanceof Episode && ((Episode) programma).getSerie().equals(series)) {
                     programs.remove(programma);
                 }
             }
@@ -127,35 +130,35 @@ public class ProgramSupplier {
     }
 
 
-    public boolean createEpisode(Episode episode){
-        String[] columnsProgramma = new String[]{"Id", "Titel",  "Tijdsduur"};
-        Object[] valueProgramma = new Object[]{episode.getId(), episode.getTitle(),episode.getDuration()};
-        String[] columnsAflevering = new String[]{"Id", "Serie","Seizoen"};
+    public boolean createEpisode(Episode episode) {
+        String[] columnsProgramma = new String[]{"Id", "Titel", "Tijdsduur"};
+        Object[] valueProgramma = new Object[]{episode.getId(), episode.getTitle(), episode.getDuration()};
+        String[] columnsAflevering = new String[]{"Id", "Serie", "Seizoen"};
         Object[] valueAflevering = new Object[]{episode.getId(), episode.getSerie().getTitel(), episode.getSeizoen()};
         boolean succes = SQLHelper.createObject("Programma", columnsProgramma, valueProgramma);
-        if (succes){
+        if (succes) {
             succes = SQLHelper.createObject("Aflevering", columnsAflevering, valueAflevering);
         }
         return succes;
     }
 
-    public boolean deleteEpisode(Episode episode){
+    public boolean deleteEpisode(Episode episode) {
         String[] columns = new String[]{"Id"};
         Object[] values = new Object[]{episode.getId()};
         boolean success = SQLHelper.deleteObject("Programma", columns, values);
-        if (success){
+        if (success) {
             success = SQLHelper.deleteObject("Aflevering", columns, values);
         }
-        if (success){
+        if (success) {
             episode.getSerie().removeAflevering(episode);
         }
         programs.remove(episode);
         return success;
     }
 
-    public ArrayList<Film> getFilms(){
-        ArrayList<Film> films =new ArrayList<>();
-        for (Program p:programs){
+    public ArrayList<Film> getFilms() {
+        ArrayList<Film> films = new ArrayList<>();
+        for (Program p : programs) {
             if (p instanceof Film)
                 films.add((Film) p);
         }
