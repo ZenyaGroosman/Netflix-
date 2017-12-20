@@ -1,7 +1,7 @@
 package nl.avans;
 
-import nl.avans.frames.UserInterfaceStatistix;
-import nl.avans.frames.UserInterfaceBase;
+import nl.avans.userInterfaces.UserInterfaceStatistix;
+import nl.avans.userInterfaces.UserInterfaceBase;
 import nl.avans.sql.*;
 
 import javax.swing.*;

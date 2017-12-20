@@ -1,8 +1,6 @@
-package nl.avans.frames;
+package nl.avans.userInterfaces;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.*;
 
 
