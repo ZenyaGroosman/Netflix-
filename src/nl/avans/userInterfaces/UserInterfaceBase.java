@@ -1,4 +1,4 @@
-package nl.avans.frames;
+package nl.avans.userInterfaces;
 
 import nl.avans.SelectedAccount;
 

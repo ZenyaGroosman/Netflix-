@@ -1,9 +1,9 @@
-package nl.avans.frames;
+package nl.avans.userInterfaces;
 
 import nl.avans.Main;
 import nl.avans.SelectedAccount;
-import nl.avans.frames.ActionListeners.ClickListenerStatestiekenSerie;
-import nl.avans.frames.ActionListeners.FunctionSelectMovieListener;
+import nl.avans.userInterfaces.actionListener.ClickListenerStatestiekenSerie;
+import nl.avans.userInterfaces.actionListener.FunctionSelectMovieListener;
 
 import javax.swing.*;
 import java.awt.*;

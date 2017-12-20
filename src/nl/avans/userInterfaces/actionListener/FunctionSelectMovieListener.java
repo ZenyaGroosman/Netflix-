@@ -1,4 +1,4 @@
-package nl.avans.frames.ActionListeners;
+package nl.avans.userInterfaces.actionListener;
 
 
 import nl.avans.Main;
