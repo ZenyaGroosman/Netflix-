@@ -1,4 +1,4 @@
-package nl.avans.frames.activityListeners;
+package nl.avans.frames.ActionListeners;
 
 import nl.avans.SelectedAccount;
 import nl.avans.sql.SQLHelper;

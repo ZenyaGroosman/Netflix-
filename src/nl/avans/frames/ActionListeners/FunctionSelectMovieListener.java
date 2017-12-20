@@ -1,4 +1,4 @@
-package nl.avans.frames.activityListeners;
+package nl.avans.frames.ActionListeners;
 
 
 import nl.avans.Main;
@@ -20,17 +20,19 @@ public class FunctionSelectMovieListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         panel.removeAll();
-        JPanel selectMovieOption = new JPanel();
-        selectMovieOption.setLayout(new BoxLayout(selectMovieOption, BoxLayout.X_AXIS));
-        selectMovieOption.add(new JLabel("Selecteer een funcite"));
-        String[] series = new String[]{"Bekeken", "Films kijkpercentage"};
-        JComboBox movieOptionList = new JComboBox<String>(series);
-        movieOptionList.addActionListener(new FunctionSelectMovieListener(panel, frame));
-        selectMovieOption.add(movieOptionList);
-        panel.add(selectMovieOption);
+
 
         if (e.getSource() instanceof JComboBox) {
             JComboBox<String> comboBox = (JComboBox) e.getSource();
+            JPanel selectMovieOption = new JPanel();
+            selectMovieOption.setLayout(new BoxLayout(selectMovieOption, BoxLayout.X_AXIS));
+            selectMovieOption.add(new JLabel("Selecteer een funcite"));
+            String[] series = new String[]{"Bekeken", "Films kijkpercentage"};
+            JComboBox movieOptionList = new JComboBox<String>(series);
+            movieOptionList.setSelectedItem(comboBox.getSelectedItem());
+            movieOptionList.addActionListener(new FunctionSelectMovieListener(panel, frame));
+            selectMovieOption.add(movieOptionList);
+            panel.add(selectMovieOption);
             switch ((String) Objects.requireNonNull(comboBox.getSelectedItem())){
                 case  "Bekeken":{
                     JPanel selectMovie = new JPanel();
