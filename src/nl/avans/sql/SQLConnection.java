@@ -1,20 +1,18 @@
-package nl.avans;
+package nl.avans.sql;
 
 import java.sql.*;
 
-public class SqlConnection {
+public class SQLConnection {
 
     private Connection connection = null;
 
     public boolean connectDatabase(String connectionUrl) {
-        try{
+        try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             this.connection = DriverManager.getConnection(connectionUrl);
-        }
-        catch(Exception e)
-        {
-            System.out.println(e);
-            connection=null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            connection = null;
             return false;
         }
         return true;
@@ -24,37 +22,32 @@ public class SqlConnection {
         if (connection != null) {
             try {
                 connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            catch(Exception e) {
-                System.out.println(e);
-            }
-            connection=null;
+            connection = null;
         }
     }
+
+
 
     public ResultSet executeSql(String sqlQuery) {
         ResultSet rs = null;
-        try
-        {
+        try {
             Statement statement = this.connection.createStatement();
-            rs= statement.executeQuery(sqlQuery);
+            rs = statement.executeQuery(sqlQuery);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch(Exception e)
-        {
-            System.out.println(e);
-        }
-       return rs;
+        return rs;
     }
 
     public boolean executeSqlNoResult(String sqlQuery) {
-        try
-        {
+        try {
             Statement statement = this.connection.createStatement();
             return statement.execute(sqlQuery);
-        }
-        catch(Exception e)
-        {
-            System.out.println(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return false;
     }
