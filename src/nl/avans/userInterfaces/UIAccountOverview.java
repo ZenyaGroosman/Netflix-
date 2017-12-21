@@ -33,19 +33,25 @@ public class UIAccountOverview extends UserInterfaceBase{
     }
 
     private void titel(Container container) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
+        Font f = new Font("default", Font.PLAIN, 40);
 
         JPanel grid = new JPanel();
-        grid.setLayout(new GridLayout(1, 3));
+        grid.setLayout(new GridLayout(1, 1));
 
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
         panel.add(grid, BorderLayout.NORTH);
 
+        JLabel label = new JLabel("Account Overzicht");
 
-        grid.add(new JLabel("Account Overzicht"));
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+
+        grid.add(label);
+
         container.add(panel);
 
-        
+        label.setFont(f);
+
     }
 
 
