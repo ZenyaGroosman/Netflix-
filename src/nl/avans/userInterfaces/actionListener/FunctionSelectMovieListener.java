@@ -34,7 +34,7 @@ public class FunctionSelectMovieListener implements ActionListener {
             selectMovieOption.add(movieOptionList);
             panel.add(selectMovieOption);
             switch ((String) Objects.requireNonNull(comboBox.getSelectedItem())){
-                case  "Bekeken":{
+                case  "Films kijkpercentage": {
                     JPanel selectMovie = new JPanel();
                     selectMovie.setLayout(new BoxLayout(selectMovie, BoxLayout.X_AXIS));
                     selectMovie.add(new JLabel("Kies een serie"));
@@ -45,6 +45,8 @@ public class FunctionSelectMovieListener implements ActionListener {
                     JComboBox seriesList = new JComboBox<String>(Movies);
                     selectMovie.add(seriesList);
                     panel.add(selectMovie);
+
+                    JPanel selectPercentage;
                     break;
                 }
             }

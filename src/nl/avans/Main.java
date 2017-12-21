@@ -24,7 +24,7 @@ public class Main{
         accountSupplier = new AccountSupplier(connection);
         accountSupplier.makeAccounts();
         JFrame jFrame = new JFrame("Netflix Statistix");
-        jFrame.setPreferredSize(new Dimension(700, 600));
+        jFrame.setPreferredSize(new Dimension(900, 600));
 
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         UserInterfaceBase ui = new UserInterfaceStatistix(jFrame);

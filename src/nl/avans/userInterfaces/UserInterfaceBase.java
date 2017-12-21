@@ -45,11 +45,12 @@ public abstract class UserInterfaceBase implements Runnable{
     }
     public JPanel createFooter(){
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        panel.setLayout(new GridLayout(1, 2));
 
 
         JLabel jLabel = new JLabel("Informatica | Jaar 1 | Klas C | Dion Klaassen, Zenya Groosman, Bart Klomp ");
         jLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        jLabel.setVerticalAlignment(SwingConstants.BOTTOM);
 
         BufferedImage netflix = null;
         try {
@@ -58,6 +59,7 @@ public abstract class UserInterfaceBase implements Runnable{
             e.printStackTrace();
         }
         JLabel picLabel = new JLabel(new ImageIcon(netflix));
+        picLabel.setHorizontalAlignment(SwingConstants.LEFT);
         panel.add(picLabel);
         panel.add(jLabel);
         return panel;
