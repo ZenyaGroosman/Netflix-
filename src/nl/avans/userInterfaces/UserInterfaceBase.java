@@ -32,6 +32,17 @@ public abstract class UserInterfaceBase implements Runnable{
         JButton programs = new JButton("Programma's");
         JButton watchedPrograms = new JButton("Bekeken programma's");
         JButton stats = new JButton("Statestieken");
+        account.setBackground(Color.red);
+        account.setForeground(Color.white);
+        profile.setBackground(Color.red);
+        profile.setForeground(Color.white);
+        programs.setBackground(Color.red);
+        programs.setForeground(Color.white);
+        watchedPrograms.setBackground(Color.red);
+        watchedPrograms.setForeground(Color.white);
+        stats.setBackground(Color.red);
+        stats.setForeground(Color.white);
+
         if (SelectedAccount.getSelectedAccount() == null)
             profile.setEnabled(false);
         if (SelectedAccount.getSelectedProfiel() == null)
