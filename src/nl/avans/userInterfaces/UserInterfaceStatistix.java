@@ -65,7 +65,7 @@ public class UserInterfaceStatistix extends UserInterfaceBase {
         JPanel selectMovieOption = new JPanel();
         selectMovieOption.setLayout(new BoxLayout(selectMovieOption, BoxLayout.X_AXIS));
         selectMovieOption.add(new JLabel("Selecteer een functie"));
-        String[] series = new String[]{"Bekeken", "Films kijkpercentage"};
+        String[] series = new String[]{"Films kijkpercentage"};
         JComboBox movieOptionList = new JComboBox<String>(series);
         movieOptionList.addActionListener(new FunctionSelectMovieListener(optionSelection, getFrame()));
 

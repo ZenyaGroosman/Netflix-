@@ -69,6 +69,7 @@ public class ClickListenerStatestiekenSerie implements ActionListener {
                         strings.add("Geen account geselecteerd");
                         rows++;
                     }
+
                     int finalRows = rows;
                     String[][] strings2d = new String[rows][3];
                     int r = 0;
@@ -107,10 +108,12 @@ public class ClickListenerStatestiekenSerie implements ActionListener {
                             }
                             return super.getColumnName(column);
                         }
+
+
                     };
                     JTable table = new JTable(dataModel);
-                    JScrollPane scrollpane = new JScrollPane(table);
-                    panel.add(scrollpane);
+                    JScrollPane scrollPane = new JScrollPane(table);
+                    panel.add(scrollPane);
                     frame.repaint();
                     frame.revalidate();
                     break;
