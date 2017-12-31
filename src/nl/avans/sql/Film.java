@@ -1,26 +1,26 @@
 package nl.avans.sql;
 
 public class Film  extends Program {
-    private String leeftijdsindicatie;
+    private int minimumAge; //minimum leeftijd
     private String genre;
-    private String taal;
+    private String language;
 
-    public Film(String leeftijdsindicatie, String genre, String taal, int tijdsduur, int id, String titel) {
-        super(tijdsduur, id, titel);
-        this.leeftijdsindicatie = leeftijdsindicatie;
+    public Film(int minimumAge, String genre, String language, int duration, int id, String title) {
+        super(duration, id, title);
+        this.minimumAge = minimumAge;
         this.genre = genre;
-        this.taal = taal;
+        this.language = language;
     }
 
-    public String getLeeftijdsindicatie() {
-        return leeftijdsindicatie;
+    public int getMinimumAge() {
+        return minimumAge;
     }
 
     public String getGenre() {
         return genre;
     }
 
-    public String getTaal() {
-        return taal;
+    public String getLanguage() {
+        return language;
     }
 }

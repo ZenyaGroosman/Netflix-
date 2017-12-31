@@ -30,12 +30,12 @@ public class ProgramSupplier {
 
         while (films.next()) {
             int id = films.getInt("Id");
-            String taal = films.getString("Taal");
+            String language = films.getString("Taal");
             String genre = films.getString("Genre");
-            String leeftijdsindicatie = films.getString("Leeftijdsindicatie");
-            String titel = films.getString("Titel");
-            int tijdsduur = films.getInt("Tijdsduur");
-            programs.add(new Film(leeftijdsindicatie, genre, taal, tijdsduur, id, titel));
+            int minimumAge = films.getInt("Leeftijdsindicatie");
+            String title = films.getString("Titel");
+            int duration = films.getInt("Tijdsduur");
+            programs.add(new Film(minimumAge, genre, language, duration, id, title));
         }
     }
 
@@ -53,16 +53,16 @@ public class ProgramSupplier {
             String language = episodesAndSeries.getString("Taal");
             String genre = episodesAndSeries.getString("Genre");
             String ageRestriction = episodesAndSeries.getString("Leeftijd");
-            String simulairTo = episodesAndSeries.getString("LijktOp");
-            Series serie = new Series(ageRestriction, genre, language, seriesTitle, simulairTo);
-            if (!series.contains(serie)) {
-                serie.addAflevering(episode);
-                series.add(serie);
+            String similarTo = episodesAndSeries.getString("LijktOp");
+            Series series = new Series(ageRestriction, genre, language, seriesTitle, similarTo);
+            if (!this.series.contains(series)) {
+                series.addAflevering(episode);
+                this.series.add(series);
             } else {
-                int i = series.indexOf(serie);
-                series.get(i).addAflevering(episode);
+                int i = this.series.indexOf(series);
+                this.series.get(i).addAflevering(episode);
             }
-            episode.setSerie(serie);
+            episode.setSerie(series);
         }
     }
 

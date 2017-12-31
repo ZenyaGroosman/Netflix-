@@ -1,6 +1,6 @@
 package nl.avans.userInterfaces;
 
-import nl.avans.SelectedAccount;
+import nl.avans.misc.SelectedAccount;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

@@ -6,12 +6,10 @@ import java.util.ArrayList;
 public class Profile {
     private Date geboortedatum;
     private String profielnaam;
-    private ArrayList<WatchedProgram> watchedPrograms;
 
     public Profile(Date geboortedatum, String profielnaam) {
         this.geboortedatum = geboortedatum;
         this.profielnaam = profielnaam;
-        watchedPrograms = new ArrayList<>();
     }
 
     public Date getGeboortedatum() {
@@ -22,16 +20,6 @@ public class Profile {
         return profielnaam;
     }
 
-    public ArrayList<WatchedProgram> getWatchedPrograms() {
-        return watchedPrograms;
-    }
-
-    public void addProgram(WatchedProgram watchedProgram){
-        watchedPrograms.add(watchedProgram);
-    }
-    public void removeWatchedProgram(WatchedProgram watchedProgram){
-        watchedPrograms.remove(watchedProgram);
-    }
 
     @Override
     public boolean equals(Object obj) {

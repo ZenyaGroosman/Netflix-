@@ -1,6 +1,6 @@
 package nl.avans.userInterfaces.actionListener;
 
-import nl.avans.SelectedAccount;
+import nl.avans.misc.SelectedAccount;
 import nl.avans.sql.SQLHelper;
 
 import javax.swing.*;

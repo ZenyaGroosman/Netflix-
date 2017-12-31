@@ -1,4 +1,4 @@
-package nl.avans;
+package nl.avans.misc;
 
 import nl.avans.sql.Account;
 import nl.avans.sql.Profile;

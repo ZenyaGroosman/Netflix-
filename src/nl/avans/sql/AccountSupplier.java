@@ -12,6 +12,7 @@ import java.util.Iterator;
 public class AccountSupplier {
     private ArrayList<Account> accounts = new ArrayList<>();
     private SQLConnection sqlConnection;
+    private ArrayList<WatchedProgram> watchedPrograms = new ArrayList<>();
 
     public AccountSupplier(SQLConnection sqlConnection) {
         this.sqlConnection = sqlConnection;
@@ -46,12 +47,24 @@ public class AccountSupplier {
             }
             ResultSet watched = sqlConnection.executeSql("SELECT Gezien, Percentage FROM Profiel JOIN Bekeken ON Profiel.Profielnaam = Bekeken.Profielnaam AND Profiel.Abonneenummer = Bekeken.Abonneenummer WHERE Profiel.Abonneenummer = " + id + " AND Profiel.Profielnaam = '" + profileName + "'");
             while (watched.next()){
-                WatchedProgram watchedProgram = new WatchedProgram(watched.getInt("Percentage"), Main.programSupplier.getProgramById(watched.getInt("Gezien")));
-                profile.addProgram(watchedProgram);
+                WatchedProgram watchedProgram = new WatchedProgram(watched.getInt("Percentage"), Main.programSupplier.getProgramById(watched.getInt("Gezien")), profile);
+                watchedPrograms.add(watchedProgram);
             }
         }
 
 
+    }
+
+    public ArrayList<WatchedProgram> getWatchedPrograms() {
+        return watchedPrograms;
+    }
+
+    public void addWatchedPrograms(WatchedProgram watchedProgram) {
+        watchedPrograms.add(watchedProgram);
+    }
+
+    public void removeWatchedPrograms(WatchedProgram watchedProgram) {
+        watchedPrograms.remove(watchedProgram);
     }
 
     public ArrayList<Account> getAccounts() {

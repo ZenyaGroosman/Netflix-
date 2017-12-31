@@ -7,11 +7,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ClickListenerSideBarStatistix implements ActionListener {
+public class ClickListenerStatistixSideBar implements ActionListener {
     private Container container;
     private JFrame frame;
 
-    public ClickListenerSideBarStatistix(Container container, JFrame frame) {
+    /**
+     * This class is responsible for listening to the sidebar buttons. These buttons all cause the main part of the
+     * window to display the propper functions
+     * @param container
+     * @param frame
+     */
+    public ClickListenerStatistixSideBar(Container container, JFrame frame) {
         this.container = container;
         this.frame = frame;
     }
@@ -19,17 +25,10 @@ public class ClickListenerSideBarStatistix implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String button = ((JButton) e.getSource()).getText();
-        BorderLayout layout = (BorderLayout) container.getLayout();
-        Component component = layout.getLayoutComponent(BorderLayout.CENTER);
-        if (component != null)
-            container.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+        container.removeAll();
         switch (button) {
             case "Serie statestieken": {
-                container.add(createSeriesStats(), BorderLayout.CENTER);
-                break;
-            }
-            case "Film statestieken": {
-                container.add(createMovieStats(), BorderLayout.CENTER);
+                container.add(createSeriesStats());
                 break;
             }
         }
@@ -38,34 +37,6 @@ public class ClickListenerSideBarStatistix implements ActionListener {
 
     }
 
-
-    /**
-     * creates the panel for the movie stats
-     *
-     * @return the panel
-     */
-    private JPanel createMovieStats() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-
-        JPanel optionSelection = new JPanel();
-        optionSelection.setLayout(new BoxLayout(optionSelection, BoxLayout.Y_AXIS));
-
-        JPanel selectMovieOption = new JPanel();
-        selectMovieOption.setLayout(new BoxLayout(selectMovieOption, BoxLayout.X_AXIS));
-        selectMovieOption.add(new JLabel("Selecteer een functie"));
-        String[] series = new String[]{"Films kijkpercentage"};
-        JComboBox movieOptionList = new JComboBox<String>(series);
-        movieOptionList.addActionListener(new ClickListenerSelectMovieListener(optionSelection, frame));
-
-        selectMovieOption.add(movieOptionList);
-        optionSelection.add(selectMovieOption);
-        panel.add(optionSelection, BorderLayout.NORTH);
-        panel.add(new JLabel(), BorderLayout.CENTER);
-        movieOptionList.setSelectedIndex(0);
-
-        return panel;
-    }
 
     /**
      * creates the panel for the movie serie
