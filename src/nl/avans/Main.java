@@ -1,7 +1,7 @@
 package nl.avans;
 
 import nl.avans.sql.SqlConnection;
-
+import javax.swing.SwingUtilities;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -18,6 +18,8 @@ public class Main {
         ResultSet set = connection.executeSql("SELECT * FROM Film");
         printResultSet(set);
         connection.disconnectDatabase();
-    }
 
+
+                SwingUtilities.invokeLater(new AccountOverzicht());
+    }
 }
