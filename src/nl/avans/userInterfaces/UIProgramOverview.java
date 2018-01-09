@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.JScrollPane;
 
 
 public class UIProgramOverview extends UserInterfaceBase {
@@ -47,6 +48,7 @@ public class UIProgramOverview extends UserInterfaceBase {
         container.add(panel1, BorderLayout.CENTER);
 
 
+
 //       //SideButtons
 //
         JPanel subPanel = new JPanel();
@@ -58,19 +60,12 @@ public class UIProgramOverview extends UserInterfaceBase {
 
         gridsPanel.add(subPanel);
 
-        JButton button1 = new JButton("Films");
+        JButton button1 = new JButton("Films & Series");
         button1.setBackground(Color.red);
         button1.setForeground(Color.white);
 
-
-        JButton button2 = new JButton("Series");
-        button2.setBackground(Color.red);
-        button2.setForeground(Color.white);
-
         subPanel.add(button1);
-        subPanel.add(button2);
         subPanel.setBackground(Color.LIGHT_GRAY);
-
         container.add(gridsPanel, BorderLayout.WEST);
 
         // Add Shows and Movies
@@ -85,14 +80,17 @@ public class UIProgramOverview extends UserInterfaceBase {
             demoList.addElement(film.getGenre());
             demoList.addElement(film.getLanguage());
             demoList.addElement(film.getMinimumAge());
-            demoList.addElement(film.getDuration());
-        }
+            demoList.addElement(film.getDuration()); }
         JList filmList = new JList(demoList);
         filmList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         filmList.setLayoutOrientation(JList.VERTICAL);
         filmList.setVisibleRowCount(2);
         container.add(filmList, BorderLayout.CENTER);
         filmList.setBackground(Color.LIGHT_GRAY);
+        JScrollPane scrollPane = new JScrollPane(filmList);
+        scrollPane.setMaximumSize(new Dimension(100,50));
+        container.add(scrollPane);
+
 
 
         DefaultListModel demoList2 = new DefaultListModel();
@@ -109,6 +107,8 @@ public class UIProgramOverview extends UserInterfaceBase {
             serieList.setVisibleRowCount(2);
             container.add(serieList, BorderLayout.EAST);
             serieList.setBackground(Color.LIGHT_GRAY);
+
+
 
 
         }
