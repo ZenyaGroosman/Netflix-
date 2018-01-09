@@ -2,10 +2,13 @@ package nl.avans.userInterfaces;
 
 import nl.avans.Main;
 import nl.avans.sql.Film;
+import nl.avans.sql.Series;
+import nl.avans.userInterfaces.actionListener.ClickListenerProgramOverview;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
-import javax.swing.table.TableModel;
 
 
 public class UIProgramOverview extends UserInterfaceBase {
@@ -44,8 +47,8 @@ public class UIProgramOverview extends UserInterfaceBase {
         container.add(panel1, BorderLayout.CENTER);
 
 
-       //SideButtons
-
+//       //SideButtons
+//
         JPanel subPanel = new JPanel();
         JPanel gridsPanel = new JPanel();
 
@@ -78,13 +81,47 @@ public class UIProgramOverview extends UserInterfaceBase {
 
         DefaultListModel demoList = new DefaultListModel();
         for (Film film : Main.programSupplier.getFilms()){
-            demoList.addElement(film.getTitle()); }
-        JList serieList = new JList(demoList);
-        serieList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        serieList.setLayoutOrientation(JList.VERTICAL);
-        serieList.setVisibleRowCount(2);
-        container.add(serieList);
-        serieList.setBackground(Color.lightGray);
+            demoList.addElement(film.getTitle());
+            demoList.addElement(film.getGenre());
+            demoList.addElement(film.getLanguage());
+            demoList.addElement(film.getMinimumAge());
+            demoList.addElement(film.getDuration());
+        }
+        JList filmList = new JList(demoList);
+        filmList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        filmList.setLayoutOrientation(JList.VERTICAL);
+        filmList.setVisibleRowCount(2);
+        container.add(filmList, BorderLayout.CENTER);
+        filmList.setBackground(Color.LIGHT_GRAY);
+
+
+        DefaultListModel demoList2 = new DefaultListModel();
+        for (Series series : Main.programSupplier.getSeries()){
+            demoList2.addElement(series.getTitel());
+//          demoList.addElement(series.getAfleveringen());
+            demoList2.addElement(series.getGenre());
+            demoList2.addElement(series.getLeeftijdsindicatie());
+            demoList2.addElement(series.getLijktOp());
+            demoList2.addElement(series.getTaal());
+            JList serieList = new JList(demoList2);
+            serieList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+            serieList.setLayoutOrientation(JList.VERTICAL);
+            serieList.setVisibleRowCount(2);
+            container.add(serieList, BorderLayout.EAST);
+            serieList.setBackground(Color.LIGHT_GRAY);
+
+
+        }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -107,4 +144,8 @@ public class UIProgramOverview extends UserInterfaceBase {
 
 
     }
+
+        
+
+
 }
