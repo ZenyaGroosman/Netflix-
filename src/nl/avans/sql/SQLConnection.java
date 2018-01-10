@@ -2,7 +2,7 @@ package nl.avans.sql;
 
 import java.sql.*;
 
-public class SqlConnection {
+public class SQLConnection {
 
     private Connection connection = null;
 
@@ -28,6 +28,8 @@ public class SqlConnection {
             connection = null;
         }
     }
+
+
 
     public ResultSet executeSql(String sqlQuery) {
         ResultSet rs = null;

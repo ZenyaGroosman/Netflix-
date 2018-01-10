@@ -1,25 +1,40 @@
 package nl.avans;
 
-import nl.avans.sql.SqlConnection;
-import javax.swing.SwingUtilities;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
+import nl.avans.userInterfaces.UIAccountOverview;
+import nl.avans.userInterfaces.UserInterfaceBase;
+import nl.avans.sql.*;
+import nl.avans.userInterfaces.UserInterfaceStatistix;
+
+import javax.swing.*;
+import java.awt.*;
 import java.sql.SQLException;
 
-import static nl.avans.sql.SQLHelper.printResultSet;
-
-public class Main {
+public class Main{
+    public static ProgramSupplier programSupplier;
+    public static AccountSupplier accountSupplier;
 
     public static void main(String[] args) throws SQLException {
         // write your code here
 
-        SqlConnection connection = new SqlConnection();
+        SQLConnection connection = new SQLConnection();
         connection.connectDatabase("jdbc:sqlserver://statistixnetflix.database.windows.net:1433;database=Netflix;user=informatica@statistixnetflix;password=Avans12345;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
-        ResultSet set = connection.executeSql("SELECT * FROM Film");
-        printResultSet(set);
-        connection.disconnectDatabase();
+        SQLHelper.sqlConnection = connection;
+        programSupplier = new ProgramSupplier(connection);
+        programSupplier.makePrograms();
+        accountSupplier = new AccountSupplier(connection);
+        accountSupplier.makeAccounts();
+        JFrame jFrame = new JFrame("Netflix Statistix");
+        jFrame.setPreferredSize(new Dimension(900, 600));
 
+        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        UserInterfaceBase ui = new UserInterfaceStatistix(jFrame);
+        SwingUtilities.invokeLater(ui);
 
-                SwingUtilities.invokeLater(new AccountOverzicht());
+//        AccountSupplier accountSupplier = new AccountSupplier(connection);
+//        accountSupplier.makeAccounts();
+//        for (Account acc : accountSupplier.getAccounts())
+//            System.out.println(acc.getNaam());
+//        connection.disconnectDatabase();
     }
+
 }
