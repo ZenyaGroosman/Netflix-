@@ -11,11 +11,11 @@ import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 import java.util.Objects;
 
-public class ClickListenerStatistixSelectMovie implements ActionListener {
+public class ActionListenerStatistixSelectMovie implements ActionListener {
     private JPanel panel;
     private JFrame frame;
 
-    public ClickListenerStatistixSelectMovie(JPanel panel, JFrame frame) {
+    public ActionListenerStatistixSelectMovie(JPanel panel, JFrame frame) {
         this.panel = panel;
         this.frame = frame;
     }
@@ -41,7 +41,7 @@ public class ClickListenerStatistixSelectMovie implements ActionListener {
         panel.add(optionSelection, BorderLayout.NORTH);
         panel.add(new JLabel(), BorderLayout.CENTER);
         if (e.getSource() instanceof JButton){
-            movieOptionList.addActionListener(new ClickListenerStatistixSelectMovie(optionSelection, frame));
+            movieOptionList.addActionListener(new ActionListenerStatistixSelectMovie(optionSelection, frame));
             movieOptionList.setSelectedIndex(0);
         }
 
@@ -69,17 +69,6 @@ public class ClickListenerStatistixSelectMovie implements ActionListener {
      * adds all the elements to show movies restricted by ageLimit
      */
     private void createMovieByAgeLimit(){
-        JPanel selectMovie = new JPanel();
-        selectMovie.setLayout(new BoxLayout(selectMovie, BoxLayout.X_AXIS));
-        selectMovie.add(new JLabel("Kies een film: "));
-        String[] Movies = new String[Main.programSupplier.getFilms().size()];
-        for (int i = 0; i < Main.programSupplier.getFilms().size(); i++) {
-            Movies[i] = Main.programSupplier.getFilms().get(i).getTitle();
-        }
-
-        JComboBox seriesList = new JComboBox<String>(Movies);
-        selectMovie.add(seriesList);
-        panel.add(selectMovie);
 
 
         JPanel panelLabelAndTextField = new JPanel();
@@ -87,19 +76,20 @@ public class ClickListenerStatistixSelectMovie implements ActionListener {
 
         JLabel jLabel = new JLabel("Vul leeftijdslimiet in: ");
         panelLabelAndTextField.add(jLabel);
-        NumberFormat longFormat = NumberFormat.getIntegerInstance();
 
+        //Number restricted text field
+        NumberFormat longFormat = NumberFormat.getIntegerInstance();
         CustomNumberFormatter numberFormatter = new CustomNumberFormatter(longFormat);
-        numberFormatter.setValueClass(Integer.class); //optional, ensures you will always get a long value
-        numberFormatter.setAllowsInvalid(false); //this is the key!!
+        numberFormatter.setValueClass(Integer.class);
+        numberFormatter.setAllowsInvalid(false);
 
         JFormattedTextField limit = new JFormattedTextField(numberFormatter);
-
-        panelLabelAndTextField.add(limit);
-
         JPanel resultGrid = new JPanel();
+        limit.addActionListener(new ActionListenerStatistixMovieAge(limit, resultGrid, frame));
+        panelLabelAndTextField.add(limit);
+        limit.setValue(18);
+        //End number restricted text field
 
-        seriesList.setSelectedIndex(0);
         panel.add(panelLabelAndTextField);
         panel.add(resultGrid);
     }
@@ -134,9 +124,9 @@ public class ClickListenerStatistixSelectMovie implements ActionListener {
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
         JPanel resultGrid = new JPanel();
-        seriesList.addActionListener(new ClickListenerStatistixPercentageChange(limit, slider, frame, resultGrid, seriesList));
-        slider.addChangeListener(new ClickListenerStatistixPercentageChange(limit, slider, frame, resultGrid, seriesList));
-        limit.addActionListener(new ClickListenerStatistixPercentageChange(limit, slider, frame, resultGrid, seriesList));
+        seriesList.addActionListener(new ActionListenerStatistixMoviePercentage(limit, slider, frame, resultGrid, seriesList));
+        slider.addChangeListener(new ActionListenerStatistixMoviePercentage(limit, slider, frame, resultGrid, seriesList));
+        limit.addActionListener(new ActionListenerStatistixMoviePercentage(limit, slider, frame, resultGrid, seriesList));
         seriesList.setSelectedIndex(0);
         slider.setToolTipText("Selecteer percentage");
         panel.add(panelLabelAndCombobox);

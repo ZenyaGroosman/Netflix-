@@ -1,13 +1,14 @@
 package nl.avans.userInterfaces.actionListener;
 
 import nl.avans.Main;
+import nl.avans.sql.Account;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ClickListenerStatistixSideBar implements ActionListener {
+public class ActionListenerStatistixSideBar implements ActionListener {
     private Container container;
     private JFrame frame;
 
@@ -17,7 +18,7 @@ public class ClickListenerStatistixSideBar implements ActionListener {
      * @param container
      * @param frame
      */
-    public ClickListenerStatistixSideBar(Container container, JFrame frame) {
+    public ActionListenerStatistixSideBar(Container container, JFrame frame) {
         this.container = container;
         this.frame = frame;
     }
@@ -61,6 +62,17 @@ public class ClickListenerStatistixSideBar implements ActionListener {
         selectSeries.add(seriesList);
         buttonsAndSelect.add(selectSeries);
 
+        JPanel selectAccount = new JPanel();
+        selectAccount.setLayout(new BoxLayout(selectAccount, BoxLayout.X_AXIS));
+        selectAccount.add(new JLabel("Selecteer een account"));
+        Account[] accounts = new Account[Main.accountSupplier.getAccounts().size() + 1];
+        accounts[0] = new Account(0, "Alle accounts", "", "", 0, "");
+        for (int i = 0; i < Main.accountSupplier.getAccounts().size(); i++) {
+            accounts[i + 1] = Main.accountSupplier.getAccounts().get(i);
+        }
+        JComboBox<Account> accountList = new JComboBox<Account>(accounts);
+        selectAccount.add(accountList);
+        buttonsAndSelect.add(selectAccount);
 
         JPanel selectFunctions = new JPanel();
         selectFunctions.setLayout(new GridLayout(1, 2));
@@ -71,7 +83,7 @@ public class ClickListenerStatistixSideBar implements ActionListener {
         panel.add(buttonsAndSelect, BorderLayout.NORTH);
         JPanel resultGrid = new JPanel();
         panel.add(resultGrid, BorderLayout.CENTER);
-        watchPercentage.addActionListener(new ClickListenerStatistixSerie(resultGrid, seriesList, frame));
+        watchPercentage.addActionListener(new ActionListenerStatistixSerie(resultGrid, seriesList,accountList, frame));
 
         return panel;
     }
