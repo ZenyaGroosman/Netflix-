@@ -1,9 +1,7 @@
 package nl.avans;
 
-import nl.avans.userInterfaces.UIAccountOverview;
-import nl.avans.userInterfaces.UserInterfaceBase;
+import nl.avans.userInterfaces.*;
 import nl.avans.sql.*;
-import nl.avans.userInterfaces.UserInterfaceStatistix;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +25,7 @@ public class Main{
         jFrame.setPreferredSize(new Dimension(900, 600));
 
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        UserInterfaceBase ui = new UIAccountOverview(jFrame);
+        UserInterfaceBase ui = new UIProfielOverview(jFrame);
         SwingUtilities.invokeLater(ui);
 
 //        AccountSupplier accountSupplier = new AccountSupplier(connection);

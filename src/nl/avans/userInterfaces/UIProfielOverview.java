@@ -8,16 +8,16 @@ import nl.avans.sql.Account;
 import javax.swing.*;
 import java.awt.*;
 
-public class UIAccountOverview extends UserInterfaceBase{
-    public UIAccountOverview(JFrame jFrame){
+public class UIProfielOverview extends UserInterfaceBase{
+    public UIProfielOverview(JFrame jFrame){
         super (jFrame);
     }
 
     @Override
     public void run() {
-    createComponents(getFrame().getContentPane());
-    getFrame().pack();
-    getFrame().setVisible(true);
+        createComponents(getFrame().getContentPane());
+        getFrame().pack();
+        getFrame().setVisible(true);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class UIAccountOverview extends UserInterfaceBase{
 
         titel(panel);
         panel.add(new JLabel(" "), BorderLayout.WEST);
-        accounts(panel);
+
         panel.add(new JLabel(" "), BorderLayout.EAST);
 
         buttons(panel);
@@ -45,7 +45,7 @@ public class UIAccountOverview extends UserInterfaceBase{
         panel.setLayout(new BorderLayout());
         panel.add(grid, BorderLayout.NORTH);
 
-        JLabel label = new JLabel("Account Overzicht");
+        JLabel label = new JLabel("Profiel Overzicht");
 
         label.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -56,25 +56,6 @@ public class UIAccountOverview extends UserInterfaceBase{
         label.setFont(f);
     }
 
-    private void accounts(Container container) {
-        DefaultListModel AccountList = new DefaultListModel();
-        JPanel grid = new JPanel();
-        grid.setLayout(new GridLayout(1, 5));
-
-        for (Account account : Main.accountSupplier.getAccounts()) {
-            AccountList.addElement(account.getNaam() + " (" + account.getId() + ")");
-        }
-
-        JList accountList = new JList(AccountList);
-        accountList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        accountList.setLayoutOrientation(JList.VERTICAL);
-
-        grid.add(accountList);
-
-        accountList.setBackground(Color.LIGHT_GRAY);
-
-        container.add(grid);
-    }
 
     private void buttons(Container container){
         JPanel grid = new JPanel();
@@ -118,7 +99,12 @@ public class UIAccountOverview extends UserInterfaceBase{
     }
 
     private void edit (Container container) {
+       JButton edit = new JButton("edit");
 
+       edit.setBackground(Color.red);
+       edit.setForeground(Color.white);
+
+       container.add(edit);
 
     }
 }
