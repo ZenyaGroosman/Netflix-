@@ -1,7 +1,10 @@
 package nl.avans.userInterfaces.actionListener;
 
+import nl.avans.Main;
 import nl.avans.misc.SelectedAccount;
+import nl.avans.sql.Account;
 import nl.avans.sql.SQLHelper;
+import nl.avans.sql.Series;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -12,23 +15,32 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ClickListenerStatistixSerie implements ActionListener {
+public class ActionListenerStatistixSerie implements ActionListener {
     private JPanel panel;
     private JComboBox<String> seriesList;
+    private JComboBox accountList;
     private JFrame frame;
 
-    public ClickListenerStatistixSerie(JPanel panel, JComboBox seriesList, JFrame frame) {
+    public ActionListenerStatistixSerie(JPanel panel, JComboBox seriesList, JComboBox accountList, JFrame frame) {
         this.panel = panel;
         this.seriesList = seriesList;
+        this.accountList = accountList;
         this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        Account account = (Account) accountList.getSelectedItem();
+        String accountQuerry = "";
+        if (!account.getNaam().equals("Alle accounts")){
+            accountQuerry = "AND Bekeken.Abonneenummer = '" + account.getId() + "' ";
+        }
 
         try {
             panel.removeAll();
-            ResultSet set = SQLHelper.sqlConnection.executeSql("SELECT Aflevering.Seizoen, Programma.Titel, AVG(Percentage) AS 'Percentage' FROM Aflevering LEFT JOIN Bekeken ON Aflevering.Id = Bekeken.Gezien LEFT JOIN Programma ON Programma.Id = Aflevering.Id WHERE Aflevering.Serie = '" + seriesList.getSelectedItem() + "' GROUP BY Programma.Titel, Aflevering.Seizoen ORDER BY Aflevering.Seizoen;");
+
+
+            ResultSet set = SQLHelper.sqlConnection.executeSql("SELECT Aflevering.Seizoen, Programma.Titel, AVG(Percentage) AS 'Percentage' FROM Aflevering LEFT JOIN Bekeken ON Aflevering.Id = Bekeken.Gezien " + accountQuerry + " LEFT JOIN Programma ON Programma.Id = Aflevering.Id WHERE Aflevering.Serie = '" + seriesList.getSelectedItem() + "' GROUP BY Programma.Titel, Aflevering.Seizoen ORDER BY Aflevering.Seizoen;");
             int rows = 0;
             ArrayList<String> strings = new ArrayList<>();
             if (set != null) {
@@ -41,30 +53,16 @@ public class ClickListenerStatistixSerie implements ActionListener {
                 }
             }
 
-            ResultSet average = SQLHelper.sqlConnection.executeSql("SELECT AVG(Percentage) AS 'Percentage' FROM Aflevering JOIN Bekeken ON Aflevering.Id = Bekeken.Gezien WHERE Aflevering.Serie = '" + seriesList.getSelectedItem() + "' GROUP BY Aflevering.Serie;");
+            ResultSet average = SQLHelper.sqlConnection.executeSql("SELECT AVG(Percentage) AS 'Percentage' FROM Aflevering JOIN Bekeken ON Aflevering.Id = Bekeken.Gezien " + accountQuerry + " WHERE Aflevering.Serie = '" + seriesList.getSelectedItem() + "' GROUP BY Aflevering.Serie;");
             strings.add("Totaal");
             strings.add("Volledige Serie");
-            if (average != null) {
-                average.next();
+            if (average != null && average.next()) {
                 String percentage = average.getString("Percentage");
                 strings.add((percentage != null) ? percentage + "%" : "Nog niet bekeken");
 
                 rows++;
-            }
-            if (SelectedAccount.getSelectedAccount() != null) {
-                ResultSet averageAccount = SQLHelper.sqlConnection.executeSql("SELECT ISNULL(AVG(Percentage), null) AS 'Percentage' FROM Aflevering LEFT JOIN Bekeken ON Aflevering.Id = Bekeken.Gezien WHERE Aflevering.Serie = '" + seriesList.getSelectedItem() + "' AND Bekeken.Abonneenummer = " + SelectedAccount.getSelectedAccount().getId() + " GROUP BY Bekeken.Abonneenummer;");
-                strings.add("Totaal");
-                strings.add("Voor geselecteerd account");
-                if (averageAccount != null) {
-                    averageAccount.next();
-                    String percentage = average.getString("Percentage");
-                    strings.add((percentage != null) ? percentage + "%" : "Nog niet bekeken door dit account");
-                }
-                rows++;
             } else {
-                strings.add("Totaal");
-                strings.add("Voor geselecteerd account");
-                strings.add("Geen account geselecteerd");
+                strings.add("Nog niet bekeken");
                 rows++;
             }
 

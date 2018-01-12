@@ -12,14 +12,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class ClickListenerStatistixPercentageChange implements ActionListener, ChangeListener {
+public class ActionListenerStatistixMoviePercentage implements ActionListener, ChangeListener {
     private JComboBox<String> limit;
     private JSlider slider;
     private JFrame frame;
     private JPanel panel;
     private JComboBox seriesList;
 
-    public ClickListenerStatistixPercentageChange(JComboBox<String> limit, JSlider slider, JFrame frame, JPanel panel, JComboBox seriesList) {
+    public ActionListenerStatistixMoviePercentage(JComboBox<String> limit, JSlider slider, JFrame frame, JPanel panel, JComboBox seriesList) {
         this.limit = limit;
         this.slider = slider;
         this.frame = frame;

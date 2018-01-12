@@ -1,11 +1,12 @@
 package nl.avans.userInterfaces;
 
 import nl.avans.misc.SelectedAccount;
-import nl.avans.userInterfaces.actionListener.ClickListenerStatistixSelectMovie;
-import nl.avans.userInterfaces.actionListener.ClickListenerStatistixSideBar;
+import nl.avans.userInterfaces.actionListener.ActionListenerStatistixSelectMovie;
+import nl.avans.userInterfaces.actionListener.ActionListenerStatistixSideBar;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class UserInterfaceStatistix extends UserInterfaceBase {
     public UserInterfaceStatistix(JFrame jFrame) {
@@ -45,24 +46,14 @@ public class UserInterfaceStatistix extends UserInterfaceBase {
         center.setLayout(new BorderLayout());
 
         JButton seriesStats = new JButton("Serie statestieken");
-        seriesStats.addActionListener(new ClickListenerStatistixSideBar(center, getFrame()));
+        seriesStats.addActionListener(new ActionListenerStatistixSideBar(center, getFrame()));
         panel.add(seriesStats);
         JButton movieStatistix = new JButton("Film statestieken");
-        movieStatistix.addActionListener(new ClickListenerStatistixSelectMovie(center, getFrame()));
+        movieStatistix.addActionListener(new ActionListenerStatistixSelectMovie(center, getFrame()));
         panel.add(movieStatistix);
-        JButton accountStatistix = new JButton("Account statestieken");
-        accountStatistix.addActionListener(new ClickListenerStatistixSideBar(center, getFrame()));
-        panel.add(accountStatistix);
-        JButton personalStat = new JButton("Persoonlijke statestieken");
-        personalStat.addActionListener(new ClickListenerStatistixSideBar(center, getFrame()));
-        if (SelectedAccount.getSelectedAccount() == null)
-            personalStat.setEnabled(false);
-        panel.add(personalStat);
         grid.add(panel);
 
         container.add(center, BorderLayout.CENTER);
         return grid;
     }
-
-
 }

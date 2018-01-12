@@ -5,11 +5,14 @@ import nl.avans.misc.SelectedAccount;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public abstract class UserInterfaceBase implements Runnable{
+public abstract class UserInterfaceBase implements Runnable {
+
+
     private JFrame jFrame;
 
     public UserInterfaceBase(JFrame jFrame){
@@ -42,6 +45,12 @@ public abstract class UserInterfaceBase implements Runnable{
         watchedPrograms.setForeground(Color.white);
         stats.setBackground(Color.red);
         stats.setForeground(Color.white);
+        programs.addActionListener( e ->changePage(EnumPages.PROGRAMS));
+        account.addActionListener( e ->changePage(EnumPages.ACCOUNTS));
+        profile.addActionListener( e ->changePage(EnumPages.PROFILES));
+        watchedPrograms.addActionListener( e ->changePage(EnumPages.WATCHED_PRAGRAMS));
+        stats.addActionListener( e ->changePage(EnumPages.STATISTIX));
+
 
         if (SelectedAccount.getSelectedAccount() == null)
             profile.setEnabled(false);
@@ -52,6 +61,8 @@ public abstract class UserInterfaceBase implements Runnable{
         panel.add(programs);
         panel.add(watchedPrograms);
         panel.add(stats);
+
+
         return panel;
     }
     public JPanel createFooter(){
@@ -74,5 +85,33 @@ public abstract class UserInterfaceBase implements Runnable{
         panel.add(picLabel);
         panel.add(jLabel);
         return panel;
+    }
+
+    /*
+    * This method empties the current content pane and fills it with the content of the next selected page.
+    */
+    private void changePage(EnumPages pages){
+        UserInterfaceBase userInterfaceBase = null;
+        jFrame.setContentPane(new Container());
+        switch (pages){
+            case PROFILES:
+//                userInterfaceBase = new UIProfiles(temp);
+                break;
+            case PROGRAMS:
+                userInterfaceBase = new UIProgramOverview(jFrame);
+                break;
+            case WATCHED_PRAGRAMS:
+                userInterfaceBase = new UIWatchedShows(jFrame);
+                break;
+            case STATISTIX:
+                userInterfaceBase = new UserInterfaceStatistix(jFrame);
+                break;
+            default:
+                userInterfaceBase = new UIAccountOverview(jFrame);
+                break;
+        }
+        userInterfaceBase.run();
+        jFrame.repaint();
+        jFrame.revalidate();
     }
 }

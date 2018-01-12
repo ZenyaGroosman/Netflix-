@@ -27,7 +27,7 @@ public class Main{
         jFrame.setPreferredSize(new Dimension(900, 600));
 
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        UserInterfaceBase ui = new UserInterfaceStatistix(jFrame);
+        UserInterfaceBase ui = new UIAccountOverview(jFrame);
         SwingUtilities.invokeLater(ui);
 
 //        AccountSupplier accountSupplier = new AccountSupplier(connection);

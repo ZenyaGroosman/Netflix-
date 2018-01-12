@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 public class Account {
     private int id;
-    private String naam;
+    private String name;
     private String street;
     private String postcode;
     private int houseNumber;
     private String place;
     private ArrayList<Profile> profiles;
 
-    public Account(int id, String naam, String street, String postcode, int housenumber, String place) {
+    public Account(int id, String name, String street, String postcode, int housenumber, String place) {
         this.id = id;
-        this.naam = naam;
+        this.name = name;
         this.street = street;
         this.postcode = postcode;
         this.houseNumber = housenumber;
@@ -26,7 +26,7 @@ public class Account {
     }
 
     public String getNaam() {
-        return naam;
+        return name;
     }
 
     public String getStreet() {
@@ -70,5 +70,10 @@ public class Account {
     @Override
     public boolean equals(Object obj) {
         return obj instanceof Account && ((Account) obj).id == this.id;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

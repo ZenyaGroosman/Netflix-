@@ -4,12 +4,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ClickListenerStatistixMovie implements ActionListener {
+public class ActionListenerStatistixMovie implements ActionListener {
     private JPanel panel;
     private JComboBox<String> movieList;
     private JFrame frame;
 
-    public ClickListenerStatistixMovie(JPanel panel, JComboBox movieList, JFrame frame) {
+    public ActionListenerStatistixMovie(JPanel panel, JComboBox movieList, JFrame frame) {
         this.panel = panel;
         this.movieList = movieList;
         this.frame = frame;
