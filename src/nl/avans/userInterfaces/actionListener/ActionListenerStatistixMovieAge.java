@@ -30,6 +30,7 @@ public class ActionListenerStatistixMovieAge implements ActionListener {
         panel.removeAll();
         int age = (int)limit.getValue();
 
+        //goes through all the movies to see if they fit the age limit
         ArrayList<Film> moviesFitToAge = new ArrayList<>();
 
         for (Film movie : Main.programSupplier.getFilms()) {
@@ -38,6 +39,7 @@ public class ActionListenerStatistixMovieAge implements ActionListener {
             }
         }
 
+        //maps the data into a 2d array
         int finalRows = moviesFitToAge.size();
         String[][] strings2d = new String[finalRows][2];
         int i = 0;
@@ -48,6 +50,7 @@ public class ActionListenerStatistixMovieAge implements ActionListener {
             i++;
         }
 
+        //models the data into a table
         TableModel dataModel = new AbstractTableModel() {
             public int getColumnCount() {
                 return 2;
@@ -76,6 +79,7 @@ public class ActionListenerStatistixMovieAge implements ActionListener {
         };
         JTable table = new JTable(dataModel);
         JScrollPane scrollPane = new JScrollPane(table);
+        table.setEnabled(false);
         panel.add(scrollPane);
         frame.repaint();
         frame.revalidate();

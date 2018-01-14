@@ -8,31 +8,27 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ActionListenerStatistixSideBar implements ActionListener {
+public class ActionListenerStatistixSerieStats implements ActionListener {
     private Container container;
     private JFrame frame;
 
     /**
      * This class is responsible for listening to the sidebar buttons. These buttons all cause the main part of the
      * window to display the propper functions
+     *
      * @param container
      * @param frame
      */
-    public ActionListenerStatistixSideBar(Container container, JFrame frame) {
+    public ActionListenerStatistixSerieStats(Container container, JFrame frame) {
         this.container = container;
         this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String button = ((JButton) e.getSource()).getText();
         container.removeAll();
-        switch (button) {
-            case "Serie statestieken": {
-                container.add(createSeriesStats());
-                break;
-            }
-        }
+        container.add(createSeriesStats());
+
         frame.repaint();
         frame.revalidate();
 
@@ -40,7 +36,7 @@ public class ActionListenerStatistixSideBar implements ActionListener {
 
 
     /**
-     * creates the panel for the movie serie
+     * creates the panel for the serie stats
      *
      * @return the panel
      */
@@ -51,6 +47,7 @@ public class ActionListenerStatistixSideBar implements ActionListener {
         JPanel buttonsAndSelect = new JPanel();
         buttonsAndSelect.setLayout(new BoxLayout(buttonsAndSelect, BoxLayout.Y_AXIS));
 
+        //creates a combo box with all series
         JPanel selectSeries = new JPanel();
         selectSeries.setLayout(new BoxLayout(selectSeries, BoxLayout.X_AXIS));
         selectSeries.add(new JLabel("Selecteer een serie"));
@@ -62,6 +59,7 @@ public class ActionListenerStatistixSideBar implements ActionListener {
         selectSeries.add(seriesList);
         buttonsAndSelect.add(selectSeries);
 
+        //creates a combo box with all accounts
         JPanel selectAccount = new JPanel();
         selectAccount.setLayout(new BoxLayout(selectAccount, BoxLayout.X_AXIS));
         selectAccount.add(new JLabel("Selecteer een account"));
@@ -74,16 +72,18 @@ public class ActionListenerStatistixSideBar implements ActionListener {
         selectAccount.add(accountList);
         buttonsAndSelect.add(selectAccount);
 
+        //creates a button for the average watch percentages
         JPanel selectFunctions = new JPanel();
         selectFunctions.setLayout(new GridLayout(1, 2));
         JButton watchPercentage = new JButton("Gemiddelde kijkpercentages");
-        selectFunctions.add(new JLabel());
+        selectFunctions.add(new JLabel()); //makes it so the button is on the right
         selectFunctions.add(watchPercentage);
+
         buttonsAndSelect.add(selectFunctions);
         panel.add(buttonsAndSelect, BorderLayout.NORTH);
         JPanel resultGrid = new JPanel();
         panel.add(resultGrid, BorderLayout.CENTER);
-        watchPercentage.addActionListener(new ActionListenerStatistixSerie(resultGrid, seriesList,accountList, frame));
+        watchPercentage.addActionListener(new ActionListenerStatistixSerie(resultGrid, seriesList, accountList, frame));
 
         return panel;
     }

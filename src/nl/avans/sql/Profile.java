@@ -1,28 +1,40 @@
 package nl.avans.sql;
 
 import java.sql.Date;
-import java.util.ArrayList;
 
+//This class is responsable for keeping track of all the data about profiles
 public class Profile {
-    private Date geboortedatum;
-    private String profielnaam;
+    private Date birthDate;
+    private String profileName;
+    private Account account;
 
-    public Profile(Date geboortedatum, String profielnaam) {
-        this.geboortedatum = geboortedatum;
-        this.profielnaam = profielnaam;
+    public Profile(Date birthDate, String profileName, Account account) {
+        this.birthDate = birthDate;
+        this.profileName = profileName;
+
+        this.account = account;
     }
 
-    public Date getGeboortedatum() {
-        return geboortedatum;
+    public Date getBirthday() {
+        return birthDate;
     }
 
-    public String getProfielnaam() {
-        return profielnaam;
+    public String getProfileName() {
+        return profileName;
     }
 
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Profile && ((Profile) obj).profielnaam.equals(profielnaam);
+        return obj instanceof Profile && ((Profile) obj).profileName.equals(profileName);
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    @Override
+    public String toString() {
+        return profileName;
     }
 }
