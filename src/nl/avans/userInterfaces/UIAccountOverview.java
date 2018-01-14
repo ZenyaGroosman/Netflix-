@@ -64,15 +64,15 @@ public class UIAccountOverview extends UserInterfaceBase{
     }
 
     public void accounts(Container container) {
-        DefaultListModel AccountList = new DefaultListModel();
+        account = new DefaultListModel();
         JPanel grid = new JPanel();
         grid.setLayout(new GridLayout(1, 5));
 
-        for (Account account : Main.accountSupplier.getAccounts()) {
-            AccountList.addElement(account);
+        for (Account account2 : Main.accountSupplier.getAccounts()) {
+            account.addElement(account2);
         }
 
-        accounts = new JList(AccountList);
+        accounts = new JList(account);
         accounts.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         accounts.setLayoutOrientation(JList.VERTICAL);
 

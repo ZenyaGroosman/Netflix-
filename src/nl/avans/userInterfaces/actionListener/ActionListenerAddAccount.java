@@ -22,8 +22,5 @@ public class ActionListenerAddAccount implements ActionListener{
         Account account = (Account)accountList.getSelectedValue();
 
         new PopuppAddAccount(accountList, accounts);
-
-
-
      }
 }

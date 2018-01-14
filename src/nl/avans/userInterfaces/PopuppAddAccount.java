@@ -3,16 +3,10 @@ package nl.avans.userInterfaces;
 import java.awt.*;
 import java.text.NumberFormat;
 import javax.swing.*;
-import javax.swing.border.Border;
+
 import nl.avans.Main;
 import nl.avans.misc.CustomNumberFormatter;
 import nl.avans.sql.Account;
-import nl.avans.userInterfaces.actionListener.ActionListenerAddAccount;
-import nl.avans.userInterfaces.actionListener.ActionListenerAddAccountToDatabase;
-import nl.avans.userInterfaces.actionListener.ActionListenerDeleteAccount;
-
-import nl.avans.sql.Account;
-import nl.avans.sql.Film;
 
 public class PopuppAddAccount extends JFrame {
 
@@ -84,9 +78,20 @@ public class PopuppAddAccount extends JFrame {
                     id = account.getId();
             }
             id++;
+
+            System.out.println(name.getText());
+            System.out.println(id);
+            System.out.println(street.getText());
+
+            System.out.println(postalcode.getText());
+            System.out.println(housenumber.getValue());
+            System.out.println(place.getText());
+
             Account account = new Account(id, name.getText(), street.getText(), postalcode.getText(), (int)housenumber.getValue(), place.getText());
             this.accounts.addElement(account);
             Main.accountSupplier.createAccount(account);
+
+            dispose();
         });
     }
 }
