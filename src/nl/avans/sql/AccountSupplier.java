@@ -22,7 +22,7 @@ public class AccountSupplier {
 
     //this function fetches all the data about accounts, profiles and watched programs from the database and creates objects containing that data
     public void makeAccounts() throws SQLException {
-        ResultSet accountsAndProfiles = sqlConnection.executeSql("SELECT * FROM Profiel LEFT JOIN Account ON Account.Abonneenummer = Profiel.Abonneenummer;");
+        ResultSet accountsAndProfiles = sqlConnection.executeSql("SELECT Account.Abonneenummer, Naam, Straat, Postcode, Plaats, Huisnummer, Geboortedatum, Profielnaam FROM Profiel FULL JOIN Account ON Account.Abonneenummer = Profiel.Abonneenummer;");
 
         while (accountsAndProfiles.next()) {
 
