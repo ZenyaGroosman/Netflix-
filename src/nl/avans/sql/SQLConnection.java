@@ -11,7 +11,7 @@ public class SQLConnection {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             this.connection = DriverManager.getConnection(connectionUrl);
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             connection = null;
             return false;
         }

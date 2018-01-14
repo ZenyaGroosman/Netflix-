@@ -5,7 +5,6 @@ import nl.avans.misc.SelectedAccount;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +14,7 @@ public abstract class UserInterfaceBase implements Runnable {
 
     private JFrame jFrame;
 
-    public UserInterfaceBase(JFrame jFrame){
+    public UserInterfaceBase(JFrame jFrame) {
 
         this.jFrame = jFrame;
     }
@@ -45,16 +44,16 @@ public abstract class UserInterfaceBase implements Runnable {
         watchedPrograms.setForeground(Color.white);
         stats.setBackground(Color.red);
         stats.setForeground(Color.white);
-        programs.addActionListener( e ->changePage(EnumPages.PROGRAMS));
-        account.addActionListener( e ->changePage(EnumPages.ACCOUNTS));
-        profile.addActionListener( e ->changePage(EnumPages.PROFILES));
-        watchedPrograms.addActionListener( e ->changePage(EnumPages.WATCHED_PRAGRAMS));
-        stats.addActionListener( e ->changePage(EnumPages.STATISTIX));
+        programs.addActionListener(e -> changePage(EnumPages.PROGRAMS));
+        account.addActionListener(e -> changePage(EnumPages.ACCOUNTS));
+        profile.addActionListener(e -> changePage(EnumPages.PROFILES));
+        watchedPrograms.addActionListener(e -> changePage(EnumPages.WATCHED_PRAGRAMS));
+        stats.addActionListener(e -> changePage(EnumPages.STATISTIX));
 
 
         if (SelectedAccount.getSelectedAccount() == null)
             profile.setEnabled(false);
-        if (SelectedAccount.getSelectedProfiel() == null)
+        if (SelectedAccount.getSelectedProfile() == null)
             watchedPrograms.setEnabled(false);
         panel.add(account);
         panel.add(profile);
@@ -65,7 +64,8 @@ public abstract class UserInterfaceBase implements Runnable {
 
         return panel;
     }
-    public JPanel createFooter(){
+
+    public JPanel createFooter() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
 
@@ -90,10 +90,10 @@ public abstract class UserInterfaceBase implements Runnable {
     /*
     * This method empties the current content pane and fills it with the content of the next selected page.
     */
-    private void changePage(EnumPages pages){
+    private void changePage(EnumPages pages) {
         UserInterfaceBase userInterfaceBase = null;
         jFrame.setContentPane(new Container());
-        switch (pages){
+        switch (pages) {
             case PROFILES:
 //                userInterfaceBase = new UIProfiles(temp);
                 break;

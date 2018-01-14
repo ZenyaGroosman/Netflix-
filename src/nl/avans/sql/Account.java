@@ -2,6 +2,7 @@ package nl.avans.sql;
 
 import java.util.ArrayList;
 
+//this class keeps track of all the information about accounts
 public class Account {
     private int id;
     private String name;
@@ -11,12 +12,12 @@ public class Account {
     private String place;
     private ArrayList<Profile> profiles;
 
-    public Account(int id, String name, String street, String postcode, int housenumber, String place) {
+    public Account(int id, String name, String street, String postcode, int houseNumber, String place) {
         this.id = id;
         this.name = name;
         this.street = street;
         this.postcode = postcode;
-        this.houseNumber = housenumber;
+        this.houseNumber = houseNumber;
         this.place = place;
         profiles = new ArrayList<>();
     }

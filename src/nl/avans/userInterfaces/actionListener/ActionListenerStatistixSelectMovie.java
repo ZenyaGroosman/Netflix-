@@ -30,6 +30,7 @@ public class ActionListenerStatistixSelectMovie implements ActionListener {
         JPanel optionSelection = new JPanel();
         optionSelection.setLayout(new BoxLayout(optionSelection, BoxLayout.Y_AXIS));
 
+        //creates a combobox with all statistical functions
         JPanel selectMovieOption = new JPanel();
         selectMovieOption.setLayout(new BoxLayout(selectMovieOption, BoxLayout.X_AXIS));
         selectMovieOption.add(new JLabel("Selecteer een functie"));
@@ -40,6 +41,8 @@ public class ActionListenerStatistixSelectMovie implements ActionListener {
         optionSelection.add(selectMovieOption);
         panel.add(optionSelection, BorderLayout.NORTH);
         panel.add(new JLabel(), BorderLayout.CENTER);
+        //checks if the source is from the button or from the combobox
+        // to avoid an infinite loop
         if (e.getSource() instanceof JButton){
             movieOptionList.addActionListener(new ActionListenerStatistixSelectMovie(optionSelection, frame));
             movieOptionList.setSelectedIndex(0);
@@ -50,6 +53,8 @@ public class ActionListenerStatistixSelectMovie implements ActionListener {
             movieOptionList.setSelectedItem(comboBox.getSelectedItem());
             movieOptionList.addActionListener(this);
             panel.add(selectMovieOption);
+
+            //switch for checking witch function is selected
             switch ((String) Objects.requireNonNull(comboBox.getSelectedItem())) {
                 case "Kijkpercentage": {
                     createMovieByWatchPercentage();
@@ -70,7 +75,6 @@ public class ActionListenerStatistixSelectMovie implements ActionListener {
      */
     private void createMovieByAgeLimit(){
 
-
         JPanel panelLabelAndTextField = new JPanel();
         panelLabelAndTextField.setLayout(new BoxLayout(panelLabelAndTextField, BoxLayout.X_AXIS));
 
@@ -87,7 +91,7 @@ public class ActionListenerStatistixSelectMovie implements ActionListener {
         JPanel resultGrid = new JPanel();
         limit.addActionListener(new ActionListenerStatistixMovieAge(limit, resultGrid, frame));
         panelLabelAndTextField.add(limit);
-        limit.setValue(18);
+        limit.setValue(0);
         //End number restricted text field
 
         panel.add(panelLabelAndTextField);

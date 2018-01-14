@@ -1,5 +1,6 @@
 package nl.avans.sql;
 
+//this class contains all the data for watched programs
 public class WatchedProgram {
     private int percentage;
     private Program program;

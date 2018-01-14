@@ -43,6 +43,7 @@ public class ActionListenerStatistixMoviePercentage implements ActionListener, C
         String minOrMax = limit.getSelectedItem().toString();
         String movie = seriesList.getSelectedItem().toString();
 
+        //makes a list of watched programs based on the percentage
         ArrayList<WatchedProgram> watchedProgramsFitToPercentage = new ArrayList<>();
 
         for (WatchedProgram watchedProgram : Main.accountSupplier.getWatchedPrograms()) {
@@ -51,11 +52,12 @@ public class ActionListenerStatistixMoviePercentage implements ActionListener, C
             }
         }
 
+        //fills a 2d array with all the data
         int finalRows = watchedProgramsFitToPercentage.size() + 1;
         String[][] strings2d = new String[finalRows][2];
         int i = 0;
         for (WatchedProgram watchedProgram : watchedProgramsFitToPercentage) {
-            strings2d[i][0] = watchedProgram.getProfile().getProfielnaam();
+            strings2d[i][0] = watchedProgram.getProfile().getProfileName();
             strings2d[i][1] = "" + watchedProgram.getPercentage() + "%";
 
             i++;
@@ -63,6 +65,7 @@ public class ActionListenerStatistixMoviePercentage implements ActionListener, C
         strings2d[finalRows - 1][0] = "Totaal";
         strings2d[finalRows - 1][1] = "" + (finalRows - 1);
 
+        //models the 2d array to be used for the table
         TableModel dataModel = new AbstractTableModel() {
             public int getColumnCount() {
                 return 2;

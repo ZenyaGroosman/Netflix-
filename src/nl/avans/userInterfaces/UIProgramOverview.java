@@ -96,7 +96,7 @@ public class UIProgramOverview extends UserInterfaceBase {
         DefaultListModel demoList2 = new DefaultListModel();
         for (Series series : Main.programSupplier.getSeries()){
             demoList2.addElement(series.getTitel());
-//          demoList.addElement(series.getAfleveringen());
+            demoList.addElement(series.getAfleveringen());
             demoList2.addElement(series.getGenre());
             demoList2.addElement(series.getLeeftijdsindicatie());
             demoList2.addElement(series.getLijktOp());

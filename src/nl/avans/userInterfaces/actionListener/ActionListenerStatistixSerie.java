@@ -32,6 +32,7 @@ public class ActionListenerStatistixSerie implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Account account = (Account) accountList.getSelectedItem();
         String accountQuerry = "";
+        //checks if all accounts should be checked or only one
         if (!account.getNaam().equals("Alle accounts")){
             accountQuerry = "AND Bekeken.Abonneenummer = '" + account.getId() + "' ";
         }
@@ -39,7 +40,7 @@ public class ActionListenerStatistixSerie implements ActionListener {
         try {
             panel.removeAll();
 
-
+            //sql statement to get the average watch time per episode, for either all accounts or one account
             ResultSet set = SQLHelper.sqlConnection.executeSql("SELECT Aflevering.Seizoen, Programma.Titel, AVG(Percentage) AS 'Percentage' FROM Aflevering LEFT JOIN Bekeken ON Aflevering.Id = Bekeken.Gezien " + accountQuerry + " LEFT JOIN Programma ON Programma.Id = Aflevering.Id WHERE Aflevering.Serie = '" + seriesList.getSelectedItem() + "' GROUP BY Programma.Titel, Aflevering.Seizoen ORDER BY Aflevering.Seizoen;");
             int rows = 0;
             ArrayList<String> strings = new ArrayList<>();
@@ -53,7 +54,9 @@ public class ActionListenerStatistixSerie implements ActionListener {
                 }
             }
 
+            //sql statement to get the average watch time for the series overall, for either all accoutns or one account
             ResultSet average = SQLHelper.sqlConnection.executeSql("SELECT AVG(Percentage) AS 'Percentage' FROM Aflevering JOIN Bekeken ON Aflevering.Id = Bekeken.Gezien " + accountQuerry + " WHERE Aflevering.Serie = '" + seriesList.getSelectedItem() + "' GROUP BY Aflevering.Serie;");
+
             strings.add("Totaal");
             strings.add("Volledige Serie");
             if (average != null && average.next()) {
@@ -66,6 +69,7 @@ public class ActionListenerStatistixSerie implements ActionListener {
                 rows++;
             }
 
+            //turns the array into a a 2d array
             int finalRows = rows;
             String[][] strings2d = new String[rows][3];
             int r = 0;
@@ -79,6 +83,7 @@ public class ActionListenerStatistixSerie implements ActionListener {
                 c++;
             }
 
+            //models the data for the table
             TableModel dataModel = new AbstractTableModel() {
                 public int getColumnCount() {
                     return 3;
