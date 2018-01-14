@@ -55,6 +55,7 @@ public class PopUpEditWatchedProgram extends JFrame {
 //            jFrame.repaint();
 //            jFrame.revalidate();
         });
+        panel.add(button);
 
     }
 

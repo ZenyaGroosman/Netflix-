@@ -19,7 +19,7 @@ public class SQLHelper {
         StringBuilder stringBuilder = new StringBuilder("DELETE FROM ");
         stringBuilder.append(tableName).append(" WHERE ");
         for (int i = 0; i < keyColumns.length; i++) {
-            stringBuilder.append(keyColumns[i]).append(" = '").append(keyValues[i]).append("' ").append(i != keyColumns.length - 1 ? " " : " AND ");
+            stringBuilder.append(keyColumns[i]).append(" = '").append(keyValues[i]).append("' ").append(i == keyColumns.length - 1 ? " " : " AND ");
         }
         return sqlConnection.executeSqlNoResult(stringBuilder.toString());
     }
