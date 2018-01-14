@@ -38,6 +38,7 @@ public class SQLConnection {
             rs = statement.executeQuery(sqlQuery);
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println(sqlQuery);
         }
         return rs;
     }
@@ -48,6 +49,7 @@ public class SQLConnection {
             return statement.execute(sqlQuery);
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println(sqlQuery);
         }
         return false;
     }
