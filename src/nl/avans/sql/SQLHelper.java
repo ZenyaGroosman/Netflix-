@@ -39,7 +39,7 @@ public class SQLHelper {
         }
         stringBuilder.append(") VALUES (");
         for (int i = 0; i < columns.length; i++) {
-            stringBuilder.append(values[i]).append(i != columns.length - 1 ? ", " : " ");
+            stringBuilder.append("'").append(values[i]).append("'").append(i != columns.length - 1 ? ", " : " ");
         }
         stringBuilder.append(")");
         return sqlConnection.executeSqlNoResult(stringBuilder.toString());

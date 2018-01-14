@@ -77,21 +77,16 @@ public class PopuppAddAccount extends JFrame {
 
         container.add(panel, BorderLayout.CENTER);
 
-        int id = 0;
-        for (Account account:Main.accountSupplier.getAccounts()){
-            if (account.getId() > id)
-                id = account.getId();
-        }
-        id++;
-        System.out.println(id);
-        System.out.println(name.getText());
-        System.out.println(street.getText());
-        System.out.println(postalcode.getText());
-        System.out.println(housenumber.getText());
-        System.out.println(place.getText());
-
-        Account newAccount = new Account(id, name.getText(), street.getText(), postalcode.getText(), (int)housenumber.getValue(), place.getText());
-
-        add.addActionListener(new ActionListenerAddAccountToDatabase(newAccount, accounts));
+        add.addActionListener( e->{
+            int id = 0;
+            for (Account account:Main.accountSupplier.getAccounts()){
+                if (account.getId() > id)
+                    id = account.getId();
+            }
+            id++;
+            Account account = new Account(id, name.getText(), street.getText(), postalcode.getText(), (int)housenumber.getValue(), place.getText());
+            this.accounts.addElement(account);
+            Main.accountSupplier.createAccount(account);
+        });
     }
 }

@@ -1,8 +1,9 @@
 /*package nl.avans.userInterfaces;
 
 import nl.avans.Main;
+import nl.avans.misc.SelectedAccount;
 import nl.avans.sql.Account;
-
+import nl.avans.sql.Profile;
 
 
 import javax.swing.*;
@@ -32,6 +33,7 @@ public class UIProfielOverview extends UserInterfaceBase{
         panel.add(new JLabel(" "), BorderLayout.WEST);
 
         panel.add(new JLabel(" "), BorderLayout.EAST);
+        profiles(panel);
 
         buttons(panel);
         container.add(panel);
@@ -54,6 +56,26 @@ public class UIProfielOverview extends UserInterfaceBase{
         container.add(panel, BorderLayout.NORTH);
 
         label.setFont(f);
+    }
+
+    private void profiles(Container container) {
+        DefaultListModel profileList = new DefaultListModel();
+        JPanel grid = new JPanel();
+        grid.setLayout(new GridLayout(1, 5));
+
+        for (Profile profile : SelectedAccount.getSelectedAccount().getProfiles()) {
+            profileList.addElement(profile);
+        }
+
+        JList accountList = new JList(profileList);
+        accountList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        accountList.setLayoutOrientation(JList.VERTICAL);
+
+        grid.add(accountList);
+
+        accountList.setBackground(Color.LIGHT_GRAY);
+
+        container.add(grid);
     }
 
 

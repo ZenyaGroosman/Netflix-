@@ -45,7 +45,7 @@ public class AccountSupplier {
                 accounts.get(i).addProfile(profile);
             }
             ResultSet watched = sqlConnection.executeSql("SELECT Gezien, Percentage FROM Profiel JOIN Bekeken ON Profiel.Profielnaam = Bekeken.Profielnaam AND Profiel.Abonneenummer = Bekeken.Abonneenummer WHERE Profiel.Abonneenummer = " + id + " AND Profiel.Profielnaam = '" + profileName + "'");
-            while (watched.next()){
+            while (watched.next()) {
                 WatchedProgram watchedProgram = new WatchedProgram(watched.getInt("Percentage"), Main.programSupplier.getProgramById(watched.getInt("Gezien")), profile);
                 watchedPrograms.add(watchedProgram);
             }
@@ -60,7 +60,7 @@ public class AccountSupplier {
 
     public boolean addWatchedPrograms(WatchedProgram watchedProgram) {
         String[] columns = new String[]{"Abonneenummer", "ProfielNaam", "Gezien", "Percentage"};
-        Object[] value = new Object[]{watchedProgram.getProfile().getAccount().getId(), watchedProgram.getProfile().getProfileName(),  watchedProgram.getProgram().getId(), watchedProgram.getPercentage()};
+        Object[] value = new Object[]{watchedProgram.getProfile().getAccount().getId(), watchedProgram.getProfile().getProfileName(), watchedProgram.getProgram().getId(), watchedProgram.getPercentage()};
         boolean success = SQLHelper.createObject("Bekeken", columns, value);
 
         if (success) {
@@ -71,11 +71,24 @@ public class AccountSupplier {
 
     public boolean removeWatchedPrograms(WatchedProgram watchedProgram) {
         String[] columns = new String[]{"Abonneenummer", "ProfielNaam", "Gezien", "Percentage"};
-        Object[] value = new Object[]{watchedProgram.getProfile().getAccount().getId(), watchedProgram.getProfile().getProfileName(),  watchedProgram.getProgram().getId(), watchedProgram.getPercentage()};
+        Object[] value = new Object[]{watchedProgram.getProfile().getAccount().getId(), watchedProgram.getProfile().getProfileName(), watchedProgram.getProgram().getId(), watchedProgram.getPercentage()};
         boolean success = SQLHelper.deleteObject("Bekeken", columns, value);
 
         if (success) {
             watchedPrograms.remove(watchedProgram);
+        }
+        return success;
+    }
+
+    public boolean updateWatchedPrograms(WatchedProgram oldWatchedProgram, WatchedProgram newWatchedProgram) {
+        String[] columns = new String[]{"Abonneenummer", "ProfielNaam", "Gezien", "Percentage"};
+        Object[] oldValue = new Object[]{oldWatchedProgram.getProfile().getAccount().getId(), oldWatchedProgram.getProfile().getProfileName(), oldWatchedProgram.getProgram().getId(), oldWatchedProgram.getPercentage()};
+        Object[] newValues = new Object[]{newWatchedProgram.getProfile().getAccount().getId(), newWatchedProgram.getProfile().getProfileName(), newWatchedProgram.getProgram().getId(), newWatchedProgram.getPercentage()};
+        boolean success = SQLHelper.editObject("Bekeken", columns, oldValue, newValues);
+
+        if (success) {
+            watchedPrograms.remove(oldWatchedProgram);
+            watchedPrograms.add(newWatchedProgram);
         }
         return success;
     }
@@ -105,20 +118,39 @@ public class AccountSupplier {
 
         return success;
     }
+    public boolean updateAccount(Account oldAccount, Account newAccount) {
+        String[] columns = new String[]{"Abonneenummer", "Naam", "Straat", "Postcode", "Plaats", "Huisnummer"};
+        Object[] oldValue = new Object[]{oldAccount.getId(), oldAccount.getNaam(), oldAccount.getStreet(), oldAccount.getPostcode(), oldAccount.getPlace(), oldAccount.getHouseNumber()};
+        Object[] newValue = new Object[]{newAccount.getId(), newAccount.getNaam(), newAccount.getStreet(), newAccount.getPostcode(), newAccount.getPlace(), newAccount.getHouseNumber()};
+        boolean success = SQLHelper.editObject("Account", columns, oldValue, newValue);
 
-    public boolean createProfile(Profile profile, int accountId) {
+        if (success) {
+            for (Profile f:oldAccount.getProfiles())
+                newAccount.addProfile(f);
+        }
+        return success;
+    }
+
+    public boolean createProfile(Profile profile) {
         String[] columns = new String[]{"Abonneenummer", "Profielnaam", "Geboortedatum"};
-        Object[] value = new Object[]{accountId, profile.getProfileName(), profile.getBirthday()};
+        Object[] value = new Object[]{profile.getAccount().getId(), profile.getProfileName(), profile.getBirthday()};
         boolean success = SQLHelper.createObject("Profile", columns, value);
 
         if (success) {
-            Iterator<Account> iterator = accounts.iterator();
-            while (iterator.hasNext()) {
-                Account account = iterator.next();
-                if (account.getId() == accountId) {
-                    account.addProfile(profile);
-                }
-            }
+            profile.getAccount().addProfile(profile);
+        }
+        return success;
+    }
+
+    public boolean updateProfile(Profile oldProfile, Profile newProfile) {
+        String[] columns = new String[]{"Abonneenummer", "Profielnaam", "Geboortedatum"};
+        Object[] oldValue = new Object[]{oldProfile.getAccount().getId(), oldProfile.getProfileName(), oldProfile.getBirthday()};
+        Object[] newValue = new Object[]{newProfile.getAccount().getId(), newProfile.getProfileName(), newProfile.getBirthday()};
+        boolean success = SQLHelper.editObject("Profile", columns, oldValue, newValue);
+
+        if (success) {
+            oldProfile.getAccount().addProfile(newProfile);
+            oldProfile.getAccount().removeProfiel(oldProfile);
         }
         return success;
     }

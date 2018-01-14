@@ -28,4 +28,9 @@ public class WatchedProgram {
     public boolean equals(Object obj) {
         return obj instanceof WatchedProgram && percentage == ((WatchedProgram) obj).percentage && getProgram().getId() == (((WatchedProgram) obj)).getProgram().getId();
     }
+
+    @Override
+    public String toString() {
+        return getProgram().toString() + " (" + getPercentage() + "% watched)";
+    }
 }
