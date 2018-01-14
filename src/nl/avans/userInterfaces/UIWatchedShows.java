@@ -33,7 +33,10 @@ public class UIWatchedShows extends UserInterfaceBase {
         container.add(createFooter(), BorderLayout.SOUTH);
         container.add(panel1, BorderLayout.CENTER);
 
+
+
     }
+
 
 
 }

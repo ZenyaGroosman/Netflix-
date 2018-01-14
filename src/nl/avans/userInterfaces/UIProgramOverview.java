@@ -3,15 +3,12 @@ package nl.avans.userInterfaces;
 import nl.avans.Main;
 import nl.avans.sql.Film;
 import nl.avans.sql.Series;
-import sun.rmi.server.Activation$ActivationSystemImpl_Stub;
 
 
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.JScrollPane;
-import javax.swing.border.Border;
 
 
 public class UIProgramOverview extends UserInterfaceBase {
@@ -71,10 +68,6 @@ public class UIProgramOverview extends UserInterfaceBase {
 
         // Add Shows and Movies
 
-//        Main.programmaSupplier.getFilms();
-//        Main.programmaSupplier.getSeries();
-
-
         DefaultListModel demoList = new DefaultListModel();
         for (Film film : Main.programSupplier.getFilms()) {
             demoList.addElement(film);
@@ -102,6 +95,7 @@ public class UIProgramOverview extends UserInterfaceBase {
             serieList.setBackground(Color.LIGHT_GRAY);
 
         }
+        // Show movie and show description
 
         JButton btn = new JButton("Beschrijvingen");
         subPanel.add(btn);
@@ -111,7 +105,7 @@ public class UIProgramOverview extends UserInterfaceBase {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShowMovieDescription description = new ShowMovieDescription();
+                ShowMovieDescription description = new ShowMovieDescription(filmList);
             }
         });
 
