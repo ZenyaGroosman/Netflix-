@@ -57,11 +57,11 @@ public class SQLHelper {
         StringBuilder stringBuilder = new StringBuilder("UPDATE ");
         stringBuilder.append(tableName).append(" (");
         for (int i = 0; i < columns.length; i++) {
-            stringBuilder.append(columns[i]).append(" = ").append(newValues[i]).append(" ");
+            stringBuilder.append(columns[i]).append(" = ").append(newValues[i]).append(i != columns.length - 1 ? ", " : " ");
         }
         stringBuilder.append(") WHERE ");
         for (int i = 0; i < columns.length; i++) {
-            stringBuilder.append(columns[i]).append(" = '").append(oldValues[i]).append("' ").append(i != columns.length - 1 ? " " : " AND ");
+            stringBuilder.append(columns[i]).append(" = '").append(oldValues[i]).append("' ").append(i == columns.length - 1 ? " " : " AND ");
         }
         stringBuilder.append("");
         return sqlConnection.executeSqlNoResult(stringBuilder.toString());

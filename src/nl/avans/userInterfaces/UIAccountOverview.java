@@ -3,28 +3,24 @@ package nl.avans.userInterfaces;
 import nl.avans.Main;
 import nl.avans.sql.Account;
 import nl.avans.userInterfaces.actionListener.ActionListenerAddAccount;
-import nl.avans.userInterfaces.actionListener.ActionListenerDeleteAccount;
-
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class UIAccountOverview extends UserInterfaceBase{
+public class UIAccountOverview extends UserInterfaceBase {
 
     private JList accounts;
     private DefaultListModel account;
 
-    public UIAccountOverview(JFrame jFrame){
-        super (jFrame);
+    public UIAccountOverview(JFrame jFrame) {
+        super(jFrame);
     }
 
     @Override
     public void run() {
-    createComponents(getFrame().getContentPane());
-    getFrame().pack();
-    getFrame().setVisible(true);
+        createComponents(getFrame().getContentPane());
+        getFrame().pack();
+        getFrame().setVisible(true);
     }
 
     @Override
@@ -33,7 +29,7 @@ public class UIAccountOverview extends UserInterfaceBase{
         container.add(createHeader(), BorderLayout.NORTH);
         container.add(createFooter(), BorderLayout.SOUTH);
         JPanel panel = (new JPanel());
-        panel.setLayout(new BorderLayout(100,0));
+        panel.setLayout(new BorderLayout(100, 0));
 
         titel(panel);
         panel.add(new JLabel(" "), BorderLayout.WEST);
@@ -83,7 +79,7 @@ public class UIAccountOverview extends UserInterfaceBase{
         container.add(grid);
     }
 
-    private void buttons(Container container){
+    private void buttons(Container container) {
         JPanel grid = new JPanel();
         grid.setLayout(new GridLayout(1, 4));
 
@@ -111,9 +107,11 @@ public class UIAccountOverview extends UserInterfaceBase{
 
         container.add(delete);
 
-        delete.addActionListener(new ActionListenerDeleteAccount(accounts));
+        delete.addActionListener(e -> {
+            Main.accountSupplier.deleteAccount((Account) accounts.getSelectedValue());
+            account.removeElement(accounts.getSelectedValue());
+        });
     }
-
 
 
     private void add(Container container) {
@@ -127,7 +125,7 @@ public class UIAccountOverview extends UserInterfaceBase{
         add.addActionListener(new ActionListenerAddAccount(accounts, account));
     }
 
-    private void edit (Container container) {
+    private void edit(Container container) {
         JButton edit = new JButton("edit");
 
         edit.setBackground(Color.red);
