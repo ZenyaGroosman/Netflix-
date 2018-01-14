@@ -7,7 +7,7 @@ public class Account {
     private int id;
     private String name;
     private String street;
-    private String postcode;
+    private String postalcode;
     private int houseNumber;
     private String place;
     private ArrayList<Profile> profiles;
@@ -16,7 +16,7 @@ public class Account {
         this.id = id;
         this.name = name;
         this.street = street;
-        this.postcode = postcode;
+        this.postalcode = postcode;
         this.houseNumber = houseNumber;
         this.place = place;
         profiles = new ArrayList<>();
@@ -35,7 +35,7 @@ public class Account {
     }
 
     public String getPostcode() {
-        return postcode;
+        return postalcode;
     }
 
     /**
@@ -75,6 +75,6 @@ public class Account {
 
     @Override
     public String toString() {
-        return name;
+        return (this.getNaam() + " (" + this.getId() + ")");
     }
 }

@@ -1,4 +1,4 @@
-package nl.avans.userInterfaces;
+/*package nl.avans.userInterfaces;
 
 import nl.avans.Main;
 import nl.avans.sql.Account;
@@ -108,3 +108,4 @@ public class UIProfielOverview extends UserInterfaceBase{
 
     }
 }
+*/

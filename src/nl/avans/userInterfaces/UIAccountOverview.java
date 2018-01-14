@@ -2,13 +2,19 @@ package nl.avans.userInterfaces;
 
 import nl.avans.Main;
 import nl.avans.sql.Account;
-
+import nl.avans.userInterfaces.actionListener.ActionListenerAddAccount;
+import nl.avans.userInterfaces.actionListener.ActionListenerDeleteAccount;
 
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class UIAccountOverview extends UserInterfaceBase{
+
+    private JList accounts;
+
     public UIAccountOverview(JFrame jFrame){
         super (jFrame);
     }
@@ -56,22 +62,22 @@ public class UIAccountOverview extends UserInterfaceBase{
         label.setFont(f);
     }
 
-    private void accounts(Container container) {
+    public void accounts(Container container) {
         DefaultListModel AccountList = new DefaultListModel();
         JPanel grid = new JPanel();
         grid.setLayout(new GridLayout(1, 5));
 
         for (Account account : Main.accountSupplier.getAccounts()) {
-            AccountList.addElement(account.getNaam() + " (" + account.getId() + ")");
+            AccountList.addElement(account);
         }
 
-        JList accountList = new JList(AccountList);
-        accountList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        accountList.setLayoutOrientation(JList.VERTICAL);
+        accounts = new JList(AccountList);
+        accounts.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        accounts.setLayoutOrientation(JList.VERTICAL);
 
-        grid.add(accountList);
+        grid.add(accounts);
 
-        accountList.setBackground(Color.LIGHT_GRAY);
+        accounts.setBackground(Color.LIGHT_GRAY);
 
         container.add(grid);
     }
@@ -102,11 +108,12 @@ public class UIAccountOverview extends UserInterfaceBase{
         delete.setBackground(Color.red);
         delete.setForeground(Color.white);
 
-        getFrame().repaint();
-        getFrame().revalidate();
-
         container.add(delete);
+
+        delete.addActionListener(new ActionListenerDeleteAccount(accounts));
     }
+
+
 
     private void add(Container container) {
         JButton add = new JButton("toevoegen");
@@ -115,10 +122,17 @@ public class UIAccountOverview extends UserInterfaceBase{
         add.setForeground(Color.white);
 
         container.add(add);
+
+        add.addActionListener(new ActionListenerAddAccount(accounts));
     }
 
     private void edit (Container container) {
+        JButton edit = new JButton("edit");
 
+        edit.setBackground(Color.red);
+        edit.setForeground(Color.white);
+
+        container.add(edit);
 
     }
 }

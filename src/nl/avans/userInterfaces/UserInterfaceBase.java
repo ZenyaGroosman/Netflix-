@@ -65,7 +65,7 @@ public abstract class UserInterfaceBase implements Runnable {
         return panel;
     }
 
-    public JPanel createFooter() {
+    public static JPanel createFooter() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
 
@@ -94,9 +94,9 @@ public abstract class UserInterfaceBase implements Runnable {
         UserInterfaceBase userInterfaceBase = null;
         jFrame.setContentPane(new Container());
         switch (pages) {
-            case PROFILES:
+           /* case PROFILES:
                 userInterfaceBase = new UIProfielOverview(jFrame);
-                break;
+                break;*/
             case PROGRAMS:
                 userInterfaceBase = new UIProgramOverview(jFrame);
                 break;

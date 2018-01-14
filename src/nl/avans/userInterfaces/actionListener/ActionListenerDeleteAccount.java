@@ -1,25 +1,24 @@
 package nl.avans.userInterfaces.actionListener;
 
+import nl.avans.Main;
+import nl.avans.sql.Account;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ActionListenerDeleteAccount implements ActionListener{
+public class ActionListenerDeleteAccount implements ActionListener {
 
-    private JPanel panel;
-    private JButton edit;
-    private JFrame frame;
+    private JList accountList;
 
-    public ActionListenerDeleteAccount(JPanel panel, JButton edit, JFrame frame) {
-        this.edit = edit;
-        this.panel = panel;
-        this.frame = frame;
+    public ActionListenerDeleteAccount(JList accountlist) {
+        this.accountList = accountlist;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == edit) {
-            System.exit(0);
-        }
+        Account account = (Account) accountList.getSelectedValue();
+        Main.accountSupplier.deleteAccount(account);
+        accountList.remove(accountList.getSelectedIndex());
     }
 }

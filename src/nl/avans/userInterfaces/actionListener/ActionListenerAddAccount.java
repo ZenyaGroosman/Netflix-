@@ -1,24 +1,26 @@
 package nl.avans.userInterfaces.actionListener;
 
+import nl.avans.sql.Account;
+import nl.avans.userInterfaces.PopuppAddAccount;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ActionListenerAddAccount implements ActionListener{
-    private JPanel panel;
-    private JButton edit;
-    private JFrame frame;
+    private JList accountList;
 
-    public ActionListenerAddAccount(JPanel panel, JButton edit, JFrame frame) {
-        this.edit = edit;
-        this.panel = panel;
-        this.frame = frame;
+    public ActionListenerAddAccount(JList accountlist) {
+        this.accountList = accountlist;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == edit) {
-            System.exit(0);
-        }
-    }
+        Account account = (Account)accountList.getSelectedValue();
+
+        new PopuppAddAccount(accountList);
+
+
+
+     }
 }

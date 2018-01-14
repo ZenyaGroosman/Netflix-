@@ -1,4 +1,6 @@
-/*package nl.avans.userInterfaces.actionListener;
+package nl.avans.userInterfaces.actionListener;
+
+import nl.avans.sql.Account;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,21 +10,16 @@ import java.awt.event.ActionListener;
 public class ActionListenerEditAccount implements ActionListener {
 
 
-    private JButton edit;
+    private JList accountList;
 
 
-    public ActionListenerEditAccount(JButton edit) {
-       edit = new JButton("edit");
-       add
-
+    public ActionListenerEditAccount(JList accountList) {
+       this.accountList = accountList;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == edit) {
-            System.exit(0);
-        }
+        Account account = (Account)accountList.getSelectedValue();
     }
 
 }
-*/
