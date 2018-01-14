@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 public class UIAccountOverview extends UserInterfaceBase{
 
     private JList accounts;
+    private DefaultListModel account;
 
     public UIAccountOverview(JFrame jFrame){
         super (jFrame);
@@ -123,7 +124,7 @@ public class UIAccountOverview extends UserInterfaceBase{
 
         container.add(add);
 
-        add.addActionListener(new ActionListenerAddAccount(accounts));
+        add.addActionListener(new ActionListenerAddAccount(accounts, account));
     }
 
     private void edit (Container container) {

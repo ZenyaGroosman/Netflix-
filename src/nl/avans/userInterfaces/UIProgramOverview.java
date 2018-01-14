@@ -1,12 +1,14 @@
+
 package nl.avans.userInterfaces;
 
 import nl.avans.Main;
 import nl.avans.sql.Film;
 import nl.avans.sql.Series;
-
+//import nl.avans.userInterfaces.actionListener.ClickListenerProgramOverview;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.JScrollPane;
 
@@ -14,10 +16,9 @@ import javax.swing.JScrollPane;
 public class UIProgramOverview extends UserInterfaceBase {
 
 
-
     private JPanel panel1;
 
-    public UIProgramOverview(JFrame jFrame){
+    public UIProgramOverview(JFrame jFrame) {
         super(jFrame);
 
     }
@@ -28,8 +29,8 @@ public class UIProgramOverview extends UserInterfaceBase {
         createComponents(getFrame().getContentPane());
 
 
-    getFrame().pack();
-    getFrame().setVisible(true);
+        getFrame().pack();
+        getFrame().setVisible(true);
     }
 
     @Override
@@ -68,9 +69,17 @@ public class UIProgramOverview extends UserInterfaceBase {
 
         // Add Shows and Movies
 
+//        Main.programmaSupplier.getFilms();
+//        Main.programmaSupplier.getSeries();
+
+
         DefaultListModel demoList = new DefaultListModel();
         for (Film film : Main.programSupplier.getFilms()) {
-            demoList.addElement(film);
+            demoList.addElement(film.getTitle());
+            demoList.addElement(film.getGenre());
+            demoList.addElement(film.getLanguage());
+            demoList.addElement(film.getMinimumAge());
+            demoList.addElement(film.getDuration());
         }
         JList filmList = new JList(demoList);
         filmList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -85,8 +94,12 @@ public class UIProgramOverview extends UserInterfaceBase {
 
         DefaultListModel demoList2 = new DefaultListModel();
         for (Series series : Main.programSupplier.getSeries()) {
-            demoList2.addElement(series);
-
+            demoList2.addElement(series.getTitel());
+//          demoList.addElement(series.getAfleveringen());
+            demoList2.addElement(series.getGenre());
+            demoList2.addElement(series.getLeeftijdsindicatie());
+            demoList2.addElement(series.getLijktOp());
+            demoList2.addElement(series.getTaal());
             JList serieList = new JList(demoList2);
             serieList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
             serieList.setLayoutOrientation(JList.VERTICAL);
@@ -94,22 +107,11 @@ public class UIProgramOverview extends UserInterfaceBase {
             container.add(serieList, BorderLayout.EAST);
             serieList.setBackground(Color.LIGHT_GRAY);
 
+
         }
-        // Show movie and show description
-
-        JButton btn = new JButton("Beschrijvingen");
-        subPanel.add(btn);
-        btn.setBackground(Color.red);
-        btn.setForeground(Color.white);
-
-        btn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ShowMovieDescription description = new ShowMovieDescription(filmList);
-            }
-        });
-
-    }
 
 
     }
+
+
+}

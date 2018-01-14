@@ -8,17 +8,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ActionListenerAddAccount implements ActionListener{
-    private JList accountList;
 
-    public ActionListenerAddAccount(JList accountlist) {
+    private JList accountList;
+    private DefaultListModel accounts;
+
+    public ActionListenerAddAccount(JList accountlist, DefaultListModel accounts) {
         this.accountList = accountlist;
+        this.accounts = accounts;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Account account = (Account)accountList.getSelectedValue();
 
-        new PopuppAddAccount(accountList);
+        new PopuppAddAccount(accountList, accounts);
 
 
 
