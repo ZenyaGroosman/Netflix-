@@ -1,10 +1,12 @@
 package nl.avans;
 
+import nl.avans.misc.SelectedAccount;
 import nl.avans.sql.AccountSupplier;
 import nl.avans.sql.ProgramSupplier;
 import nl.avans.sql.SQLConnection;
 import nl.avans.sql.SQLHelper;
 import nl.avans.userInterfaces.UIAccountOverview;
+import nl.avans.userInterfaces.UIProfielOverview;
 import nl.avans.userInterfaces.UserInterfaceBase;
 
 import javax.swing.*;
@@ -26,11 +28,13 @@ public class Main {
         programSupplier.makeProgramsAndSeries();
         accountSupplier = new AccountSupplier(connection);
         accountSupplier.makeAccounts();
+        SelectedAccount.setSelectedAccount(accountSupplier.getAccounts().get(0));
+        SelectedAccount.setSelectedProfile(accountSupplier.getAccounts().get(0).getProfiles().get(0));
         JFrame jFrame = new JFrame("Netflix Statistix");
         jFrame.setPreferredSize(new Dimension(900, 600));
 
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        UserInterfaceBase ui = new UIAccountOverview(jFrame);
+        UserInterfaceBase ui = new UIProfielOverview(jFrame);
         SwingUtilities.invokeLater(ui);
     }
 

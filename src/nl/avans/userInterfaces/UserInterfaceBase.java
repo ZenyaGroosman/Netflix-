@@ -95,7 +95,7 @@ public abstract class UserInterfaceBase implements Runnable {
         jFrame.setContentPane(new Container());
         switch (pages) {
             case PROFILES:
-//                userInterfaceBase = new UIProfiles(temp);
+                userInterfaceBase = new UIProfielOverview(jFrame);
                 break;
             case PROGRAMS:
                 userInterfaceBase = new UIProgramOverview(jFrame);
