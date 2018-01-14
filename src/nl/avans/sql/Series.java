@@ -59,4 +59,6 @@ public class Series {
     public String getLijktOp() {
         return lijktOp;
     }
+
+    public String toString() { return this.getTitel(); }
 }

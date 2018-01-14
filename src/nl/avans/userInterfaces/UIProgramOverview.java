@@ -3,13 +3,15 @@ package nl.avans.userInterfaces;
 import nl.avans.Main;
 import nl.avans.sql.Film;
 import nl.avans.sql.Series;
-import nl.avans.userInterfaces.actionListener.ClickListenerProgramOverview;
+import sun.rmi.server.Activation$ActivationSystemImpl_Stub;
+
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.JScrollPane;
+import javax.swing.border.Border;
 
 
 public class UIProgramOverview extends UserInterfaceBase {
@@ -42,11 +44,10 @@ public class UIProgramOverview extends UserInterfaceBase {
 
         // Creating header en footer
 
-        container.setLayout(new BorderLayout(10,5));
-        container.add(createHeader(),BorderLayout.NORTH);
+        container.setLayout(new BorderLayout(10, 5));
+        container.add(createHeader(), BorderLayout.NORTH);
         container.add(createFooter(), BorderLayout.SOUTH);
         container.add(panel1, BorderLayout.CENTER);
-
 
 
 //       //SideButtons
@@ -54,8 +55,8 @@ public class UIProgramOverview extends UserInterfaceBase {
         JPanel subPanel = new JPanel();
         JPanel gridsPanel = new JPanel();
 
-        gridsPanel.setLayout(new GridLayout(3,1));
-        subPanel.setLayout(new GridLayout(2,1));
+        gridsPanel.setLayout(new GridLayout(3, 1));
+        subPanel.setLayout(new GridLayout(2, 1));
         gridsPanel.setBackground(Color.LIGHT_GRAY);
 
         gridsPanel.add(subPanel);
@@ -75,12 +76,9 @@ public class UIProgramOverview extends UserInterfaceBase {
 
 
         DefaultListModel demoList = new DefaultListModel();
-        for (Film film : Main.programSupplier.getFilms()){
-            demoList.addElement(film.getTitle());
-            demoList.addElement(film.getGenre());
-            demoList.addElement(film.getLanguage());
-            demoList.addElement(film.getMinimumAge());
-            demoList.addElement(film.getDuration()); }
+        for (Film film : Main.programSupplier.getFilms()) {
+            demoList.addElement(film);
+        }
         JList filmList = new JList(demoList);
         filmList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         filmList.setLayoutOrientation(JList.VERTICAL);
@@ -88,19 +86,14 @@ public class UIProgramOverview extends UserInterfaceBase {
         container.add(filmList, BorderLayout.CENTER);
         filmList.setBackground(Color.LIGHT_GRAY);
         JScrollPane scrollPane = new JScrollPane(filmList);
-        scrollPane.setMaximumSize(new Dimension(100,50));
+        scrollPane.setMaximumSize(new Dimension(100, 50));
         container.add(scrollPane);
 
 
-
         DefaultListModel demoList2 = new DefaultListModel();
-        for (Series series : Main.programSupplier.getSeries()){
-            demoList2.addElement(series.getTitel());
-//          demoList.addElement(series.getAfleveringen());
-            demoList2.addElement(series.getGenre());
-            demoList2.addElement(series.getLeeftijdsindicatie());
-            demoList2.addElement(series.getLijktOp());
-            demoList2.addElement(series.getTaal());
+        for (Series series : Main.programSupplier.getSeries()) {
+            demoList2.addElement(series);
+
             JList serieList = new JList(demoList2);
             serieList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
             serieList.setLayoutOrientation(JList.VERTICAL);
@@ -108,44 +101,21 @@ public class UIProgramOverview extends UserInterfaceBase {
             container.add(serieList, BorderLayout.EAST);
             serieList.setBackground(Color.LIGHT_GRAY);
 
-
-
-
         }
 
+        JButton btn = new JButton("Beschrijvingen");
+        subPanel.add(btn);
+        btn.setBackground(Color.red);
+        btn.setForeground(Color.white);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowMovieDescription description = new ShowMovieDescription();
+            }
+        });
 
     }
 
-        
 
-
-}
+    }

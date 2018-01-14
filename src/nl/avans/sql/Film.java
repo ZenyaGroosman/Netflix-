@@ -23,4 +23,7 @@ public class Film extends Program {
     public String getLanguage() {
         return language;
     }
+
+    public String toString () { return this.getTitle(); }
+
 }

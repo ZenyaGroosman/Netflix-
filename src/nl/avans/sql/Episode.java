@@ -19,4 +19,6 @@ public class Episode extends Program {
     public void setSerie(Series serie) {
         this.serie = serie;
     }
+
+    public String toString () { return this.getTitle(); }
 }
