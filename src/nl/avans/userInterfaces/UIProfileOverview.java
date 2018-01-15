@@ -108,7 +108,6 @@ public class UIProfileOverview extends UserInterfaceBase {
 
         label.setFont(f);
     }
-
     private void profiles(Container container) {
         profileList = new DefaultListModel<Profile>();
         JPanel grid = new JPanel();

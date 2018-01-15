@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import nl.avans.userInterfaces.UIProfielOverview;
 import nl.avans.userInterfaces.pop_ups.PopUpViewAccount;
 import nl.avans.userInterfaces.pop_ups.PopuppAddAccount;
 import nl.avans.userInterfaces.pop_ups.PopuppEditAccount;
