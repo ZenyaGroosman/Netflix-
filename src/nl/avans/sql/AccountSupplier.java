@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 
 /*This class is responsible for fetching all the accounts, profiles and watched programs from the database
 * it also proides the ability to create, delete and edit accounts, profiles and watched programs
@@ -71,7 +70,7 @@ public class AccountSupplier {
         return success;
     }
 
-    public boolean removeWatchedPrograms(WatchedProgram watchedProgram) {
+    public boolean deleteWatchedPrograms(WatchedProgram watchedProgram) {
         String[] columns = new String[]{"Abonneenummer", "ProfielNaam", "Gezien", "Percentage"};
         Object[] value = new Object[]{watchedProgram.getProfile().getAccount().getId(), watchedProgram.getProfile().getProfileName(), watchedProgram.getProgram().getId(), watchedProgram.getPercentage()};
         boolean success = SQLHelper.deleteObject("Bekeken", columns, value);
@@ -120,6 +119,7 @@ public class AccountSupplier {
 
         return success;
     }
+
     public boolean updateAccount(Account oldAccount, Account newAccount) {
         String[] columns = new String[]{"Abonneenummer", "Naam", "Straat", "Postcode", "Plaats", "Huisnummer"};
         Object[] oldValue = new Object[]{oldAccount.getId(), oldAccount.getNaam(), oldAccount.getStreet(), oldAccount.getPostcode(), oldAccount.getPlace(), oldAccount.getHouseNumber()};
@@ -127,7 +127,7 @@ public class AccountSupplier {
         boolean success = SQLHelper.editObject("Account", columns, oldValue, newValue);
 
         if (success) {
-            for (Profile f:oldAccount.getProfiles())
+            for (Profile f : oldAccount.getProfiles())
                 newAccount.addProfile(f);
         }
         return success;
@@ -136,7 +136,7 @@ public class AccountSupplier {
     public boolean createProfile(Profile profile) {
         String[] columns = new String[]{"Abonneenummer", "Profielnaam", "Geboortedatum"};
         Object[] value = new Object[]{profile.getAccount().getId(), profile.getProfileName(), profile.getBirthday()};
-        boolean success = SQLHelper.createObject("Profile", columns, value);
+        boolean success = SQLHelper.createObject("Profiel", columns, value);
 
         if (success) {
             profile.getAccount().addProfile(profile);
@@ -148,7 +148,7 @@ public class AccountSupplier {
         String[] columns = new String[]{"Abonneenummer", "Profielnaam", "Geboortedatum"};
         Object[] oldValue = new Object[]{oldProfile.getAccount().getId(), oldProfile.getProfileName(), oldProfile.getBirthday()};
         Object[] newValue = new Object[]{newProfile.getAccount().getId(), newProfile.getProfileName(), newProfile.getBirthday()};
-        boolean success = SQLHelper.editObject("Profile", columns, oldValue, newValue);
+        boolean success = SQLHelper.editObject("Profiel", columns, oldValue, newValue);
 
         if (success) {
             oldProfile.getAccount().addProfile(newProfile);
@@ -157,19 +157,12 @@ public class AccountSupplier {
         return success;
     }
 
-    public boolean deleteProfile(Profile profiel, int accountId) {
+    public boolean deleteProfile(Profile profiel) {
         String[] columns = new String[]{"Abonneenummer", "Profielnaam"};
-        Object[] value = new Object[]{accountId, profiel.getProfileName()};
+        Object[] value = new Object[]{profiel.getAccount().getId(), profiel.getProfileName()};
         boolean success = SQLHelper.deleteObject("Profiel", columns, value);
-        if (success) {
-            Iterator<Account> iterator = accounts.iterator();
-            while (iterator.hasNext()) {
-                Account account = iterator.next();
-                if (account.getId() == accountId) {
-                    account.removeProfiel(profiel);
-                }
-            }
-        }
+        profiel.getAccount().removeProfiel(profiel);
+
 
         return success;
     }

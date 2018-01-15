@@ -36,6 +36,6 @@ public class WatchedProgram implements Comparable<WatchedProgram>{
 
     @Override
     public int compareTo(WatchedProgram o) {
-        return o.getProgram().getTitle().compareTo(this.getProgram().getTitle());
+        return this.toString().compareTo(o.toString());
     }
 }

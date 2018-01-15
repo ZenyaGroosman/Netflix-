@@ -16,7 +16,6 @@ import java.sql.SQLException;
 public class Main {
     public static ProgramSupplier programSupplier;
     public static AccountSupplier accountSupplier;
-    public static UIAccountOverview UIAccountOverview;
 
     public static void main(String[] args) throws SQLException {
         // write your code here
@@ -32,7 +31,7 @@ public class Main {
         accountSupplier.makeAccounts();
         SelectedAccount.setSelectedAccount(accountSupplier.getAccounts().get(0));
         SelectedAccount.setSelectedProfile(accountSupplier.getAccounts().get(0).getProfiles().get(0));
-        JFrame jFrame = new JFrame("Netflix Statistix");
+        JFrame jFrame = new JFrame("Netflix Statistix " + (SelectedAccount.getSelectedAccount() == null?"No account selected":SelectedAccount.getSelectedAccount()  + (SelectedAccount.getSelectedProfile() == null?" No profile selected" :" " + SelectedAccount.getSelectedProfile())));
         jFrame.setPreferredSize(new Dimension(900, 600));
 
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

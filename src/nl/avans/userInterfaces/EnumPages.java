@@ -5,6 +5,6 @@ public enum EnumPages {
     ACCOUNTS,
     PROFILES,
     PROGRAMS,
-    WATCHED_PRAGRAMS,
+    WATCHED_PROGRAMS,
     STATISTIX;
 }

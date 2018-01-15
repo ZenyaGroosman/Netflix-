@@ -14,6 +14,7 @@ public class SelectedAccount {
 
     public static void setSelectedAccount(Account selectedAccount) {
         SelectedAccount.selectedAccount = selectedAccount;
+        SelectedAccount.selectedProfile = null;
     }
 
     public static Profile getSelectedProfile() {

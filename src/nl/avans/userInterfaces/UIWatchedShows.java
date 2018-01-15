@@ -84,7 +84,7 @@ public class UIWatchedShows extends UserInterfaceBase {
         delete.setBackground(Color.red);
         delete.setForeground(Color.white);
         delete.addActionListener(e -> {
-            Main.accountSupplier.removeWatchedPrograms(jList.getSelectedValue());
+            Main.accountSupplier.deleteWatchedPrograms(jList.getSelectedValue());
             watchedProgramList.removeElement(jList.getSelectedValue());
         });
         grid.add(delete);
