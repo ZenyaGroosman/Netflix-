@@ -39,7 +39,6 @@ public class PopuppEditAccount extends JFrame {
         JTextField name = new JTextField(account2.getNaam());
         JTextField street = new JTextField(account2.getStreet());
         JTextField postalcode = new JTextField(account2.getPostcode());
-
         NumberFormat longFormat = NumberFormat.getIntegerInstance();
         CustomNumberFormatter numberFormatter = new CustomNumberFormatter(longFormat);
         numberFormatter.setValueClass(Integer.class);
@@ -75,22 +74,54 @@ public class PopuppEditAccount extends JFrame {
 
         container.add(panel, BorderLayout.CENTER);
 
-        edit.addActionListener( e->{
-            int id = 0;
-            for (Account account:Main.accountSupplier.getAccounts()){
-                if (account.getId() > id)
-                    id = account.getId();
-            }
 
-            Account account = new Account(id, name.getText(), street.getText(), postalcode.getText(), (int)housenumber.getValue(), place.getText());
-            Account account3 = account;
-            Main.accountSupplier.deleteAccount(account);
-            Main.accountSupplier.createAccount(account3);
+            edit.addActionListener(e -> {
 
-            this.accounts.addElement(account3);
-            this.accounts.removeElement(account);
 
-            dispose();
+                if(name.getText().isEmpty()){
+                    name.setBackground(Color.RED);
+                }
+                if (street.getText().isEmpty()){
+                    street.setBackground(Color.RED);
+                }
+                if(postalcode.getText().isEmpty()){
+                    postalcode.setBackground(Color.RED);
+                }
+                if(housenumber.getText().isEmpty()){
+                    housenumber.setBackground(Color.RED);
+                }
+                if(place.getText().isEmpty()){
+                    place.setBackground(Color.RED);
+                }
+
+
+                if(!name.getText().isEmpty()){
+                    name.setBackground(Color.WHITE);
+                }
+                if (!street.getText().isEmpty()){
+                    street.setBackground(Color.WHITE);
+                }
+                if(!postalcode.getText().isEmpty()){
+                    postalcode.setBackground(Color.WHITE);
+                }
+                if(!housenumber.getText().isEmpty()){
+                    housenumber.setBackground(Color.WHITE);
+                }
+                if(!place.getText().isEmpty()){
+                    place.setBackground(Color.WHITE);
+                }
+
+                if (!place.getText().isEmpty() && !housenumber.getText().isEmpty() && !postalcode.getText().isEmpty() && !street.getText().isEmpty() && !name.getText().isEmpty()) {
+
+                    Account account = new Account(((Account) accountList.getSelectedValue()).getId(), name.getText(), street.getText(), postalcode.getText(), (int) housenumber.getValue(), place.getText());
+                    Main.accountSupplier.updateAccount(((Account) accountList.getSelectedValue()), account);
+
+                    this.accounts.removeElement(accountList.getSelectedValue());
+                    this.accounts.addElement(account);
+
+                    dispose();
+
+                }
         });
     }
 }
