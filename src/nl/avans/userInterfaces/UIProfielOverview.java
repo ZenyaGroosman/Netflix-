@@ -127,6 +127,5 @@ public class UIProfielOverview extends UserInterfaceBase{
        edit.setForeground(Color.white);
 
        container.add(edit);
-
     }
 }

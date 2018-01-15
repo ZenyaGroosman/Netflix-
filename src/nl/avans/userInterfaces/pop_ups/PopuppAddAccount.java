@@ -74,17 +74,58 @@ public class PopuppAddAccount extends JFrame {
 
         add.addActionListener( e->{
             int id = 0;
+            if(name.getText().isEmpty()){
+                name.setBackground(Color.RED);
+            }
+            if (street.getText().isEmpty()){
+                street.setBackground(Color.RED);
+            }
+            if(postalcode.getText().isEmpty()){
+                postalcode.setBackground(Color.RED);
+            }
+            if(housenumber.getText().isEmpty()){
+                housenumber.setBackground(Color.RED);
+            }
+            if(place.getText().isEmpty()){
+                place.setBackground(Color.RED);
+            }
+
+
+            if(!name.getText().isEmpty()){
+                name.setBackground(Color.WHITE);
+            }
+            if (!street.getText().isEmpty()){
+                street.setBackground(Color.WHITE);
+            }
+            if(!postalcode.getText().isEmpty()){
+                postalcode.setBackground(Color.WHITE);
+            }
+            if(!housenumber.getText().isEmpty()){
+                housenumber.setBackground(Color.WHITE);
+            }
+            if(!place.getText().isEmpty()){
+                place.setBackground(Color.WHITE);
+            }
+
+
+
+
             for (Account account:Main.accountSupplier.getAccounts()){
                 if (account.getId() > id)
                     id = account.getId();
             }
             id++;
 
-            Account account = new Account(id, name.getText(), street.getText(), postalcode.getText(), (int)housenumber.getValue(), place.getText());
-            this.accounts.addElement(account);
-            Main.accountSupplier.createAccount(account);
+            if (!place.getText().isEmpty() && !housenumber.getText().isEmpty() && !postalcode.getText().isEmpty() && !street.getText().isEmpty() && !name.getText().isEmpty()) {
 
-            dispose();
+
+                Account account = new Account(id, name.getText(), street.getText(), postalcode.getText(), (int) housenumber.getValue(), place.getText());
+
+                this.accounts.addElement(account);
+                Main.accountSupplier.createAccount(account);
+
+                dispose();
+            }
         });
     }
 }
