@@ -47,7 +47,7 @@ public abstract class UserInterfaceBase implements Runnable {
         programs.addActionListener(e -> changePage(EnumPages.PROGRAMS));
         account.addActionListener(e -> changePage(EnumPages.ACCOUNTS));
         profile.addActionListener(e -> changePage(EnumPages.PROFILES));
-        watchedPrograms.addActionListener(e -> changePage(EnumPages.WATCHED_PRAGRAMS));
+        watchedPrograms.addActionListener(e -> changePage(EnumPages.WATCHED_PROGRAMS));
         stats.addActionListener(e -> changePage(EnumPages.STATISTIX));
 
 
@@ -94,13 +94,13 @@ public abstract class UserInterfaceBase implements Runnable {
         UserInterfaceBase userInterfaceBase = null;
         jFrame.setContentPane(new Container());
         switch (pages) {
-           /* case PROFILES:
-                userInterfaceBase = new UIProfielOverview(jFrame);
-                break;*/
+            case PROFILES:
+                userInterfaceBase = new UIProfileOverview(jFrame);
+                break;
             case PROGRAMS:
                 userInterfaceBase = new UIProgramOverview(jFrame);
                 break;
-            case WATCHED_PRAGRAMS:
+            case WATCHED_PROGRAMS:
                 userInterfaceBase = new UIWatchedShows(jFrame);
                 break;
             case STATISTIX:

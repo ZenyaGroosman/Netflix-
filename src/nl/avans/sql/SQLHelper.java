@@ -21,7 +21,7 @@ public class SQLHelper {
         for (int i = 0; i < keyColumns.length; i++) {
             stringBuilder.append(keyColumns[i]).append(" = '").append(keyValues[i]).append("' ").append(i == keyColumns.length - 1 ? " " : " AND ");
         }
-        return sqlConnection.executeSqlNoResult(stringBuilder.toString());
+        return !sqlConnection.executeSqlNoResult(stringBuilder.toString());
     }
 
     /**
