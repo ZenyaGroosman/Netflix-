@@ -2,8 +2,8 @@ package nl.avans.userInterfaces;
 
 import nl.avans.Main;
 import nl.avans.misc.SelectedAccount;
-import nl.avans.sql.Program;
 import nl.avans.sql.WatchedProgram;
+import nl.avans.userInterfaces.pop_ups.PopUpAddWatchedProgram;
 import nl.avans.userInterfaces.pop_ups.PopUpEditWatchedProgram;
 
 import javax.swing.*;
@@ -60,18 +60,38 @@ public class UIWatchedShows extends UserInterfaceBase {
         JPanel grid = new JPanel();
         grid.setLayout(new GridLayout(1, 3));
 
-        JButton add = new JButton("Bewerken");
+        JButton edit = new JButton("Bewerken");
+
+        edit.setBackground(Color.red);
+        edit.setForeground(Color.white);
+        edit.addActionListener(e -> {
+            if (jList.getSelectedValue() != null)
+                new PopUpEditWatchedProgram(jList, watchedProgramList);
+        });
+        grid.add(edit);
+
+        JButton add = new JButton("Toevoegen");
 
         add.setBackground(Color.red);
         add.setForeground(Color.white);
-        add.addActionListener(e->{
-            new PopUpEditWatchedProgram(jList, watchedProgramList, getFrame());
+        add.addActionListener(e -> {
+            new PopUpAddWatchedProgram(watchedProgramList);
         });
         grid.add(add);
 
-        container.add(add, BorderLayout.SOUTH);
-    }
+        JButton delete = new JButton("Verwijderen");
 
+        delete.setBackground(Color.red);
+        delete.setForeground(Color.white);
+        delete.addActionListener(e -> {
+            Main.accountSupplier.removeWatchedPrograms(jList.getSelectedValue());
+            watchedProgramList.removeElement(jList.getSelectedValue());
+        });
+        grid.add(delete);
+
+
+        panel.add(grid, BorderLayout.SOUTH);
+    }
 
 
 }

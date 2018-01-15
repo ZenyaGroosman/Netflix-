@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 /*This class is responsible for fetching all the accounts, profiles and watched programs from the database
@@ -51,6 +52,8 @@ public class AccountSupplier {
             }
         }
 
+        Collections.sort(watchedPrograms);
+
 
     }
 
@@ -58,11 +61,10 @@ public class AccountSupplier {
         return watchedPrograms;
     }
 
-    public boolean addWatchedPrograms(WatchedProgram watchedProgram) {
+    public boolean createWatchedPrograms(WatchedProgram watchedProgram) {
         String[] columns = new String[]{"Abonneenummer", "ProfielNaam", "Gezien", "Percentage"};
         Object[] value = new Object[]{watchedProgram.getProfile().getAccount().getId(), watchedProgram.getProfile().getProfileName(), watchedProgram.getProgram().getId(), watchedProgram.getPercentage()};
         boolean success = SQLHelper.createObject("Bekeken", columns, value);
-
         if (success) {
             watchedPrograms.add(watchedProgram);
         }

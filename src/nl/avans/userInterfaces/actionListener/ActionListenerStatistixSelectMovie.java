@@ -105,12 +105,12 @@ public class ActionListenerStatistixSelectMovie implements ActionListener {
         JPanel selectMovie = new JPanel();
         selectMovie.setLayout(new BoxLayout(selectMovie, BoxLayout.X_AXIS));
         selectMovie.add(new JLabel("Kies een film: "));
-        String[] Movies = new String[Main.programSupplier.getFilms().size()];
+        String[] movies = new String[Main.programSupplier.getFilms().size()];
         for (int i = 0; i < Main.programSupplier.getFilms().size(); i++) {
-            Movies[i] = Main.programSupplier.getFilms().get(i).getTitle();
+            movies[i] = Main.programSupplier.getFilms().get(i).getTitle();
         }
 
-        JComboBox seriesList = new JComboBox<String>(Movies);
+        JComboBox seriesList = new JComboBox<String>(movies);
         selectMovie.add(seriesList);
         panel.add(selectMovie);
 

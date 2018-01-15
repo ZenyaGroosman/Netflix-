@@ -11,13 +11,11 @@ import java.awt.*;
 public class PopUpEditWatchedProgram extends JFrame {
     private JList<WatchedProgram> watchedProgramList;
     private DefaultListModel defaultListModel;
-    private JFrame jFrame;
 
 
-    public PopUpEditWatchedProgram(JList<WatchedProgram> watchedProgramList, DefaultListModel defaultListModel, JFrame jFrame) {
+    public PopUpEditWatchedProgram(JList<WatchedProgram> watchedProgramList, DefaultListModel defaultListModel) {
         this.watchedProgramList = watchedProgramList;
         this.defaultListModel = defaultListModel;
-        this.jFrame = jFrame;
 
         setSize(400, 400);
         setLocation(600, 300);
@@ -34,9 +32,9 @@ public class PopUpEditWatchedProgram extends JFrame {
         WatchedProgram watchedProgram = watchedProgramList.getSelectedValue();
         container.add(UserInterfaceBase.createFooter(), BorderLayout.SOUTH);
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setLayout(new GridLayout(2, 2));
         container.add(panel, BorderLayout.CENTER);
-
+        panel.add(new JLabel("Selecteer kijpercentage"));
         //makes slider
         JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 100, watchedProgram.getPercentage());
         slider.setMajorTickSpacing(25);
@@ -46,6 +44,8 @@ public class PopUpEditWatchedProgram extends JFrame {
         panel.add(slider);
 
         JButton button = new JButton("Save");
+        button.setBackground(Color.red);
+        button.setForeground(Color.white);
         button.addActionListener(e -> {
             WatchedProgram newProgram = new WatchedProgram(slider.getValue(), watchedProgram.getProgram(), watchedProgram.getProfile());
             Main.accountSupplier.updateWatchedPrograms(watchedProgram, newProgram);

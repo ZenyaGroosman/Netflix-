@@ -46,7 +46,7 @@ public class SQLConnection {
     public boolean executeSqlNoResult(String sqlQuery) {
         try {
             Statement statement = this.connection.createStatement();
-            return statement.execute(sqlQuery);
+            return !statement.execute(sqlQuery);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(sqlQuery);

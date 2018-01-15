@@ -1,7 +1,7 @@
 package nl.avans.sql;
 
 //this class contains all the data for watched programs
-public class WatchedProgram {
+public class WatchedProgram implements Comparable<WatchedProgram>{
     private int percentage;
     private Program program;
     private Profile profile;
@@ -32,5 +32,10 @@ public class WatchedProgram {
     @Override
     public String toString() {
         return getProgram().toString() + " (" + getPercentage() + "% watched)";
+    }
+
+    @Override
+    public int compareTo(WatchedProgram o) {
+        return o.getProgram().getTitle().compareTo(this.getProgram().getTitle());
     }
 }
