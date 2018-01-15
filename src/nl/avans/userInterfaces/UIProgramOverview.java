@@ -76,10 +76,10 @@ public class UIProgramOverview extends UserInterfaceBase {
         DefaultListModel demoList = new DefaultListModel();
         for (Film film : Main.programSupplier.getFilms()) {
             demoList.addElement(film.getTitle());
-            demoList.addElement(film.getGenre());
-            demoList.addElement(film.getLanguage());
-            demoList.addElement(film.getMinimumAge());
-            demoList.addElement(film.getDuration());
+//            demoList.addElement(film.getGenre());
+//            demoList.addElement(film.getLanguage());
+//            demoList.addElement(film.getMinimumAge());
+//            demoList.addElement(film.getDuration());
         }
         JList filmList = new JList(demoList);
         filmList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -96,10 +96,10 @@ public class UIProgramOverview extends UserInterfaceBase {
         for (Series series : Main.programSupplier.getSeries()) {
             demoList2.addElement(series.getTitel());
 //          demoList.addElement(series.getAfleveringen());
-            demoList2.addElement(series.getGenre());
-            demoList2.addElement(series.getLeeftijdsindicatie());
-            demoList2.addElement(series.getLijktOp());
-            demoList2.addElement(series.getTaal());
+//            demoList2.addElement(series.getGenre());
+//            demoList2.addElement(series.getLeeftijdsindicatie());
+//            demoList2.addElement(series.getLijktOp());
+//            demoList2.addElement(series.getTaal());
             JList serieList = new JList(demoList2);
             serieList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
             serieList.setLayoutOrientation(JList.VERTICAL);
@@ -118,6 +118,8 @@ public class UIProgramOverview extends UserInterfaceBase {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ShowMovieDescription description = new ShowMovieDescription(filmList);
+                description.getContentPane();
+
             }
         });
 

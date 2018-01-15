@@ -25,7 +25,6 @@ public class ShowMovieDescription extends JFrame {
     }
     public void createComponents(Container container){
         Film film = (Film) movieList.getSelectedValue();
-
         movieList.setVisibleRowCount(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         movieList.setLayoutOrientation(JList.VERTICAL);
         movieList.setVisibleRowCount(2);
