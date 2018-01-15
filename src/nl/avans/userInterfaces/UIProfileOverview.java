@@ -4,6 +4,8 @@ import nl.avans.Main;
 import nl.avans.misc.SelectedAccount;
 import nl.avans.sql.Profile;
 import nl.avans.userInterfaces.pop_ups.PopUpAddProfile;
+import nl.avans.userInterfaces.pop_ups.PopUpEditProfile;
+import nl.avans.userInterfaces.pop_ups.PopUpviewProfile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +13,7 @@ import java.awt.*;
 public class UIProfileOverview extends UserInterfaceBase {
     private DefaultListModel<Profile> profileList;
     private JList<Profile> jList;
+
 
     public UIProfileOverview(JFrame jFrame) {
         super(jFrame);
@@ -43,11 +46,21 @@ public class UIProfileOverview extends UserInterfaceBase {
         view.setBackground(Color.red);
         view.setForeground(Color.white);
         grid.add(view);
+        view.addActionListener(e -> {
+
+            new PopUpviewProfile(jList, profileList);
+
+
+
+        });
 
         JButton edit = new JButton("Bewerken");
         edit.setBackground(Color.red);
         edit.setForeground(Color.white);
         grid.add(edit);
+        edit.addActionListener(e -> {
+            new PopUpEditProfile(jList, profileList);
+                });
 
         JButton add = new JButton("Toevoegen");
         add.setBackground(Color.red);

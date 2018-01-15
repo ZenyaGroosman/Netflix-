@@ -11,12 +11,15 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 
-public class PopUpAddProfile extends JFrame {
+public class PopUpEditProfile extends JFrame {
     private DefaultListModel<Profile> defaultListModel;
+    private JList profileList;
 
 
-    public PopUpAddProfile(DefaultListModel<Profile> defaultListModel) {
+
+    public PopUpEditProfile(JList profileList, DefaultListModel<Profile> defaultListModel) {
         this.defaultListModel = defaultListModel;
+        this.profileList = profileList;
 
         setSize(400, 400);
         setLocation(600, 300);
@@ -31,13 +34,13 @@ public class PopUpAddProfile extends JFrame {
 
     public void createComponents(Container container) {
         container.add(UserInterfaceBase.createFooter(), BorderLayout.SOUTH);
+        Profile profile4 = (Profile)profileList.getSelectedValue();
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(3, 2));
         container.add(panel, BorderLayout.CENTER);
 
-
         panel.add(new JLabel("Profiel naam "));
-        JTextField profileName = new JTextField();
+        JTextField profileName = new JTextField(profile4.getProfileName());
         panel.add(profileName);
 
         panel.add(new JLabel("Selecteer geboortedatum "));
@@ -56,12 +59,14 @@ public class PopUpAddProfile extends JFrame {
         for (int i = 0; i < 12; i++) {
             months[i] = 1 + i;
         }
+
         JComboBox<Integer> monthBox = new JComboBox<>(months);
         birthDay.add(monthBox);
         Integer[] days = new Integer[31];
         for (int i = 0; i < 31; i++) {
             days[i] = 1 + i;
         }
+
         JComboBox<Integer> dayBox = new JComboBox<>(days);
         ActionListener actionListener = e -> {
             int daysInMonth = getDaysInMonth((int) monthBox.getSelectedItem(), (int) yearBox.getSelectedItem());
@@ -83,7 +88,6 @@ public class PopUpAddProfile extends JFrame {
             if (!profileName.getText().isEmpty()) {
                 boolean taken = false;
                 for (int i = 0; i < defaultListModel.size(); i++){
-
                     if (defaultListModel.get(i).getProfileName().equals(profileName.getText())) {
                         profileName.setBackground(Color.RED);
                         taken = true;
@@ -92,11 +96,12 @@ public class PopUpAddProfile extends JFrame {
                 }
                 if (!taken) {
                     Profile profile = new Profile(new Date((int) yearBox.getSelectedItem() - 1900, (int) monthBox.getSelectedItem(), (int) dayBox.getSelectedItem()), profileName.getText(), SelectedAccount.getSelectedAccount());
-                    boolean result = Main.accountSupplier.createProfile(profile);
-                    if (result) {
+                    Main.accountSupplier.updateProfile(((Profile) profileList.getSelectedValue()), profile);
+
+                        defaultListModel.removeElement(profileList.getSelectedValue());
                         defaultListModel.addElement(profile);
+
                         this.dispose();
-                    }
                 }
             } else
                 profileName.setBackground(Color.RED);

@@ -17,6 +17,7 @@ public class UIProgramOverview extends UserInterfaceBase {
 
 
     private JPanel panel1;
+    private JList film;
 
     public UIProgramOverview(JFrame jFrame) {
         super(jFrame);
@@ -83,6 +84,8 @@ public class UIProgramOverview extends UserInterfaceBase {
         }
         JList filmList = new JList(demoList);
 
+        this.film = filmList;
+
 
         DefaultListModel demoList2 = new DefaultListModel();
         for (Series series : Main.programSupplier.getSeries()) {
@@ -112,7 +115,7 @@ public class UIProgramOverview extends UserInterfaceBase {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShowMovieDescription description = new ShowMovieDescription(filmList);
+                ShowMovieDescription description = new ShowMovieDescription(film);
                 description.getContentPane();
 
 

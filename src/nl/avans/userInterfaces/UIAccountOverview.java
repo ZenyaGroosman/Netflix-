@@ -85,6 +85,10 @@ public class UIAccountOverview extends UserInterfaceBase {
 
         accounts.setBackground(Color.LIGHT_GRAY);
 
+        JScrollPane scrollPane = new JScrollPane(accounts);
+        scrollPane.setMaximumSize(new Dimension(100, 50));
+        grid.add(scrollPane);
+
         container.add(grid);
     }
 
@@ -92,11 +96,12 @@ public class UIAccountOverview extends UserInterfaceBase {
         JPanel grid = new JPanel();
         grid.setLayout(new GridLayout(1, 4));
 
-        select(grid);
+
         view(grid);
         add(grid);
         edit(grid);
         delete(grid);
+        select(grid);
 
         container.add(grid, BorderLayout.SOUTH);
     }

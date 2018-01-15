@@ -77,7 +77,6 @@ public class PopuppEditAccount extends JFrame {
 
             edit.addActionListener(e -> {
 
-
                 if(name.getText().isEmpty()){
                     name.setBackground(Color.RED);
                 }
@@ -93,7 +92,6 @@ public class PopuppEditAccount extends JFrame {
                 if(place.getText().isEmpty()){
                     place.setBackground(Color.RED);
                 }
-
 
                 if(!name.getText().isEmpty()){
                     name.setBackground(Color.WHITE);
@@ -120,7 +118,6 @@ public class PopuppEditAccount extends JFrame {
                     this.accounts.addElement(account);
 
                     dispose();
-
                 }
         });
     }
