@@ -3,6 +3,7 @@ package nl.avans.userInterfaces;
 import nl.avans.Main;
 import nl.avans.sql.Account;
 import nl.avans.userInterfaces.actionListener.ActionListenerAddAccount;
+import nl.avans.userInterfaces.actionListener.ActionListenerEditAccount;
 
 import javax.swing.*;
 import java.awt.*;
@@ -132,6 +133,8 @@ public class UIAccountOverview extends UserInterfaceBase {
         edit.setForeground(Color.white);
 
         container.add(edit);
+
+        edit.addActionListener(new ActionListenerEditAccount(accounts, account));
 
     }
 }

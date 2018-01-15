@@ -1,4 +1,4 @@
-package nl.avans.userInterfaces;
+package nl.avans.userInterfaces.pop_ups;
 
 import java.awt.*;
 import java.text.NumberFormat;
@@ -7,13 +7,15 @@ import javax.swing.*;
 import nl.avans.Main;
 import nl.avans.misc.CustomNumberFormatter;
 import nl.avans.sql.Account;
+import nl.avans.userInterfaces.UserInterfaceBase;
 
-public class PopuppAddAccount extends JFrame {
+public class PopuppEditAccount extends JFrame {
+
 
     private JList accountList;
     private DefaultListModel accounts;
 
-    public PopuppAddAccount(JList accountList, DefaultListModel accounts) {
+    public PopuppEditAccount(JList accountList, DefaultListModel accounts) {
         this.accountList = accountList;
         this.accounts = accounts;
 
@@ -27,22 +29,24 @@ public class PopuppAddAccount extends JFrame {
     }
 
     public void createComponents(Container container) {
+        Account account2 = (Account) accountList.getSelectedValue();
+
         container.add(UserInterfaceBase.createFooter(), BorderLayout.SOUTH);
         JPanel panel = (new JPanel());
         GridLayout layout = new GridLayout(6,2);
         panel.setLayout(layout);
 
-        JTextField name = new JTextField();
-        JTextField street = new JTextField();
-        JTextField postalcode = new JTextField();
+        JTextField name = new JTextField(account2.getNaam());
+        JTextField street = new JTextField(account2.getStreet());
+        JTextField postalcode = new JTextField(account2.getPostcode());
 
         NumberFormat longFormat = NumberFormat.getIntegerInstance();
         CustomNumberFormatter numberFormatter = new CustomNumberFormatter(longFormat);
         numberFormatter.setValueClass(Integer.class);
         numberFormatter.setAllowsInvalid(false);
-        JFormattedTextField housenumber = new JFormattedTextField(numberFormatter);
+        JFormattedTextField housenumber = new JFormattedTextField(account2.getHouseNumber());
 
-        JTextField place = new JTextField();
+        JTextField place = new JTextField(account2.getPlace());
 
         JLabel entername = new JLabel("enter naam");
         JLabel enterstreet = new JLabel("enter straat");
@@ -61,23 +65,22 @@ public class PopuppAddAccount extends JFrame {
         panel.add(enterplace, layout);
         panel.add(place, layout);
 
-        JButton add = new JButton("toevoegen");
+        JButton edit = new JButton("verander");
 
-        add.setBackground(Color.red);
-        add.setForeground(Color.white);
+        edit.setBackground(Color.red);
+        edit.setForeground(Color.white);
 
         panel.add(new JLabel(), layout);
-        panel.add(add, layout);
+        panel.add(edit, layout);
 
         container.add(panel, BorderLayout.CENTER);
 
-        add.addActionListener( e->{
+        edit.addActionListener( e->{
             int id = 0;
             for (Account account:Main.accountSupplier.getAccounts()){
                 if (account.getId() > id)
                     id = account.getId();
             }
-            id++;
 
             System.out.println(name.getText());
             System.out.println(id);
@@ -88,8 +91,9 @@ public class PopuppAddAccount extends JFrame {
             System.out.println(place.getText());
 
             Account account = new Account(id, name.getText(), street.getText(), postalcode.getText(), (int)housenumber.getValue(), place.getText());
-            this.accounts.addElement(account);
-            Main.accountSupplier.createAccount(account);
+            Account account3 = account;
+            Main.accountSupplier.deleteAccount(account);
+            Main.accountSupplier.createAccount(account3);
 
             dispose();
         });
