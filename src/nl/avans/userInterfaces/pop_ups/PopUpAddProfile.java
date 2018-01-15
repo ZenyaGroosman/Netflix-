@@ -60,7 +60,7 @@ public class PopUpAddProfile extends JFrame {
         birthDay.add(monthBox);
         Integer[] days = new Integer[31];
         for (int i = 0; i < 31; i++) {
-            days[i] = 1 + i;
+            days[i] = 0 + i;
         }
         JComboBox<Integer> dayBox = new JComboBox<>(days);
         ActionListener actionListener = e -> {
@@ -80,27 +80,31 @@ public class PopUpAddProfile extends JFrame {
         button.setForeground(Color.white);
         button.addActionListener(e -> {
 
+
             if (!profileName.getText().isEmpty()) {
                 boolean taken = false;
-                for (int i = 0; i < defaultListModel.size(); i++){
 
-                    if (defaultListModel.get(i).getProfileName().equals(profileName.getText())) {
-                        profileName.setBackground(Color.RED);
-                        taken = true;
-                        break;
+                if (defaultListModel.size() > 0) {
+
+                    for (int i = 0; i < defaultListModel.size(); i++) {
+                        if (defaultListModel.get(i).getProfileName().equals(profileName.getText())) {
+                            profileName.setBackground(Color.RED);
+                            taken = true;
+                            break;
+                        }
                     }
                 }
-                if (!taken) {
-                    Profile profile = new Profile(new Date((int) yearBox.getSelectedItem() - 1900, (int) monthBox.getSelectedItem(), (int) dayBox.getSelectedItem()), profileName.getText(), SelectedAccount.getSelectedAccount());
-                    boolean result = Main.accountSupplier.createProfile(profile);
-                    if (result) {
-                        defaultListModel.addElement(profile);
-                        this.dispose();
-                    }
-                }
-            } else
-                profileName.setBackground(Color.RED);
-        });
+                    if (!taken) {
+                        Profile profile = new Profile(new Date((int) yearBox.getSelectedItem() - 1900, (int) monthBox.getSelectedItem(), (int) dayBox.getSelectedItem()), profileName.getText(), SelectedAccount.getSelectedAccount());
+                        boolean result = Main.accountSupplier.createProfile(profile);
+                        if (result) {
+                            defaultListModel.addElement(profile);
+                            this.dispose();
+                        }
+                    } else
+                    profileName.setBackground(Color.RED);
+
+            }});
         panel.add(button);
 
     }

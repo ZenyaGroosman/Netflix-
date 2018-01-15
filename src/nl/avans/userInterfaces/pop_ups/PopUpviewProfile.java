@@ -48,16 +48,12 @@ public class PopUpviewProfile extends JFrame{
         JLabel thisProfileBYear = new JLabel("dit is je geboorte jaar");
         JLabel ProfileBYear = new JLabel(reportDate);
 
-       // JLabel thisprofileAccount = new JLabel("dit is het account waar het profiel bij hoort");
-       // JLabel profileAccount = new JLabel();
-
         System.out.println(profile2.getBirthday());
         panel.add(thisProfileName, layout);
         panel.add(profileName, layout);
         panel.add(thisProfileBYear, layout);
         panel.add(ProfileBYear, layout);
-       // panel.add(thisprofileAccount, layout);
-        //panel.add(profileAccount, layout);
+
 
         container.add(panel, BorderLayout.CENTER);
     }
