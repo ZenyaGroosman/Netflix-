@@ -82,14 +82,6 @@ public class PopuppEditAccount extends JFrame {
                     id = account.getId();
             }
 
-            System.out.println(name.getText());
-            System.out.println(id);
-            System.out.println(street.getText());
-
-            System.out.println(postalcode.getText());
-            System.out.println(housenumber.getValue());
-            System.out.println(place.getText());
-
             Account account = new Account(id, name.getText(), street.getText(), postalcode.getText(), (int)housenumber.getValue(), place.getText());
             Account account3 = account;
             Main.accountSupplier.deleteAccount(account);
