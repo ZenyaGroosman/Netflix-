@@ -3,14 +3,18 @@ package nl.avans.userInterfaces;
 import nl.avans.Main;
 import nl.avans.sql.Account;
 import nl.avans.userInterfaces.actionListener.ActionListenerAddAccount;
+import nl.avans.userInterfaces.actionListener.ActionListenerEditAccount;
 
 import javax.swing.*;
 import java.awt.*;
+
+import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
 
 public class UIAccountOverview extends UserInterfaceBase {
 
     private JList accounts;
     private DefaultListModel account;
+    private JPanel panel;
 
     public UIAccountOverview(JFrame jFrame) {
         super(jFrame);
@@ -29,6 +33,7 @@ public class UIAccountOverview extends UserInterfaceBase {
         container.add(createHeader(), BorderLayout.NORTH);
         container.add(createFooter(), BorderLayout.SOUTH);
         JPanel panel = (new JPanel());
+        this.panel = panel;
         panel.setLayout(new BorderLayout(100, 0));
 
         titel(panel);
@@ -132,6 +137,8 @@ public class UIAccountOverview extends UserInterfaceBase {
         edit.setForeground(Color.white);
 
         container.add(edit);
+
+        edit.addActionListener(new ActionListenerEditAccount(accounts, account));
 
     }
 }

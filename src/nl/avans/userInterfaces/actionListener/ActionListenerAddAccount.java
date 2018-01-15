@@ -1,13 +1,13 @@
 package nl.avans.userInterfaces.actionListener;
 
 import nl.avans.sql.Account;
-import nl.avans.userInterfaces.PopuppAddAccount;
+import nl.avans.userInterfaces.pop_ups.PopuppAddAccount;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ActionListenerAddAccount implements ActionListener{
+public class ActionListenerAddAccount implements ActionListener {
 
     private JList accountList;
     private DefaultListModel accounts;
@@ -19,8 +19,8 @@ public class ActionListenerAddAccount implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Account account = (Account)accountList.getSelectedValue();
+        Account account = (Account) accountList.getSelectedValue();
 
-        new PopuppAddAccount(accountList, accounts);
-     }
+        new PopuppAddAccount(accounts);
+    }
 }
