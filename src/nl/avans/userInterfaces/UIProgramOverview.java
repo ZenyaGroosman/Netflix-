@@ -109,6 +109,17 @@ public class UIProgramOverview extends UserInterfaceBase {
 
 
         }
+        JButton btn = new JButton("Beschrijvingen");
+        subPanel.add(btn);
+        btn.setBackground(Color.red);
+        btn.setForeground(Color.white);
+
+        btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowMovieDescription description = new ShowMovieDescription(filmList);
+            }
+        });
 
 
     }

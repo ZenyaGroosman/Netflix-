@@ -19,6 +19,7 @@ public class ShowMovieDescription extends JFrame {
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         setBackground(Color.DARK_GRAY);
         setTitle("Beschrijvingen");
+        createComponents(this.getContentPane());
 
 
     }
@@ -29,14 +30,12 @@ public class ShowMovieDescription extends JFrame {
         movieList.setLayoutOrientation(JList.VERTICAL);
         movieList.setVisibleRowCount(2);
         container.add(movieList, BorderLayout.CENTER);
+
         }
 
 
 
 
-//        film.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-//        filmList.setLayoutOrientation(JList.VERTICAL);
-//        filmList.setVisibleRowCount(2);
-//        container.add(filmList, BorderLayout.CENTER);
+
 
     }
