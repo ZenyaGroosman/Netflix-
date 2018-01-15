@@ -1,12 +1,16 @@
 package nl.avans.userInterfaces;
 
 import nl.avans.Main;
+import nl.avans.misc.SelectedAccount;
 import nl.avans.sql.Account;
 import nl.avans.userInterfaces.actionListener.ActionListenerAddAccount;
 import nl.avans.userInterfaces.actionListener.ActionListenerEditAccount;
+import nl.avans.userInterfaces.actionListener.ActionListenerViewAccount;
+import nl.avans.userInterfaces.pop_ups.PopUpViewAccount;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
 
@@ -88,6 +92,7 @@ public class UIAccountOverview extends UserInterfaceBase {
         JPanel grid = new JPanel();
         grid.setLayout(new GridLayout(1, 4));
 
+        select(grid);
         view(grid);
         add(grid);
         edit(grid);
@@ -103,6 +108,8 @@ public class UIAccountOverview extends UserInterfaceBase {
         view.setForeground(Color.white);
 
         container.add(view);
+
+        view.addActionListener(new ActionListenerViewAccount(accounts, account));
     }
 
     private void delete(Container container) {
@@ -141,4 +148,18 @@ public class UIAccountOverview extends UserInterfaceBase {
         edit.addActionListener(new ActionListenerEditAccount(accounts, account));
 
     }
+
+    private void select(Container container) {
+        JButton select = new JButton("selecteren");
+        select.setBackground(Color.red);
+        select.setForeground(Color.white);
+
+        container.add(select);
+
+        select.addActionListener(e -> {
+            SelectedAccount.setSelectedAccount((Account)accounts.getSelectedValue());
+        });
+    }
 }
+
+

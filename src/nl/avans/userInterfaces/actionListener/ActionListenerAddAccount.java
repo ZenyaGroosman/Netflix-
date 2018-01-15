@@ -19,8 +19,6 @@ public class ActionListenerAddAccount implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Account account = (Account) accountList.getSelectedValue();
-
         new PopuppAddAccount(accounts);
     }
 }

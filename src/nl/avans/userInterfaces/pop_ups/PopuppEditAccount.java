@@ -75,22 +75,14 @@ public class PopuppEditAccount extends JFrame {
 
         container.add(panel, BorderLayout.CENTER);
 
-        edit.addActionListener( e->{
-            int id = 0;
-            for (Account account:Main.accountSupplier.getAccounts()){
-                if (account.getId() > id)
-                    id = account.getId();
-            }
+            edit.addActionListener( e->{
+                Account account = new Account(((Account) accountList.getSelectedValue()).getId(), name.getText(), street.getText(), postalcode.getText(), (int)housenumber.getValue(), place.getText());
+                Main.accountSupplier.updateAccount(((Account) accountList.getSelectedValue()), account);
 
-            Account account = new Account(id, name.getText(), street.getText(), postalcode.getText(), (int)housenumber.getValue(), place.getText());
-            Account account3 = account;
-            Main.accountSupplier.deleteAccount(account);
-            Main.accountSupplier.createAccount(account3);
+                this.accounts.removeElement(accountList.getSelectedValue());
+                this.accounts.addElement(account);
 
-            this.accounts.addElement(account3);
-            this.accounts.removeElement(account);
-
-            dispose();
-        });
+                dispose();
+            });
     }
 }

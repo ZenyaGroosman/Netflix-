@@ -4,21 +4,29 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ActionListenerViewAccount implements ActionListener{
-    private JPanel panel;
-    private JButton view;
-    private JFrame frame;
+import nl.avans.userInterfaces.UIProfielOverview;
+import nl.avans.userInterfaces.pop_ups.PopUpViewAccount;
+import nl.avans.userInterfaces.pop_ups.PopuppAddAccount;
+import nl.avans.userInterfaces.pop_ups.PopuppEditAccount;
 
-    public ActionListenerViewAccount(JPanel panel, JButton view, JFrame frame) {
-        this.view = view;
-        this.panel = panel;
-        this.frame = frame;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class ActionListenerViewAccount implements ActionListener{
+
+    private JList accountList;
+    private DefaultListModel accounts;
+
+
+    public ActionListenerViewAccount(JList accountlist, DefaultListModel accounts) {
+
+        this.accountList = accountlist;
+        this.accounts = accounts;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == view) {
-            System.exit(0);
-        }
+        new PopUpViewAccount(accountList, accounts);
     }
 }
