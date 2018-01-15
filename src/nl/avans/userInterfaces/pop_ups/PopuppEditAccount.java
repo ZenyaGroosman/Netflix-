@@ -87,6 +87,9 @@ public class PopuppEditAccount extends JFrame {
             Main.accountSupplier.deleteAccount(account);
             Main.accountSupplier.createAccount(account3);
 
+            this.accounts.addElement(account3);
+            this.accounts.removeElement(account);
+
             dispose();
         });
     }
