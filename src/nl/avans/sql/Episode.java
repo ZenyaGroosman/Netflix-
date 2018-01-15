@@ -3,6 +3,7 @@ package nl.avans.sql;
 public class Episode extends Program {
     private Series serie;
     private String seizoen;
+
     public Episode(int tijdsduur, int id, String titel, String seizoen) {
         super(tijdsduur, id, titel);
         this.seizoen = seizoen;
@@ -20,5 +21,7 @@ public class Episode extends Program {
         this.serie = serie;
     }
 
-    public String toString () { return this.getTitle(); }
+    public String toString() {
+        return '(' + this.serie.getTitel() + ')' + this.getTitle();
+    }
 }

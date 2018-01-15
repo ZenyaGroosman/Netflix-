@@ -3,6 +3,7 @@ package nl.avans.sql;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 //This class is reasonable for fetching all information about films, episodes and series from the database
@@ -18,6 +19,7 @@ public class ProgramSupplier {
     public void makeProgramsAndSeries() throws SQLException {
         makeEpisodes();
         makeFilms();
+        Collections.sort(programs);
     }
 
     //this function fetches all data about films from the database and makes objects out of that data

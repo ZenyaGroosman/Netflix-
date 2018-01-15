@@ -40,18 +40,19 @@ public class Account {
 
     /**
      * voegt een profiel toe aan het account. Een account mag niet meer dan 5 profielen hebben
+     *
      * @param profiel
      * @return true als er minder dan 5 profielen inzitten
      */
-    public boolean addProfile(Profile profiel){
-        if (profiles.size() + 1 <= 5){
+    public boolean addProfile(Profile profiel) {
+        if (profiles.size() + 1 <= 5) {
             profiles.add(profiel);
             return true;
         }
         return false;
     }
 
-    public void removeProfiel(Profile profile){
+    public void removeProfiel(Profile profile) {
         profiles.remove(profile);
     }
 
@@ -75,6 +76,6 @@ public class Account {
 
     @Override
     public String toString() {
-        return (this.getNaam() + " (" + this.getId() + ")");
+        return (this.getNaam() + (name.equals("Alle accounts") ? "" : " (" + this.getId() + ")"));
     }
 }
