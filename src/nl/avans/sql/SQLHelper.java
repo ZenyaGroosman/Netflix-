@@ -55,11 +55,11 @@ public class SQLHelper {
      */
     public static boolean editObject(String tableName, String[] columns, Object[] oldValues, Object[] newValues) {
         StringBuilder stringBuilder = new StringBuilder("UPDATE ");
-        stringBuilder.append(tableName).append(" (");
+        stringBuilder.append(tableName).append(" SET ");
         for (int i = 0; i < columns.length; i++) {
-            stringBuilder.append(columns[i]).append(" = ").append(newValues[i]).append(i != columns.length - 1 ? ", " : " ");
+            stringBuilder.append(columns[i]).append(" = '").append(newValues[i]).append("'").append(i != columns.length - 1 ? ", " : " ");
         }
-        stringBuilder.append(") WHERE ");
+        stringBuilder.append(" WHERE ");
         for (int i = 0; i < columns.length; i++) {
             stringBuilder.append(columns[i]).append(" = '").append(oldValues[i]).append("' ").append(i == columns.length - 1 ? " " : " AND ");
         }
